@@ -1,4 +1,4 @@
-package assign1; /* DO NOT modify the package declaration. */
+package assign1; 
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,7 +10,7 @@ import java.util.Arrays;
  * @author Tim Ellenberger, ellenber
  * @version 9/3/15
  */
-public class MathLibrary { /* DO NOT modify the interface of MathLibrary. */
+public class MathLibrary { 
 
 	/**
 	 * Calculates the mean of an ArrayList of numbers.
@@ -72,10 +72,6 @@ public class MathLibrary { /* DO NOT modify the interface of MathLibrary. */
 
 	/**
 	 * Calculates the mode of a two dimensional array of integers
-	 * 
-	 * (Note: If the input array is null or empty, return 0. If all elements are
-	 * unique, return the element in the first row and first column. If there is
-	 * a tie for the mode, return any of the most frequently occurring values.)
 	 * 
 	 * @param arr A two-dimensional array of integers that are used to calculate the mode 
 	 * @return Integer value of the mode of a two-dimensional array of integers. If the array is null or empty, return 0

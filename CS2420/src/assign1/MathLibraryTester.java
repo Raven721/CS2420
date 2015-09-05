@@ -170,7 +170,7 @@ public class MathLibraryTester {
 	}
 	
 	@Test
-	public void testLCMWithZeroInput() {
+	public void testLCMWithZeroInput() { 
 		assertEquals(-1, lcm(-21, 6));
 	}
 	
