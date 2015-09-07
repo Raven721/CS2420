@@ -59,21 +59,21 @@ public class Library {
 			Scanner fileIn = new Scanner(new File(filename));
 			int lineNum = 1;
 
-			while(fileIn.hasNextLine()) {
+			while (fileIn.hasNextLine()) {
 				String line = fileIn.nextLine();
 
 				Scanner lineIn = new Scanner(line);
 				lineIn.useDelimiter("\\t");
 
-				if(!lineIn.hasNextLong())
+				if (!lineIn.hasNextLong())
 					throw new ParseException("ISBN", lineNum);
 				long isbn = lineIn.nextLong();
 
-				if(!lineIn.hasNext())
+				if (!lineIn.hasNext())
 					throw new ParseException("Author", lineNum);
 				String author = lineIn.next();
 
-				if(!lineIn.hasNext())
+				if (!lineIn.hasNext())
 					throw new ParseException("Title", lineNum);
 				String title = lineIn.next();
 
@@ -81,12 +81,10 @@ public class Library {
 
 				lineNum++;
 			}
-		}
-		catch(FileNotFoundException e) {
+		} catch (FileNotFoundException e) {
 			System.err.println(e.getMessage() + " Nothing added to the library.");
 			return;
-		}
-		catch(ParseException e) {
+		} catch (ParseException e) {
 			System.err.println(e.getLocalizedMessage() + " formatted incorrectly at line " + e.getErrorOffset()
 					+ ". Nothing added to the library.");
 			return;
@@ -104,7 +102,11 @@ public class Library {
 	 *            -- ISBN of the book to be looked up
 	 */
 	public String lookup(long isbn) {
-		// FILL IN -- do not return null unless appropriate
+		for (int i = 0; i < library.size(); i++) {
+			if (library.get(i).getIsbn() == isbn) {
+				return library.get(i).getHolder();
+			}
+		}
 		return null;
 	}
 
