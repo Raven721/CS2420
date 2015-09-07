@@ -53,7 +53,11 @@ public class Book {
 	 */
 	public boolean equals(Object other) {
 		// FILL IN -- do not return false unless appropriate
-
+		
+		if(other instanceof Book && other.equals(this)){
+			return true;
+		}
+		
 		return false;
 	}
 
