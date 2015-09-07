@@ -120,7 +120,16 @@ public class Library {
 	 */
 	public ArrayList<LibraryBook> lookup(String holder) {
 		// FILL IN -- do not return null
-		return null;
+
+		ArrayList<LibraryBook> holderBooks = new ArrayList<>();
+
+		for (int i = 0; i < library.size(); i++) {
+			if (library.get(i).getHolder() == holder) {
+				holderBooks.add(library.get(i));
+			}
+		}
+
+		return holderBooks;
 	}
 
 	/**
@@ -146,8 +155,21 @@ public class Library {
 	 * 
 	 */
 	public boolean checkout(long isbn, String holder, int month, int day, int year) {
-		// FILL IN -- do not return false unless appropriate
-		return false;
+
+		boolean isFound = false;
+
+		for (int i = 0; i < library.size(); i++) {
+
+			if (isbn == library.get(i).getIsbn()) {
+				isFound = true;
+				
+				if(library.get(i).checkOut(holder, day, month, year)) {
+					library.get(i).setHolder(holder);
+					library.get(i).setDate(year, month, day);
+				}
+			}
+		}
+		return isFound;
 	}
 
 	/**

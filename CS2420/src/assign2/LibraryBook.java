@@ -21,23 +21,33 @@ public class LibraryBook extends Book {
 		return this.dueDate;
 	}
 
-	public void setDate(GregorianCalendar dueDate) {
-		this.dueDate = dueDate;
+	public void setDate(int day, int month, int year) {
+		this.dueDate = new GregorianCalendar(year, month, day);
 	}
 
 	public void setHolder(String holder) {
 		this.holder = holder;
 	}
 
-	public void checkedIn() {
-		this.setHolder(null);
-		this.setDate(null);
+	public boolean checkIn() {
+		if(this.holder != null) {
+			this.setHolder(null);
+			this.dueDate = null;
+			
+			return true;
+		}
+		return false;
 	}
 
-	public void checkOut(String holder) {
-		this.dueDate = new GregorianCalendar();
-		this.dueDate.
-		this.holder = holder;
+	public boolean checkOut(String holder, int day, int month, int year) {
+		if(this.holder == null) {
+			this.setHolder(holder);
+			this.setDate(day, month, year);
+			
+			return true;
+		}
+		return false;
+		
 	}
 
 }
