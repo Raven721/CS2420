@@ -61,7 +61,8 @@ public class LibraryGenericTester {
 		// second checkout
 		assertTrue(lib2.checkout(9780374292799L, patron2, 1, 1, 2008));
 
-		ArrayList<LibraryBookGeneric<PhoneNumber>> booksCheckedOut2 = lib2.lookup(patron2);
+		ArrayList<LibraryBookGeneric<PhoneNumber>
+		> booksCheckedOut2 = lib2.lookup(patron2);
 		// lookup holder
 		assertNotNull(booksCheckedOut2 == null);
 		assertEquals(2, booksCheckedOut2.size());

@@ -2,16 +2,16 @@ package assign2;
 
 import java.util.GregorianCalendar;
 
-public class LibraryBook extends Book {
+public class LibraryBookGeneric<Type> extends Book {
 
-	private String holder;
+	private Type holder;
 	private GregorianCalendar dueDate;
 
-	public LibraryBook(long isbn, String author, String title) {
+	public LibraryBookGeneric(long isbn, String author, String title) {
 		super(isbn, author, title);
 	}
 
-	public String getHolder() {
+	public Type getHolder() {
 
 		return this.holder;
 	}
@@ -25,7 +25,7 @@ public class LibraryBook extends Book {
 		this.dueDate = dueDate;
 	}
 
-	public void setHolder(String holder) {
+	public void setHolder(Type holder) {
 		this.holder = holder;
 	}
 
@@ -39,7 +39,7 @@ public class LibraryBook extends Book {
 		return false;
 	}
 
-	public boolean checkOut(String holder, int day, int month, int year) {
+	public boolean checkOut(Type holder, int day, int month, int year) {
 		if(this.holder == null) {
 			this.setHolder(holder);
 			this.setDueDate(new GregorianCalendar(day, month, year));
