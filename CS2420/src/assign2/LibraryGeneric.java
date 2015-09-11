@@ -9,29 +9,20 @@ import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 /**
- * Class representation of a library (a collection of library books).
+ * Class representation of a generic library (a collection of library books).
  * 
- * @author Erin Parker and ??
+ * @author Erin Parker
+ * @author Tim Ellenberger, ellenber
+ * @author Jay Mendez, JayM
+ * @since 9/10/2015
  */
 public class LibraryGeneric<Type> {
 
 	private ArrayList<LibraryBookGeneric<Type>> library;
 
 	/**
-	 * @param args
+	 * Constructor
 	 */
-	public static void main(String args[]) {
-		
-		LibraryGeneric<String> lib1 = new LibraryGeneric<String>();
-		lib1.add(9780374292799L, "Thomas L. Friedman", "The World is Flat");
-		lib1.add(9780330351690L, "Jon Krakauer", "Into the Wild");
-		lib1.add(9780446580342L, "David Baldacci", "Simple Genius");
-		
-		lib1.checkout(9780374292799L, "Taco", 12, 24, 1);
-//		System.out.println(lib1.lookup("Taco").get(0).getDueDate().DAY_OF_MONTH);
-//		lib1.getOverdueList(1, 1, 2);
-	}
-
 	public LibraryGeneric() {
 		library = new ArrayList<LibraryBookGeneric<Type>>();
 	}
@@ -93,18 +84,15 @@ public class LibraryGeneric<Type> {
 					throw new ParseException("Title", lineNum);
 				String title = lineIn.next();
 
-				toBeAdded
-						.add(new LibraryBookGeneric<Type>(isbn, author, title));
+				toBeAdded.add(new LibraryBookGeneric<Type>(isbn, author, title));
 
 				lineNum++;
 			}
 		} catch (FileNotFoundException e) {
-			System.err.println(e.getMessage()
-					+ " Nothing added to the library.");
+			System.err.println(e.getMessage() + " Nothing added to the library.");
 			return;
 		} catch (ParseException e) {
-			System.err.println(e.getLocalizedMessage()
-					+ " formatted incorrectly at line " + e.getErrorOffset()
+			System.err.println(e.getLocalizedMessage() + " formatted incorrectly at line " + e.getErrorOffset()
 					+ ". Nothing added to the library.");
 			return;
 		}
@@ -185,8 +173,7 @@ public class LibraryGeneric<Type> {
 					return false;
 				} else {
 					library.get(i).setHolder(holder);
-					library.get(i).setDueDate(
-							new GregorianCalendar(year, month, day));
+					library.get(i).setDueDate(new GregorianCalendar(year, month, day));
 				}
 			}
 		}
@@ -274,34 +261,40 @@ public class LibraryGeneric<Type> {
 	 *
 	 * If no library books are overdue, returns an empty list.
 	 */
-	public ArrayList<LibraryBookGeneric<Type>> getOverdueList(int month,
-			int day, int year) {
-		
-		
+	public ArrayList<LibraryBookGeneric<Type>> getOverdueList(int month, int day, int year) {
+
 		ArrayList<LibraryBookGeneric<Type>> libraryCopy = new ArrayList<LibraryBookGeneric<Type>>();
 		libraryCopy.addAll(library);
 
 		ArrayList<LibraryBookGeneric<Type>> libraryOverdue = new ArrayList<LibraryBookGeneric<Type>>();
 
-		for (int i = 0; i < libraryCopy.size(); i++) {
-			if (libraryCopy.get(i).getDueDate().YEAR <= year
-					&& libraryCopy.get(i).getDueDate().MONTH <= month
-					&& libraryCopy.get(i).getDueDate().DAY_OF_MONTH > day) {
-				continue;
-			}
+		GregorianCalendar dueDate = new GregorianCalendar(year, month, day);
 
-			libraryOverdue.add(libraryCopy.get(i));
+		for (int i = 0; i < libraryCopy.size(); i++) {
+			if (libraryCopy.get(i).getHolder() != null
+					&& libraryCopy.get(i).getDueDate().getTimeInMillis() > dueDate.getTimeInMillis()) {
+				libraryOverdue.add(libraryCopy.get(i));
+			}
 		}
+
+		OrderByDueDate comparator = new OrderByDueDate();
+		sort(libraryOverdue, comparator);
 
 		return libraryOverdue;
 	}
 
 	/**
-	 * Returns the list of library books, sorted by author
+	 * Returns the list of library books, sorted by author alphabetically
 	 */
 	public ArrayList<LibraryBookGeneric<Type>> getOrderedByAuthor() {
-		// FILL IN -- do not return null
-		return null;
+		ArrayList<LibraryBookGeneric<Type>> libraryCopy = new ArrayList<LibraryBookGeneric<Type>>();
+		libraryCopy.addAll(library);
+
+		OrderByAuthor comparator = new OrderByAuthor();
+
+		sort(libraryCopy, comparator);
+
+		return libraryCopy;
 	}
 
 	/**
@@ -310,8 +303,7 @@ public class LibraryGeneric<Type> {
 	 * list. 3. Now let the list be the remaining unsorted portion (second item
 	 * to Nth item) and repeat steps 1, 2, and 3.
 	 */
-	private static <ListType> void sort(ArrayList<ListType> list,
-			Comparator<ListType> c) {
+	private static <ListType> void sort(ArrayList<ListType> list, Comparator<ListType> c) {
 		for (int i = 0; i < list.size() - 1; i++) {
 			int j, minIndex;
 			for (j = i + 1, minIndex = i; j < list.size(); j++)
@@ -333,10 +325,8 @@ public class LibraryGeneric<Type> {
 		 * positive value if lhs is larger than rhs. Returns 0 if lhs and rhs
 		 * are equal.
 		 */
-		public int compare(LibraryBookGeneric<Type> lhs,
-				LibraryBookGeneric<Type> rhs) {
-			return lhs.getIsbn() > rhs.getIsbn() ? 1 : (lhs.getIsbn() < rhs
-					.getIsbn() ? -1 : 0);
+		public int compare(LibraryBookGeneric<Type> lhs, LibraryBookGeneric<Type> rhs) {
+			return lhs.getIsbn() > rhs.getIsbn() ? 1 : (lhs.getIsbn() < rhs.getIsbn() ? -1 : 0);
 		}
 	}
 
@@ -344,10 +334,45 @@ public class LibraryGeneric<Type> {
 	 * Comparator that defines an ordering among library books using the due
 	 * date.
 	 */
-//	protected class OrderByDueDate implements
-//			Comparator<LibraryBookGeneric<Type>> {
-//
-//		// FILL IN
-//	}
+	protected class OrderByDueDate implements Comparator<LibraryBookGeneric<Type>> {
+
+		/**
+		 * Returns a negative value if lhs is smaller than rhs. Returns a
+		 * positive value if lhs is larger than rhs. Returns 0 if lhs and rhs
+		 * are equal.
+		 */
+		@Override
+		public int compare(LibraryBookGeneric<Type> lhs, LibraryBookGeneric<Type> rhs) {
+
+			return lhs.getDueDate().getTimeInMillis() > rhs.getDueDate().getTimeInMillis() ? 1
+					: (lhs.getDueDate().getTimeInMillis() < rhs.getDueDate().getTimeInMillis() ? -1 : 0);
+		}
+	}
+
+	/**
+	 * Comparator that defines an ordering among library books using the author
+	 */
+	protected class OrderByAuthor implements Comparator<LibraryBookGeneric<Type>> {
+
+		/**
+		 * Returns a negative value if lhs is smaller than rhs. Returns a
+		 * positive value if lhs is larger than rhs. Returns 0 if lhs and rhs
+		 * are equal.
+		 */
+		@Override
+		public int compare(LibraryBookGeneric<Type> lhs, LibraryBookGeneric<Type> rhs) {
+			
+			int compareTest  = String.CASE_INSENSITIVE_ORDER.compare(lhs.getAuthor(), rhs.getAuthor());
+			
+			if(compareTest != 0)
+			{
+				return compareTest;
+			}
+			else
+			{
+				return lhs.getAuthor().compareTo(rhs.getAuthor());
+			}			 
+		}
+	}
 
 }

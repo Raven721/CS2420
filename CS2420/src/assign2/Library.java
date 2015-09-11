@@ -10,19 +10,18 @@ import java.util.Scanner;
 /**
  * Class representation of a library (a collection of library books).
  * 
- * @author Erin Parker and ??
+ * @author Erin Parker
+ * @author Tim Ellenberger, ellenber
+ * @author Jay Mendez, JayM
+ * @since 9/10/2015
  */
 public class Library {
 
 	private ArrayList<LibraryBook> library;
 
 	/**
-	 * @param args
+	 * Constructor
 	 */
-	public static void main(String args[]) {
-
-	}
-
 	public Library() {
 		library = new ArrayList<LibraryBook>();
 	}
@@ -234,14 +233,13 @@ public class Library {
 
 		for (int i = 0; i < library.size(); i++) {
 
-			if (holder == library.get(i).getHolder()) {
+			if (holder.equals(library.get(i).getHolder())) {
 				isFound = true;
 
 				library.get(i).setHolder(null);
 				library.get(i).setDueDate(null);
 			}
 		}
-
 		return isFound;
 	}
 }

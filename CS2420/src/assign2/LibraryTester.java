@@ -69,8 +69,14 @@ public class LibraryTester {
 	public void testMediumLibrary() {
 		// test a medium library
 		lib.addAll("Mushroom_Publishing.txt");
-
-		// FILL IN
+		lib.checkout(9781843190004L, "Matt", 3, 3, 2001);
+		assertEquals("Matt", lib.lookup(9781843190004L));
+		assertTrue(lib.checkin("Matt"));
+		assertFalse(lib.checkin(9781843190004L));
+		lib.checkout(9781843190677L, "Lucy", 2, 6, 1933);
+		assertFalse(lib.checkout(9781843190677L, "Robby", 10, 5, 2006));
+		
+		
 	}
 
 	/**

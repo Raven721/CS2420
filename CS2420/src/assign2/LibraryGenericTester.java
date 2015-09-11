@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 /**
  * Testing class for LibraryGeneric.
@@ -14,6 +15,19 @@ import java.util.GregorianCalendar;
  */
 public class LibraryGenericTester {
 
+	@Test
+	public void testLibrary() {
+		
+		LibraryGeneric<String> lib1 = new LibraryGeneric<String>();
+		lib1.add(9780374292799L, "Thomas L. Friedman", "The World is Flat");
+		lib1.add(9780330351690L, "Jon Krakauer", "Into the Wild");
+		lib1.add(9780446580342L, "David Baldacci", "Simple Genius");
+		
+		lib1.checkout(9780446580342L, "Tim", 1, 1, 5001);
+		lib1.checkin(9780446580342L);
+		assertFalse(lib1.checkin(9780446580342L));
+		assertFalse(lib1.checkin(9742L));
+	}
 	@Test
 	public void testNameID() {
 		// test a library that uses names (String) to id patrons
@@ -43,6 +57,7 @@ public class LibraryGenericTester {
 
 		// checkin holder
 		assertTrue(lib1.checkin(patron1));
+		assertFalse(lib1.checkin(patron1));
 	}
 
 	@Test
@@ -75,6 +90,22 @@ public class LibraryGenericTester {
 
 		// checkin holder
 		assertTrue(lib2.checkin(patron2));
-
+	}
+	
+	@Test
+	public void testGetInventoryList()
+	{
+		LibraryGeneric<String> lib1 = new LibraryGeneric<String>();
+		LibraryGeneric<String> lib2 = new LibraryGeneric<String>();
+		
+		lib1.add(10L, "c", "Simple Genius");
+		lib1.add(5L, "b", "Into the Wild");
+		lib1.add(1L, "a", "The World is Flat");
+				
+		lib2.add(10L, "a", "The World is Flat");
+		lib2.add(5L, "b", "Into the Wild");
+		lib2.add(1L, "c", "Simple Genius");
+		
+		//assertEquals((lib1.get, (String)lib1.getInventoryList().toString());
 	}
 }

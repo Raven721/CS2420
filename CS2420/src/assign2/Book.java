@@ -6,7 +6,10 @@ package assign2;
  * 
  * Note that ISBNs are unique.
  * 
- * @author Erin Parker and ??
+ * @author Erin Parker
+ * @author Tim Ellenberger, ellenber
+ * @author Jay Mendez, JayM
+ * @since 9/10/2015
  */
 public class Book {
 
@@ -52,18 +55,13 @@ public class Book {
 	 * @return true if "other" is a Book and is equal to "this", false otherwise
 	 */
 	public boolean equals(Object other) {
-		// FILL IN -- do not return false unless appropriate
-		
-		
-		
-		if(other instanceof Book && 
-				this.getIsbn() == ((Book) other).getIsbn() && 
-				this.getAuthor() == ((Book) other).getAuthor() &&
-				this.getTitle() == ((Book) other).getTitle()){
-			
+
+		if (other instanceof Book && this.getIsbn() == ((Book) other).getIsbn()
+				&& this.getAuthor() == ((Book) other).getAuthor() && this.getTitle() == ((Book) other).getTitle()) {
+
 			return true;
 		}
-		
+
 		return false;
 	}
 
