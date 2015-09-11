@@ -1,5 +1,7 @@
 package assign2;
 
+import java.util.ArrayList;
+
 public class LibraryTimer {
 
 	public static void main(String[] args) {
@@ -47,6 +49,20 @@ public class LibraryTimer {
 	      System.out.println(n + "\t" + averageTime);
 	  }
 
+	}
+
+	private static String generateIsbn() {
+	    return "asdfasdf";
+	}
+
+	private static ArrayList<LibraryBook> generateLibrary(int n) {
+		ArrayList<LibraryBook> lib1 = new ArrayList<LibraryBook>();
+		
+		for(int i = 0; i < n; i++) {
+			lib1.add(i, new LibraryBook(9780330351690L, "Jon Krakauer", "Into the Wild"));
+		}
+		
+		return lib1;
 	}
 
 }
