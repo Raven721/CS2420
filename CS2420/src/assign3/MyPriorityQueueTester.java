@@ -17,23 +17,20 @@ import org.junit.Test;
  */
 public class MyPriorityQueueTester {
 
-	
 	@Test
 	public void testFindMinWithShortQueue() {
+
+		MyPriorityQueue<String> set = new MyPriorityQueue<String>(new NaturalComparator<String>());
+		set.insert("cat");
+		set.insert("dog");
+		set.insert("fish");
+		set.insert("aardvark");
 		
-		Comparator<String> b = null;
-		MyPriorityQueue<String> set = new MyPriorityQueue<String>(b);
-		//set.insert("cat");
+		System.out.println(set.toString());
 		
 		//assertEquals("cat",(set.findMin()));
 		
-		Collection<String> c = new ArrayList<String>();
-		c.add("cat");
-		c.add("dog");
-		c.add("fish");
 		
-		set.insertAll(c);
-		System.out.println(set.findMin());
 		//deleteMin returns the item that was deleted
 		//assertEquals("cat", set.deleteMin());
 		//assertEquals("cat", set.deleteMin());
