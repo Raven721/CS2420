@@ -52,8 +52,9 @@ public class MyPriorityQueue<E> implements PriorityQueue<E> {
 		}
 		
 		//Cache the minimum element so that it can be destroyed in the queue
-		E minimumElement = (E) container.items[container.size];
+		E minimumElement = ((E) container.items[container.size]);
 		container.items[container.size] = null;
+		container.size--;
 		
 		return minimumElement;
 	}
@@ -70,6 +71,7 @@ public class MyPriorityQueue<E> implements PriorityQueue<E> {
 		// Add item to the container if it is the only item currently in the queue
 		if (container.size == 0) {
 			container.items[container.size++] = item;
+			container.items.toString();
 			return;
 		}
 		
@@ -122,10 +124,18 @@ public class MyPriorityQueue<E> implements PriorityQueue<E> {
 		container.size = coll.size();
 		container.items = new Object[container.size * 2];
 
-		// Add the collection to the array
+		// Add the collection to the array		
 		int i = 0;
 		for (E element : coll) {
-			container.items[i] = element;
+			if(element == null) {
+				System.out.println("why arent you breaking");
+				break;
+			}
+			if(element != null) {
+				container.items[i] = element;
+				System.out.println(container.items[i]);
+			}
+			
 		}
 	}
 
