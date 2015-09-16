@@ -24,6 +24,12 @@ public class MyPriorityQueue<E> implements PriorityQueue<E> {
 		this.priorityComparator = c;
 	}
 
+	public MyPriorityQueue() {
+		container = new MyContainer();
+		container.items = new Object[100];
+		container.size = 0;
+	}
+
 	/**
 	 * Retrieves, but does not remove, the minimum element in this priority
 	 * queue.
@@ -75,22 +81,78 @@ public class MyPriorityQueue<E> implements PriorityQueue<E> {
 			container.items.toString();
 			return;
 		}
-		
-		for(int i = container.size-1; i >= 0; i--) { // Start at End
-			if(myCompare(item, (E) container.items[1]) == 1) { // If new item larger
-				container.items[i+1] = container.items[i]; // Shift upward
-			}
-			else { // if smaller/equal value
-				container.items[i+1] = item;
-				container.size++;
-				break; // done shifting
-			}		
-		}
-		
-		
-		
 
-		myCompare(item, (E) container.items[1]);
+		// Find the location in the list to insert the new item
+		int insertionPoint = findInsertionPoint(item);
+
+		// Shift the items in the list to make room for the new item at the
+		// insertion point
+		shiftList(insertionPoint);
+
+		// Insert new item into the list
+		container.items[insertionPoint] = item;
+
+	}
+
+	/**
+	 * Returns the index value which represents the insertion point in a list to
+	 * insert an item while maintaining the list order.
+	 * 
+	 * The list is assumed to be in order of descending value
+	 * 
+	 * @param item
+	 */
+	private int findInsertionPoint(E newItem) {
+		int first = 0;
+		int last = container.size - 1;
+		int middle = (first + last) / 2;
+
+		while (first <= last) {
+			// If the new item is smaller than the middle item, skip searching the first half of the list
+			if (myCompare(newItem, (E) container.items[middle]) == -1) {
+				// If the list there isn't another item further down the list to compare against, return the next location rightward
+				if (middle == last) {
+					return middle + 1;
+				} else {
+					first = middle + 1;
+				}
+			// If the current item is the same size as the new item, assume current spot as the new insertion point
+			} else if (myCompare(newItem, (E) container.items[middle]) == 0) {
+				return middle;
+			}
+			// If the new item is larger than the current item
+			else if (myCompare(newItem, (E) container.items[middle]) == 1) {
+				// If the list there isn't another item further down the list to compare against, return the next location leftward
+				if (middle == first) {
+					return middle;
+				} else {
+					last = middle - 1;
+				}
+			}
+			middle = (first + last) / 2;
+		}
+
+		// If an error occurs, return -1
+		return -1;
+	}
+
+	private void shiftList(int point) {
+		// Create a new array with an additional space for the new item
+		Object[] shiftedArray = new Object[container.items.length + 1];
+
+		// Copy items from old array into new one, from the beginning of the list up until the point of insertion
+		for (int i = 0; i < point; i++) {
+			shiftedArray[i] = container.items[i];
+		}
+
+		// Copy the items from the current queue to the new queue, shifted one space to the right
+		for (int i = point + 1; i < shiftedArray.length; i++) {
+			shiftedArray[i] = container.items[i - 1];
+		}
+
+		// Set the current list to reference the newly shifted array
+		container.items = shiftedArray;
+		container.size++;
 	}
 
 	/**
@@ -107,7 +169,6 @@ public class MyPriorityQueue<E> implements PriorityQueue<E> {
 			return ((Comparable<? super E>) e1).compareTo(e2);
 		}
 		// If comparator was used to construct the queue
-		System.out.println(priorityComparator.compare(e1, e2));
 		return priorityComparator.compare(e1, e2);
 	}
 
@@ -165,7 +226,7 @@ public class MyPriorityQueue<E> implements PriorityQueue<E> {
 	 */
 	@Override
 	public boolean isEmpty() {
-		return container.size == 1;
+		return container.size == 0;
 	}
 
 	/**
@@ -182,6 +243,20 @@ public class MyPriorityQueue<E> implements PriorityQueue<E> {
 	public Iterator<E> iterator() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void printContainer() {
+		String queue = null;
+
+		for (int i = 0; i < container.size; i++) {
+			System.out.print(container.items[i] + " ");
+		}
+		if(container.size == 0) {
+			System.out.println("container is empty");
+		}
+		else {
+			System.out.println();
+		}
 	}
 
 }

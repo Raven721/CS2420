@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.Random;
 
 import org.junit.Test;
 
@@ -18,23 +19,37 @@ import org.junit.Test;
 public class MyPriorityQueueTester {
 
 	@Test
-	public void testFindMinWithShortQueue() {
+	public void testSortRandomIntegers() {
 
-		MyPriorityQueue<String> set = new MyPriorityQueue<String>(new NaturalComparator<String>());
-		set.insert("cat");
-		set.insert("dog");
-		set.insert("fish");
-		set.insert("aardvark");
+		MyPriorityQueue<Integer> queue1 = new MyPriorityQueue<Integer>(new IntegerComparator());
+		Random rn = new Random();
 		
-		System.out.println(set.toString());
+		// Insert 200 random numbers into the queue, the numbers range between 1 to 200
+		for(int i = 0; i < 200; i++) {
+			queue1.insert(rn.nextInt(200 - 1 + 1) + 1);
+		}
 		
-		//assertEquals("cat",(set.findMin()));
+		queue1.printContainer();
+		//assertEquals((Integer)2, queue1.findMin());	
 		
+		queue1.clear();
+		queue1.printContainer();
+		assertEquals(null, queue1.findMin());
+	}
+	
+	@Test
+	public void testFindMinWithZeroInput() {
 		
-		//deleteMin returns the item that was deleted
-		//assertEquals("cat", set.deleteMin());
-		//assertEquals("cat", set.deleteMin());
-		//assertNull(set.findMin());
+		MyPriorityQueue<Integer> queue2 = new MyPriorityQueue<Integer>(new IntegerComparator());
+		queue2.insert(-191);
+		queue2.insert(12);
+		queue2.insert(-4);
+		queue2.insert(1);
+		queue2.insert(0);
+		queue2.insert(-1);
+		
+		queue2.printContainer();
+		assertEquals((Integer)(-191), queue2.findMin());
 		
 	}
 }
