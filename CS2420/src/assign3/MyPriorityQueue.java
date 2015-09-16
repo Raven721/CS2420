@@ -198,18 +198,12 @@ public class MyPriorityQueue<E> implements PriorityQueue<E> {
 	 */
 	@Override
 	public void insertAll(Collection<? extends E> coll) {
-		priorityComparator = null;
-		container.size = coll.size();
-		container.items = new Object[container.size * 2];
+		//container.size = coll.size();
+		//container.items = new Object[100];
 
 		// Add the collection to the array
-		int i = 0;
 		for (E element : coll) {
-			if (element.equals(null)) {
-				break;
-			}
-
-			container.items[i] = element;
+			insert(element);
 		}
 	}
 
@@ -246,8 +240,6 @@ public class MyPriorityQueue<E> implements PriorityQueue<E> {
 	}
 
 	public void printContainer() {
-		String queue = null;
-
 		for (int i = 0; i < container.size; i++) {
 			System.out.print(container.items[i] + " ");
 		}
@@ -258,5 +250,4 @@ public class MyPriorityQueue<E> implements PriorityQueue<E> {
 			System.out.println();
 		}
 	}
-
 }
