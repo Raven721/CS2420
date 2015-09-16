@@ -3,7 +3,6 @@ package assign3;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 /**
  * An implementation of Priority Queue, this class will take a sorted list of a
@@ -52,6 +51,7 @@ public class MyPriorityQueue<E> implements PriorityQueue<E> {
 	 */
 	@Override
 	public E deleteMin() {
+		
 		// Return null if the queue is empty
 		if (isEmpty()) {
 			return null;
@@ -67,15 +67,13 @@ public class MyPriorityQueue<E> implements PriorityQueue<E> {
 
 	@Override
 	public void insert(E item) {
-
-		// If the container is too large to fit another element, resize the
-		// container
+		
+		// If the container is too large to fit another element, resize the container
 		if (container.items.length == container.size) {
 			doubleContainerSize();
 		}
 
-		// Add item to the container if it is the only item currently in the
-		// queue
+		// Add item to the container if it is the only item currently in the queue
 		if (container.size == 0) {
 			container.items[container.size++] = item;
 			container.items.toString();
@@ -85,8 +83,7 @@ public class MyPriorityQueue<E> implements PriorityQueue<E> {
 		// Find the location in the list to insert the new item
 		int insertionPoint = findInsertionPoint(item);
 
-		// Shift the items in the list to make room for the new item at the
-		// insertion point
+		// Shift the items in the list to make room for the new item at the insertion point
 		shiftList(insertionPoint);
 
 		// Insert new item into the list
@@ -136,6 +133,11 @@ public class MyPriorityQueue<E> implements PriorityQueue<E> {
 		return -1;
 	}
 
+	/**
+	 * Moves items in the queue to make room for a new item to be inserted
+	 * 
+	 * @param point The index of the array where the new item will be inserted into the queue
+	 */
 	private void shiftList(int point) {
 		// Create a new array with an additional space for the new item
 		Object[] shiftedArray = new Object[container.items.length + 1];
@@ -198,9 +200,6 @@ public class MyPriorityQueue<E> implements PriorityQueue<E> {
 	 */
 	@Override
 	public void insertAll(Collection<? extends E> coll) {
-		//container.size = coll.size();
-		//container.items = new Object[100];
-
 		// Add the collection to the array
 		for (E element : coll) {
 			insert(element);
@@ -233,10 +232,14 @@ public class MyPriorityQueue<E> implements PriorityQueue<E> {
 		container.size = 0;
 	}
 
+	/**
+	 * @return an iterator over the elements in this priority queue, where the
+	 *         elements are returned in sorted (descending) order
+	 */
 	@Override
 	public Iterator<E> iterator() {
-		// TODO Auto-generated method stub
 		return null;
+		//return new MyPriorityQueue<E> (container);
 	}
 
 	public void printContainer() {

@@ -98,7 +98,6 @@ public class MyPriorityQueueTester {
 //		queue3.insert("d");
 //		
 //		queue3.printContainer();
-//		assertEquals((String)"d", queue3.findMin());
 //	}
 	
 	@Test
