@@ -106,7 +106,7 @@ public class MyPriorityQueue<E> implements PriorityQueue<E> {
 
 		while (first <= last) {
 			// If the new item is smaller than the middle item, skip searching the first half of the list
-			if (myCompare(newItem, (E) container.items[middle]) == -1) {
+			if (myCompare(newItem, (E) container.items[middle]) <= -1) {
 				// If the list there isn't another item further down the list to compare against, return the next location rightward
 				if (middle == last) {
 					return middle + 1;
@@ -118,7 +118,7 @@ public class MyPriorityQueue<E> implements PriorityQueue<E> {
 				return middle;
 			}
 			// If the new item is larger than the current item
-			else if (myCompare(newItem, (E) container.items[middle]) == 1) {
+			else if (myCompare(newItem, (E) container.items[middle])  >= 1) {
 				// If the list there isn't another item further down the list to compare against, return the next location leftward
 				if (middle == first) {
 					return middle;

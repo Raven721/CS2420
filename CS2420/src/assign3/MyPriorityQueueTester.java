@@ -19,6 +19,7 @@ import org.junit.Test;
  */
 public class MyPriorityQueueTester {
 
+	////////Comparator ////////
 	@Test
 	public void testSortRandomIntegersComparator() {
 
@@ -69,6 +70,28 @@ public class MyPriorityQueueTester {
 	}
 	
 	@Test
+	public void testInsertAllWithIntegers() {
+		
+		MyPriorityQueue<Integer> queue2 = new MyPriorityQueue<Integer>(new IntegerComparator());
+		
+		List<Integer> list = new ArrayList<Integer>();
+		
+		list.add(-191);
+		list.add(12);
+		list.add(-4);
+		list.add(1);
+		list.add(0);
+		list.add(-1);
+		
+		queue2.insertAll(list);
+		
+		queue2.printContainer();
+		assertEquals((Integer)(-191), queue2.findMin());
+		
+	}
+	
+	//////// Comparable ////////
+	@Test
 	public void testInsertRandomIntegersComparable() {
 
 		MyPriorityQueue<Integer> queue1 = new MyPriorityQueue<Integer>();
@@ -87,37 +110,59 @@ public class MyPriorityQueueTester {
 		assertEquals(null, queue1.findMin());
 	}
 	
-	// This test hangs
-//	@Test
-//	public void testInsertRandomStringsComparable() {
-//
-//		MyPriorityQueue<String> queue3 = new MyPriorityQueue<String>();
-//		queue3.insert("a");
-//		queue3.insert("b");
-//		queue3.insert("c");
-//		queue3.insert("d");
-//		
-//		queue3.printContainer();
-//	}
+	@Test
+	public void testInsertRandomDoublesComparable() {
+
+		MyPriorityQueue<Double> queue1 = new MyPriorityQueue<Double>();
+		
+		queue1.insert(1.2);
+		queue1.insert(4.2);
+		queue1.insert(3.4);
+		queue1.insert(6.2);
+		
+		System.out.print("Random Integer Comparable, queue: ");
+		queue1.printContainer();
+		//assertEquals((Integer)2, queue1.findMin());	
+		
+		queue1.clear();
+		System.out.print("Random Integer Comparable, queue cleared: ");
+		queue1.printContainer();
+		assertEquals(null, queue1.findMin());
+	}
 	
 	@Test
-	public void testInsertAllWithIntegers() {
+	public void testInsertRandomDoubleComparable() {
+
+		MyPriorityQueue<Double> queue1 = new MyPriorityQueue<Double>();
 		
-		MyPriorityQueue<Integer> queue2 = new MyPriorityQueue<Integer>(new IntegerComparator());
+		queue1.insert(1.2);
+		queue1.insert(4.2);
+		queue1.insert(3.4);
+		queue1.insert(6.2);
 		
-		List<Integer> list = new ArrayList<Integer>();
+		System.out.print("Random Double Comparable, queue: ");
+		queue1.printContainer();
+		//assertEquals((Integer)2, queue1.findMin());	
 		
-		list.add(-191);
-		list.add(12);
-		list.add(-4);
-		list.add(1);
-		list.add(0);
-		list.add(-1);
+		queue1.clear();
+		System.out.print("Random Double Comparable, queue cleared: ");
+		queue1.printContainer();
+		assertEquals(null, queue1.findMin());
+	}
+	
+	@Test
+	public void testInsertStringComparable() {
+		MyPriorityQueue<String> queue1 = new MyPriorityQueue<String>();
 		
-		queue2.insertAll(list);
+		queue1.insert("Hello");
+		queue1.insert("Goodbye");
+		queue1.insert("Goodbye");
+		queue1.insert("Goodby");
+		queue1.insert("Goodbyesiasdf");
+		queue1.insert("Appleasdfasdf");
 		
-		queue2.printContainer();
-		assertEquals((Integer)(-191), queue2.findMin());
+		System.out.print("Random String Comparable, queue: ");
+		queue1.printContainer();
 		
 	}
 	
