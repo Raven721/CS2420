@@ -238,8 +238,7 @@ public class MyPriorityQueue<E> implements PriorityQueue<E> {
 	 */
 	@Override
 	public Iterator<E> iterator() {
-		return null;
-		//return new MyPriorityQueue<E> (container);
+		return new MyPriorityQueueIterator<E> (container);
 	}
 
 	public void printContainer() {

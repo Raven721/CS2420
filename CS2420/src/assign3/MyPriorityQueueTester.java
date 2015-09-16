@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -164,6 +165,31 @@ public class MyPriorityQueueTester {
 		System.out.print("Random String Comparable, queue: ");
 		queue1.printContainer();
 		
+	}
+	
+	////// Iterator //////
+	@Test
+	public void testIterator() {
+		
+		MyPriorityQueue<String> queue = new MyPriorityQueue<String>();
+		queue.insert("cat");
+		queue.insert("dog");
+		queue.insert("bird");
+		queue.insert("fish");
+
+		Iterator<String> itr = queue.iterator();
+		assertEquals("fish", itr.next());
+		assertEquals("dog", itr.next());
+		assertEquals("cat", itr.next());
+		assertEquals("bird", itr.next());
+
+		// restart the iteration
+		itr = queue.iterator();
+		itr.next(); // advance the iteration
+		itr.remove(); // remove the item returned by the most recent call to
+						// next
+		System.out.println(queue.size()); // should be 3
+		// itr.remove(); // causes IllegalStateException
 	}
 	
 }
