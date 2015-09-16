@@ -25,6 +25,9 @@ public class MyPriorityQueueIterator<E> implements Iterator<E> {
 		okToRemove = false;  
 	}
 
+	/**
+	 * Returns true if there exists an additional element to the right in the priority queue
+	 */
 	public boolean hasNext() {
 		return currentPosition < container.size;  
 	}
