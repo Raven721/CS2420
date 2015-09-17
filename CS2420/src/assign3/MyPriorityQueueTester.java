@@ -8,9 +8,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Random;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 
 /**
@@ -21,9 +24,12 @@ import org.junit.Test;
  */
 public class MyPriorityQueueTester {
 
-	////////Comparator ////////
+	@Rule
+    public ExpectedException thrown= ExpectedException.none();
+	
+	//////// Comparator Insert ////////
 	@Test
-	public void testInsertIntegerToSortedArrayList() {
+	public void testInsertIntegerToSortedArrayListComparator() {
 
 		MyPriorityQueue<Integer> queue = new MyPriorityQueue<Integer>(new IntegerComparator());
 		ArrayList<Integer> listToCompareAgainst = new ArrayList<Integer>();
@@ -32,8 +38,8 @@ public class MyPriorityQueueTester {
 		Random rn = new Random();
 		int randomNum;
 		
-		// Insert 10 random numbers into the queue and an array list, the numbers range between 1 to 200
-		for(int i = 0; i < 10; i++) {
+		// Insert 100 random numbers into the queue and an array list, the numbers range between 1 to 200
+		for(int i = 0; i < 100; i++) {
 			randomNum = rn.nextInt(200 - 1 + 1) + 1;
 			queue.insert(randomNum);
 			listToCompareAgainst.add(randomNum);
@@ -49,7 +55,44 @@ public class MyPriorityQueueTester {
 	}
 	
 	@Test
-	public void testInsertStringToSortedArrayList() {
+	public void testInsertIntegerDuplicateComparator() {
+
+		MyPriorityQueue<Integer> queue = new MyPriorityQueue<Integer>(new IntegerComparator());
+		ArrayList<Integer> listToCompareAgainst = new ArrayList<Integer>();
+		Iterator<Integer> itr = queue.iterator();
+		
+		Random rn = new Random();
+		int randomNum;
+		
+		// Insert 100 random numbers into the queue and an array list, the numbers range between 1 to 200
+		for(int i = 0; i < 100; i++) {
+			randomNum = rn.nextInt(200 - 1 + 1) + 1;
+			queue.insert(randomNum);
+			listToCompareAgainst.add(randomNum);
+		}
+		
+		// Insert Duplicate numbers into both lists
+		queue.insert(12);
+		queue.insert(12);
+		queue.insert(12);
+		queue.insert(12);
+		
+		listToCompareAgainst.add(12);
+		listToCompareAgainst.add(12);
+		listToCompareAgainst.add(12);
+		listToCompareAgainst.add(12);
+		
+		// Sort the ArrayList using Collections.sort
+		Collections.sort(listToCompareAgainst, Collections.reverseOrder());
+		
+		//Compare the item order of the sorted ArrayList to the item order of the priority queue
+		for(Integer item: listToCompareAgainst) {
+			assertEquals(item, itr.next());
+		}
+	}
+	
+	@Test
+	public void testInsertStringToSortedArrayListComparator() {
 
 		MyPriorityQueue<String> queue = new MyPriorityQueue<String>(new StringComparator());
 		ArrayList<String> listToCompareAgainst = new ArrayList<String>();
@@ -74,8 +117,8 @@ public class MyPriorityQueueTester {
 		listToCompareAgainst.add("Potato");
 		queue.insert("Walnut");
 		listToCompareAgainst.add("Walnut");
-		queue.insert("Apple");
-		listToCompareAgainst.add("Apple");
+		queue.insert("Lemon");
+		listToCompareAgainst.add("Lemon");
 		
 		// Sort the ArrayList using Collections.sort
 		Collections.sort(listToCompareAgainst, Collections.reverseOrder());
@@ -87,19 +130,219 @@ public class MyPriorityQueueTester {
 	}
 	
 	@Test
-	public void testFindMinWithZeroInputComparator() {
+	public void testInsertStringDuplicateComparator() {
+
+		MyPriorityQueue<String> queue = new MyPriorityQueue<String>(new StringComparator());
+		ArrayList<String> listToCompareAgainst = new ArrayList<String>();
+		Iterator<String> itr = queue.iterator();
 		
-		MyPriorityQueue<Integer> queue2 = new MyPriorityQueue<Integer>(new IntegerComparator());
-		queue2.insert(-191);
-		queue2.insert(12);
-		queue2.insert(-4);
-		queue2.insert(1);
-		queue2.insert(0);
-		queue2.insert(-1);
+		// Insert 10 random Strings into the queue and an array list, in the same order
+		queue.insert("Apple");
+		listToCompareAgainst.add("Apple");
+		queue.insert("Apple");
+		listToCompareAgainst.add("Apple");
+		queue.insert("Apple");
+		listToCompareAgainst.add("Apple");
+		queue.insert("Grape");
+		listToCompareAgainst.add("Grape");
+		queue.insert("Mango");
+		listToCompareAgainst.add("Mango");
+		queue.insert("Squash");
+		listToCompareAgainst.add("Squash");
+		queue.insert("Tomato");
+		listToCompareAgainst.add("Tomato");
+		queue.insert("Potato");
+		listToCompareAgainst.add("Potato");
+		queue.insert("Walnut");
+		listToCompareAgainst.add("Walnut");
+		queue.insert("Lemon");
+		listToCompareAgainst.add("Lemon");
 		
-		queue2.printContainer();
-		assertEquals((Integer)(-191), queue2.findMin());
+		// Sort the ArrayList using Collections.sort
+		Collections.sort(listToCompareAgainst, Collections.reverseOrder());
 		
+		//Compare the item order of the sorted ArrayList to the item order of the priority queue
+		for(String item: listToCompareAgainst) {
+			assertEquals(item, itr.next());
+		}
+	}
+	
+	@Test
+	public void testInsertAllWithStringComparator() {
+		
+		MyPriorityQueue<String> queue = new MyPriorityQueue<String>(new StringComparator());
+		List<String> listToCompareAgainst = new ArrayList<String>();
+		Iterator<String> itr = queue.iterator();
+		
+		// Insert 10 random Strings into the queue and an array list, in the same order
+		listToCompareAgainst.add("Apple");
+		listToCompareAgainst.add("Apple");
+		listToCompareAgainst.add("Apple");
+		listToCompareAgainst.add("Grape");
+		listToCompareAgainst.add("Mango");
+		listToCompareAgainst.add("Squash");
+		listToCompareAgainst.add("Tomato");
+		listToCompareAgainst.add("Potato");
+		listToCompareAgainst.add("Walnut");
+		listToCompareAgainst.add("Lemon");
+		
+		queue.insertAll(listToCompareAgainst);
+		
+		// Sort the ArrayList using Collections.sort
+		Collections.sort(listToCompareAgainst, Collections.reverseOrder());
+		
+		//Compare the item order of the sorted ArrayList to the item order of the priority queue
+		for(String item: listToCompareAgainst) {
+			assertEquals(item, itr.next());
+		}
+	}
+	
+	//////// Comparable Insert ////////
+	@Test
+	public void testInsertIntegerToSortedArrayListComparable() {
+
+		MyPriorityQueue<Integer> queue = new MyPriorityQueue<Integer>();
+		ArrayList<Integer> listToCompareAgainst = new ArrayList<Integer>();
+		Iterator<Integer> itr = queue.iterator();
+		
+		Random rn = new Random();
+		int randomNum;
+		
+		// Insert 100 random numbers into the queue and an array list, the numbers range between 1 to 200
+		for(int i = 0; i < 100; i++) {
+			randomNum = rn.nextInt(200 - 1 + 1) + 1;
+			queue.insert(randomNum);
+			listToCompareAgainst.add(randomNum);
+		}
+		
+		// Sort the ArrayList using Collections.sort
+		Collections.sort(listToCompareAgainst, Collections.reverseOrder());
+		
+		//Compare the item order of the sorted ArrayList to the item order of the priority queue
+		for(Integer item: listToCompareAgainst) {
+			assertEquals(item, itr.next());
+		}
+	}
+	
+	@Test
+	public void testInsertIntegerDuplicateComparable() {
+
+		MyPriorityQueue<Integer> queue = new MyPriorityQueue<Integer>();
+		ArrayList<Integer> listToCompareAgainst = new ArrayList<Integer>();
+		Iterator<Integer> itr = queue.iterator();
+		
+		Random rn = new Random();
+		int randomNum;
+		
+		// Insert 100 random numbers into the queue and an array list, the numbers range between 1 to 200
+		for(int i = 0; i < 100; i++) {
+			randomNum = rn.nextInt(200 - 1 + 1) + 1;
+			queue.insert(randomNum);
+			listToCompareAgainst.add(randomNum);
+		}
+		
+		// Insert Duplicate numbers into both lists
+		queue.insert(12);
+		queue.insert(12);
+		queue.insert(12);
+		queue.insert(12);
+		
+		listToCompareAgainst.add(12);
+		listToCompareAgainst.add(12);
+		listToCompareAgainst.add(12);
+		listToCompareAgainst.add(12);
+		
+		// Sort the ArrayList using Collections.sort
+		Collections.sort(listToCompareAgainst, Collections.reverseOrder());
+		
+		//Compare the item order of the sorted ArrayList to the item order of the priority queue
+		for(Integer item: listToCompareAgainst) {
+			assertEquals(item, itr.next());
+		}
+	}
+	
+	@Test
+	public void testInsertStringToSortedArrayListComparable() {
+
+		MyPriorityQueue<String> queue = new MyPriorityQueue<String>();
+		ArrayList<String> listToCompareAgainst = new ArrayList<String>();
+		Iterator<String> itr = queue.iterator();
+		
+		// Insert 10 random Strings into the queue and an array list, in the same order
+		queue.insert("Apple");
+		listToCompareAgainst.add("Apple");
+		queue.insert("Kiwi");
+		listToCompareAgainst.add("Kiwi");
+		queue.insert("Orange");
+		listToCompareAgainst.add("Orange");
+		queue.insert("Grape");
+		listToCompareAgainst.add("Grape");
+		queue.insert("Mango");
+		listToCompareAgainst.add("Mango");
+		queue.insert("Squash");
+		listToCompareAgainst.add("Squash");
+		queue.insert("Tomato");
+		listToCompareAgainst.add("Tomato");
+		queue.insert("Potato");
+		listToCompareAgainst.add("Potato");
+		queue.insert("Walnut");
+		listToCompareAgainst.add("Walnut");
+		queue.insert("Lemon");
+		listToCompareAgainst.add("Lemon");
+		
+		// Sort the ArrayList using Collections.sort
+		Collections.sort(listToCompareAgainst, Collections.reverseOrder());
+		
+		//Compare the item order of the sorted ArrayList to the item order of the priority queue
+		for(String item: listToCompareAgainst) {
+			assertEquals(item, itr.next());
+		}
+	}
+	
+	@Test
+	public void testInsertStringDuplicateComparable() {
+
+		MyPriorityQueue<String> queue = new MyPriorityQueue<String>();
+		ArrayList<String> listToCompareAgainst = new ArrayList<String>();
+		Iterator<String> itr = queue.iterator();
+		
+		// Insert 10 random Strings into the queue and an array list, in the same order
+		queue.insert("Apple");
+		listToCompareAgainst.add("Apple");
+		queue.insert("Apple");
+		listToCompareAgainst.add("Apple");
+		queue.insert("Apple");
+		listToCompareAgainst.add("Apple");
+		queue.insert("Grape");
+		listToCompareAgainst.add("Grape");
+		queue.insert("Mango");
+		listToCompareAgainst.add("Mango");
+		queue.insert("Squash");
+		listToCompareAgainst.add("Squash");
+		queue.insert("Tomato");
+		listToCompareAgainst.add("Tomato");
+		queue.insert("Potato");
+		listToCompareAgainst.add("Potato");
+		queue.insert("Walnut");
+		listToCompareAgainst.add("Walnut");
+		queue.insert("Lemon");
+		listToCompareAgainst.add("Lemon");
+		
+		// Sort the ArrayList using Collections.sort
+		Collections.sort(listToCompareAgainst, Collections.reverseOrder());
+		
+		//Compare the item order of the sorted ArrayList to the item order of the priority queue
+		for(String item: listToCompareAgainst) {
+			assertEquals(item, itr.next());
+		}
+	}
+	
+	//////// findMin ////////
+	@Test
+	public void testFindMinWithEmptyQueue() {
+		MyPriorityQueue<String> queue = new MyPriorityQueue<String>(new StringComparator());
+
+		assertNull(queue.findMin());
 	}
 	
 	@Test
@@ -110,110 +353,211 @@ public class MyPriorityQueueTester {
 		queue3.insert("castle");
 		queue3.insert("speaker");
 		queue3.insert("xylophone");
-		
-		queue3.printContainer();
-		assertEquals("aardvark", queue3.findMin());
-		
-	}
-	
-	@Test
-	public void testInsertAllWithIntegers() {
-		
-		MyPriorityQueue<Integer> queue2 = new MyPriorityQueue<Integer>(new IntegerComparator());
-		
-		List<Integer> list = new ArrayList<Integer>();
-		
-		list.add(-191);
-		list.add(12);
-		list.add(-4);
-		list.add(1);
-		list.add(0);
-		list.add(-1);
-		
-		queue2.insertAll(list);
-		
-		queue2.printContainer();
-		assertEquals((Integer)(-191), queue2.findMin());
-		
-	}
-	
-	//////// Comparable ////////
-	@Test
-	public void testInsertRandomIntegersComparable() {
 
-		MyPriorityQueue<Integer> queue1 = new MyPriorityQueue<Integer>();
-		Random rn = new Random();
+		assertEquals("aardvark", queue3.findMin());
+	}
+	
+	////// isEmpty //////
+	@Test
+	public void testEmptyWithEmptyQueue() {
+		MyPriorityQueue<String> queue = new MyPriorityQueue<String>(new StringComparator());
+
+		assertTrue(queue.isEmpty());
+	}
+	
+	@Test
+	public void testEmptyWithNotEmptyQueue() {
+		MyPriorityQueue<String> queue = new MyPriorityQueue<String>(new StringComparator());
+		queue.insert("aardvark");
+
+		assertEquals("aardvark", queue.findMin());
+	}
+	
+	////// doubleContainerSize //////
+	@Test
+	public void testDoubleContainerSize() {
+
+		MyPriorityQueue<Integer> queue = new MyPriorityQueue<Integer>(new IntegerComparator());
 		
-		// Insert 10 random numbers into the queue, the numbers range between 1 to 200
-		for(int i = 0; i < 10; i++) {
-			queue1.insert(rn.nextInt(200 - 1 + 1) + 1);
+		Random rn = new Random();
+		int randomNum;
+		
+		// Insert 99 random numbers into the queue
+		for(int i = 0; i < 99; i++) {
+			randomNum = rn.nextInt(200 - 1 + 1) + 1;
+			queue.insert(randomNum);
 		}
 		
-		queue1.printContainer();
-		//assertEquals((Integer)2, queue1.findMin());	
+		assertEquals(99, queue.size());
 		
-		queue1.clear();
-		queue1.printContainer();
-		assertEquals(null, queue1.findMin());
+		// Insert two additional items into the queue
+		// The initial array size of the container is capable of holding a maximum of 99 items, the array doubles after inserting the 100th item
+		queue.insert(2);
+		queue.insert(2);
+		
+		assertEquals(101, queue.size());
+		
 	}
 	
+	////// deleteMin //////
 	@Test
-	public void testInsertRandomDoublesComparable() {
+	public void testdeleteMinEmptyQueue() {
+		MyPriorityQueue<String> queue = new MyPriorityQueue<String>(new StringComparator());
 
-		MyPriorityQueue<Double> queue1 = new MyPriorityQueue<Double>();
-		
-		queue1.insert(1.2);
-		queue1.insert(4.2);
-		queue1.insert(3.4);
-		queue1.insert(6.2);
-		
-		System.out.print("Random Integer Comparable, queue: ");
-		queue1.printContainer();
-		//assertEquals((Integer)2, queue1.findMin());	
-		
-		queue1.clear();
-		System.out.print("Random Integer Comparable, queue cleared: ");
-		queue1.printContainer();
-		assertEquals(null, queue1.findMin());
+		assertNull(queue.deleteMin());
 	}
 	
 	@Test
-	public void testInsertRandomDoubleComparable() {
+	public void testDeleteMinWithPopulatedQueue() {
+		
+		MyPriorityQueue<String> queue = new MyPriorityQueue<String>(new StringComparator());
+		queue.insert("aardvark");
+		queue.insert("castle");
+		queue.insert("speaker");
+		queue.insert("xylophone");
 
-		MyPriorityQueue<Double> queue1 = new MyPriorityQueue<Double>();
+		// Find the initial minimum and size of the queue 
+		assertEquals("aardvark", queue.findMin());
+		assertEquals(4, queue.size());
 		
-		queue1.insert(1.2);
-		queue1.insert(4.2);
-		queue1.insert(3.4);
-		queue1.insert(6.2);
+		// Delete minimum item
+		assertEquals("aardvark", queue.deleteMin());
 		
-		System.out.print("Random Double Comparable, queue: ");
-		queue1.printContainer();
-		//assertEquals((Integer)2, queue1.findMin());	
+		// Check the new minimum and size of queue
+		assertEquals("castle", queue.findMin());
+		assertEquals(3, queue.size());
 		
-		queue1.clear();
-		System.out.print("Random Double Comparable, queue cleared: ");
-		queue1.printContainer();
-		assertEquals(null, queue1.findMin());
 	}
 	
 	@Test
-	public void testInsertStringComparable() {
-		MyPriorityQueue<String> queue1 = new MyPriorityQueue<String>();
+	public void testDeleteMinWithOneItemQueue() {
 		
-		queue1.insert("Hello");
-		queue1.insert("Goodbye");
-		queue1.insert("Goodbye");
-		queue1.insert("Goodby");
-		queue1.insert("Goodbyesiasdf");
-		queue1.insert("Appleasdfasdf");
+		MyPriorityQueue<String> queue = new MyPriorityQueue<String>(new StringComparator());
+		queue.insert("aardvark");
+
+		// Find the initial minimum and size of the queue 
+		assertEquals("aardvark", queue.findMin());
+		assertEquals(1, queue.size());
 		
-		System.out.print("Random String Comparable, queue: ");
-		queue1.printContainer();
+		// Delete minimum item
+		assertEquals("aardvark", queue.deleteMin());
+		
+		// Check the new minimum and size of queue
+		assertNull(queue.findMin());
+		assertEquals(0, queue.size());
 		
 	}
 	
 	////// Iterator //////
+	@Test
+	public void testClearWithEmptyQueue() {
+		
+		MyPriorityQueue<String> queue = new MyPriorityQueue<String>(new StringComparator());
+		
+		// Check the initial minimum and size of queue
+		assertNull(queue.findMin());
+		assertEquals(0, queue.size());
+		
+		// Clear the queue
+		queue.clear();
+		
+		// Check the new minimum and size of queue
+		assertNull(queue.findMin());
+		assertEquals(0, queue.size());
+		
+	}
+	
+	@Test
+	public void testClearWithPopulatedQueue() {
+		
+		MyPriorityQueue<String> queue = new MyPriorityQueue<String>(new StringComparator());
+		queue.insert("aardvark");
+		queue.insert("castle");
+		queue.insert("speaker");
+		queue.insert("xylophone");
+
+		// Find the initial minimum and size of the queue 
+		assertEquals("aardvark", queue.findMin());
+		assertEquals(4, queue.size());
+		
+		// Delete minimum item
+		queue.clear();
+		
+		// Check the new minimum and size of queue
+		assertNull(queue.findMin());
+		assertEquals(0, queue.size());
+	}
+	
+	////// Iterator //////
+	@Test
+    public void testIteratorNextEmptyQueueException() {
+		MyPriorityQueue<String> queue = new MyPriorityQueue<String>();
+		Iterator<String> itr = queue.iterator();
+
+		// Make sure that an exception is thrown whenever the iterator attempts to iterate to the next item if one doesnt exist
+        thrown.expect(NoSuchElementException.class);
+        itr.next();
+    }
+	
+	@Test
+    public void testIteratorNextPopulatedQueue() {
+		MyPriorityQueue<String> queue = new MyPriorityQueue<String>();
+		Iterator<String> itr = queue.iterator();
+		
+		queue.insert("cat");
+		
+        assertEquals("cat", itr.next());
+    }
+	
+	@Test
+    public void testIteratorHasNextEmptyQueue() {
+		MyPriorityQueue<String> queue = new MyPriorityQueue<String>();
+		Iterator<String> itr = queue.iterator();
+		
+        assertFalse(itr.hasNext());
+    }
+	
+	@Test
+    public void testIteratorHasNextPopulatedQueue() {
+		MyPriorityQueue<String> queue = new MyPriorityQueue<String>();
+		Iterator<String> itr = queue.iterator();
+		
+		queue.insert("cat");
+		
+        assertTrue(itr.hasNext());
+    }
+	
+	@Test
+    public void testIteratorRemoveEmptyQueueException() {
+		MyPriorityQueue<String> queue = new MyPriorityQueue<String>();
+		Iterator<String> itr = queue.iterator();
+
+		// Make sure that an exception is thrown whenever the iterator attempts to remove an item from an empty queue
+        thrown.expect(IllegalStateException.class);
+        itr.remove();
+    }
+	
+	@Test
+    public void testIteratorRemovePopulatedQueue() {
+		MyPriorityQueue<String> queue = new MyPriorityQueue<String>();
+		Iterator<String> itr = queue.iterator();
+
+		// Add item to queue
+		queue.insert("Hello");
+		queue.insert("GoodBye");
+		
+		// Iterate to the last item in list
+		itr.next();
+		itr.next();
+		
+		// Remove item from queue
+        itr.remove();
+        
+        // Read the next item in queue, verify that the last item in the queue has been removed
+        assertEquals(1, queue.size());
+        assertEquals("Hello", queue.findMin());
+    }
+	
 	@Test
 	public void testIterator() {
 		
@@ -231,9 +575,7 @@ public class MyPriorityQueueTester {
 
 		// restart the iteration
 		itr = queue.iterator();
-		itr.next(); // advance the iteration
-		itr.remove(); // remove the item returned by the most recent call to
-						// next
-		System.out.println(queue.size()); // should be 3
+		itr.next(); 
+		itr.remove(); 
 	}
 }

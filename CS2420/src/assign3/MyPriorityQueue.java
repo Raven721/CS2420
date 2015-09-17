@@ -271,14 +271,4 @@ public class MyPriorityQueue<E> implements PriorityQueue<E> {
 		return new MyPriorityQueueIterator<E>(container);
 	}
 
-	public void printContainer() {
-		for (int i = 0; i < container.size; i++) {
-			System.out.print(container.items[i] + " ");
-		}
-		if (container.size == 0) {
-			System.out.println("container is empty");
-		} else {
-			System.out.println();
-		}
-	}
 }
