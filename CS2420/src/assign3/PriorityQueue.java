@@ -8,7 +8,7 @@ import java.util.Iterator;
  * 
  * @author Erin Parker
  * @author Tim Ellenberger, ellenber
- * @author Jay Mendez, BlueJay45
+ * @author Jay Mendez, jaym
  * 
  * @param <E>
  *            -- the type of elements contained in this priority queue

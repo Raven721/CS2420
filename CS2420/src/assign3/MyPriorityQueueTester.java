@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -16,28 +17,73 @@ import org.junit.Test;
  * A testing suite for the priority queue implementation
  * 
  * @author Tim Ellenberger, ellenber
- * @author Jay Mendez, BlueJay45
+ * @author Jay Mendez, jaym
  */
 public class MyPriorityQueueTester {
 
 	////////Comparator ////////
 	@Test
-	public void testSortRandomIntegersComparator() {
+	public void testInsertIntegerToSortedArrayList() {
 
-		MyPriorityQueue<Integer> queue1 = new MyPriorityQueue<Integer>(new IntegerComparator());
-		Random rn = new Random();
+		MyPriorityQueue<Integer> queue = new MyPriorityQueue<Integer>(new IntegerComparator());
+		ArrayList<Integer> listToCompareAgainst = new ArrayList<Integer>();
+		Iterator<Integer> itr = queue.iterator();
 		
-		// Insert 200 random numbers into the queue, the numbers range between 1 to 200
-		for(int i = 0; i < 200; i++) {
-			queue1.insert(rn.nextInt(200 - 1 + 1) + 1);
+		Random rn = new Random();
+		int randomNum;
+		
+		// Insert 10 random numbers into the queue and an array list, the numbers range between 1 to 200
+		for(int i = 0; i < 10; i++) {
+			randomNum = rn.nextInt(200 - 1 + 1) + 1;
+			queue.insert(randomNum);
+			listToCompareAgainst.add(randomNum);
 		}
 		
-		queue1.printContainer();
-		//assertEquals((Integer)2, queue1.findMin());	
+		// Sort the ArrayList using Collections.sort
+		Collections.sort(listToCompareAgainst, Collections.reverseOrder());
 		
-		queue1.clear();
-		queue1.printContainer();
-		assertEquals(null, queue1.findMin());
+		//Compare the item order of the sorted ArrayList to the item order of the priority queue
+		for(Integer item: listToCompareAgainst) {
+			assertEquals(item, itr.next());
+		}
+	}
+	
+	@Test
+	public void testInsertStringToSortedArrayList() {
+
+		MyPriorityQueue<String> queue = new MyPriorityQueue<String>(new StringComparator());
+		ArrayList<String> listToCompareAgainst = new ArrayList<String>();
+		Iterator<String> itr = queue.iterator();
+		
+		// Insert 10 random Strings into the queue and an array list, in the same order
+		queue.insert("Apple");
+		listToCompareAgainst.add("Apple");
+		queue.insert("Kiwi");
+		listToCompareAgainst.add("Kiwi");
+		queue.insert("Orange");
+		listToCompareAgainst.add("Orange");
+		queue.insert("Grape");
+		listToCompareAgainst.add("Grape");
+		queue.insert("Mango");
+		listToCompareAgainst.add("Mango");
+		queue.insert("Squash");
+		listToCompareAgainst.add("Squash");
+		queue.insert("Tomato");
+		listToCompareAgainst.add("Tomato");
+		queue.insert("Potato");
+		listToCompareAgainst.add("Potato");
+		queue.insert("Walnut");
+		listToCompareAgainst.add("Walnut");
+		queue.insert("Apple");
+		listToCompareAgainst.add("Apple");
+		
+		// Sort the ArrayList using Collections.sort
+		Collections.sort(listToCompareAgainst, Collections.reverseOrder());
+		
+		//Compare the item order of the sorted ArrayList to the item order of the priority queue
+		for(String item: listToCompareAgainst) {
+			assertEquals(item, itr.next());
+		}
 	}
 	
 	@Test
@@ -189,7 +235,5 @@ public class MyPriorityQueueTester {
 		itr.remove(); // remove the item returned by the most recent call to
 						// next
 		System.out.println(queue.size()); // should be 3
-		// itr.remove(); // causes IllegalStateException
 	}
-	
 }

@@ -7,7 +7,7 @@ import java.util.Comparator;
  * In this class, a string is considered greater than another string if it alphabetically precedes the other.
  * 
  * @author Tim Ellenberger, ellenber
- * @author Jay Mendez, BlueJay45
+ * @author Jay Mendez, jaym
  *
  */
 public class StringComparator implements Comparator<String> {

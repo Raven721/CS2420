@@ -8,7 +8,7 @@ import java.util.NoSuchElementException;
  * 
  * @author Erin Parker
  * @author Tim Ellenberger, ellenber
- * @author Jay Mendez, BlueJay45
+ * @author Jay Mendez, jaym
  *
  * @param <E>
  */

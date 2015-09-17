@@ -6,7 +6,7 @@ import java.util.Comparator;
  * Comparator class that compares two integers. 
  * 
  * @author Tim Ellenberger, ellenber
- * @author Jay Mendez, BlueJay45
+ * @author Jay Mendez, jaym
  *
  */
 public class IntegerComparator implements Comparator<Integer> {
