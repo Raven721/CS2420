@@ -98,7 +98,6 @@ public class MyPriorityQueue<E> implements PriorityQueue<E> {
 		// queue
 		if (container.size == 0) {
 			container.items[container.size++] = item;
-			container.items.toString();
 			return;
 		}
 
