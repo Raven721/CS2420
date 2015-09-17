@@ -21,6 +21,7 @@ import org.junit.rules.ExpectedException;
  * 
  * @author Tim Ellenberger, ellenber
  * @author Jay Mendez, jaym
+ * @version 9/17/2015
  */
 public class MyPriorityQueueTester {
 
@@ -336,6 +337,16 @@ public class MyPriorityQueueTester {
 			assertEquals(item, itr.next());
 		}
 	}
+	
+	//////// Insert Null Item  ////////
+	@Test
+    public void testInsertNullException() {
+		MyPriorityQueue<String> queue = new MyPriorityQueue<String>();
+
+		// Make sure that an exception is thrown whenever the insert method is passed a null item
+        thrown.expect(NullPointerException.class);
+        queue.insert(null);
+    }
 	
 	//////// findMin ////////
 	@Test

@@ -10,6 +10,7 @@ import java.util.Iterator;
  * 
  * @author Tim Ellenberger, ellenber
  * @author Jay Mendez, jaym
+ * @version 9/17/2015
  */
 public class MyPriorityQueue<E> implements PriorityQueue<E> {
 
@@ -82,6 +83,11 @@ public class MyPriorityQueue<E> implements PriorityQueue<E> {
 	@Override
 	public void insert(E item) {
 
+		// If the item to be inserted is null, throw a NullPointerException
+		if (item == null) {
+			throw new NullPointerException();
+		}
+		
 		// If the container is too large to fit another element, resize the
 		// container
 		if (container.items.length == container.size) {

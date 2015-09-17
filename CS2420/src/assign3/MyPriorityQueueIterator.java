@@ -9,6 +9,7 @@ import java.util.NoSuchElementException;
  * @author Erin Parker
  * @author Tim Ellenberger, ellenber
  * @author Jay Mendez, jaym
+ * @version 9/17/2015
  *
  * @param <E>
  */
@@ -32,6 +33,11 @@ public class MyPriorityQueueIterator<E> implements Iterator<E> {
 		return currentPosition < container.size;  
 	}
 
+	/**
+	 * Returns the next item in the priority queue
+	 * 
+	 * Throws a NoSuchElementException if the queue is empty or if there is no additional elements in the queue
+	 */
 	public E next() {
 		if(!hasNext())
 			throw new NoSuchElementException();  
@@ -41,6 +47,11 @@ public class MyPriorityQueueIterator<E> implements Iterator<E> {
 		return (E) container.items[currentPosition++]; 
 	}
 
+	/**
+	 * Removes the last item iterated with the next() method from the priority queue
+	 * 
+	 * Throws an IllegalStateException if the last item to be iterated doesn't exist
+	 */
 	public void remove() {
 		if(!okToRemove)   
 			throw new IllegalStateException();

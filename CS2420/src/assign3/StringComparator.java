@@ -8,6 +8,7 @@ import java.util.Comparator;
  * 
  * @author Tim Ellenberger, ellenber
  * @author Jay Mendez, jaym
+ * @version 9/17/2015
  *
  */
 public class StringComparator implements Comparator<String> {

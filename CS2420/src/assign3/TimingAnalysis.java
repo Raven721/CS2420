@@ -17,6 +17,9 @@ import java.text.DecimalFormat;
  * rate of the running times.
  * 
  * @author Erin Parker
+ * @author Tim Ellenberger, ellenber
+ * @author Jay Mendez, jaym
+ * @version 9/17/2015
  */
 public class TimingAnalysis {
 

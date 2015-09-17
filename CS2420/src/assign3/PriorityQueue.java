@@ -9,6 +9,7 @@ import java.util.Iterator;
  * @author Erin Parker
  * @author Tim Ellenberger, ellenber
  * @author Jay Mendez, jaym
+ * @version 9/17/2015
  * 
  * @param <E>
  *            -- the type of elements contained in this priority queue
