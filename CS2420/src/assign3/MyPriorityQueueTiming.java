@@ -19,9 +19,6 @@ public class MyPriorityQueueTiming<E>
 		long startTime, midpointTime, stopTime;
 		MyPriorityQueue<Integer> queue1 = new MyPriorityQueue<Integer>(new IntegerComparator());
 		Random rn = new Random();
-		for(int i = 0; i < 100000; i++) {
-			queue1.insert(rn.nextInt(200 - 1 + 1) + 1);
-		}
 		
 		// First, spin computing stuff until one second has gone by.
 		// This allows this thread to stabilize.
@@ -30,13 +27,15 @@ public class MyPriorityQueueTiming<E>
 		}
 
 		// Now, run the test.
-		long timesToLoop = 100000;
+		long timesToLoop = 1;
 
 		startTime = System.nanoTime();
 
 		for(long i = 0; i < timesToLoop; i++)
 			for(double d = 1; d <= 10; d++)
-				queue1.findMin();
+				for(int size = 0; size < 2000; size++) {
+					queue1.insert(rn.nextInt(200 - 1 + 1) + 1);
+				}
 
 		midpointTime = System.nanoTime();
 
