@@ -4,7 +4,7 @@ import java.text.DecimalFormat;
 import java.util.Random;
 
 /**
- * This class demonstrates how use formulas to compare the empirically observed
+ * This class uses formulas to compare and display the empirically observed
  * running time of a method/algorithm to the expected Big-O behavior.
  * 
  * Let T(N) be the running time observed, and let F(N) be the Big-O expected.
@@ -27,7 +27,7 @@ public class TimingAnalysis {
 
 	public static void main(String[] args) {
 		long startTime, midptTime, stopTime;
-		long timesToLoop = 100; // Small to allow for quick demo in lecture
+		long timesToLoop = 1000; 
 
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
@@ -47,29 +47,29 @@ public class TimingAnalysis {
 			while (System.nanoTime() - startTime < 1000000000)
 				;
 
-			// time the routine
+//			// time the routine getLargestAnagramGroup
+//			startTime = System.nanoTime();
+//			for (long i = 0; i < timesToLoop; i++) {
+//				AnagramUtil.getLargestAnagramGroup(wordList1);
+//			}
+						
+			// time the routine areAnagrams
 			startTime = System.nanoTime();
-			for (long i = 0; i < timesToLoop; i++) {
+			for (int i = 0; i < timesToLoop; i++) {
 				for(int j = 0; j < N; j++) {
 					AnagramUtil.areAnagrams(wordList1[j], wordList2[j]);
-					//AnagramUtil.getLargestAnagramGroup(wordList1);
 				}
 			}
 			midptTime = System.nanoTime();
 
 			// time the empty loops
-			for (long i = 0; i < timesToLoop; i++) {
+			for (int i = 0; i < timesToLoop; i++) {
 				for (int j = 0; j < N; j++) {
 					
 				}
 			}
 
 			stopTime = System.nanoTime();
-			
-			if(((midptTime - startTime) - (stopTime - midptTime)) < 1) {
-				N-= 100000;
-				continue;
-			}
 
 			// compute the average time
 			double avgTime = ((midptTime - startTime) - (stopTime - midptTime)) / timesToLoop;
