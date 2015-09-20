@@ -129,4 +129,45 @@ public class AnagramUtilTester {
 		exception.expect(IllegalArgumentException.class);
 		AnagramUtil.areAnagrams("", "");
 	}
+	
+	//////// getLargestAnagramGroup(String[] s) ////////
+	@Test
+	public void testGetLargestAnagramGroupWithValidInput() {
+		String[] list = {"hi", "ih", "ok", "ko"};
+		String[] anagrams = {"hi", "ih"};
+		
+		assertArrayEquals(anagrams, AnagramUtil.getLargestAnagramGroup(list));
+	}
+	
+	@Test
+	public void testGetLargestAnagramGroupWithNullInput() {
+		String[] list = null;
+		
+		assertArrayEquals(new String[0], AnagramUtil.getLargestAnagramGroup(list));
+	}
+	
+	@Test
+	public void testGetLargestAnagramGroupWithInvalidInput() {
+		String[] list = {"", "ih", "ok", "ko"};
+		
+		exception.expect(IllegalArgumentException.class);
+		AnagramUtil.getLargestAnagramGroup(list);
+	}
+	
+	//////// getLargestAnagramGroup(String filename) ////////
+	@Test
+	public void testGetLargestAnagramGroupWithValidFileInput() {
+		
+		String[] anagrams = {"carets", "Caters", "caster", "crates", "Reacts", "recast", "traces"};
+		
+		assertArrayEquals(anagrams, AnagramUtil.getLargestAnagramGroup("CS2420\\src\\assign4\\sample_word_list.txt"));
+	}
+	
+//	@Test
+//	public void testGetLargestAnagramGroupWithInvalidFileInput() {
+//		String[] returnedAnagrams;
+//		
+//		exception.expect(IOException.class);
+//		returnedAnagrams = AnagramUtil.getLargestAnagramGroup("DoesNotExist.txt");
+//	}
 }

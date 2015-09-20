@@ -21,5 +21,4 @@ public class StringComparator implements Comparator<String>{
 			return 1;
 		}
 	}
-
 }

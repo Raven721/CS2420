@@ -1,6 +1,10 @@
 package assign4;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Scanner;
 
 /**
  * A utility that determines the largest anagrams in a list of words. 
@@ -13,6 +17,9 @@ import java.util.Comparator;
  * @version 9/24/2015
  */
 public class AnagramUtil {
+	
+	private static String[] anagramList;
+	private static Scanner in;
 	
 	/**
 	 * Returns the sorted version of an input string using insertion sort. 
@@ -75,9 +82,14 @@ public class AnagramUtil {
 			
 			// While the current letter is 'smaller' than the letter to its left, swap the letters
 			for(; j > 0 && c.compare(arr[j], tmp) > 0; j--) {
-				arr[j + 1] = arr[j];
+				arr[j] = arr[j - 1];
 			}
-			arr[j + 1] = tmp;
+			arr[j] = tmp;
+		}
+		
+		// If insertionSort is being called by getLargestAnagramGroup, copy the sorted array to the static field anagramList
+		if (arr instanceof String[]) {
+			anagramList = (String[]) arr;
 		}
 	}
 	
@@ -110,7 +122,43 @@ public class AnagramUtil {
 	 */
 	public static String[] getLargestAnagramGroup(String[] s) {
 		
-		return s;
+		// Return empty array is the input array is also empty
+		if(s == null) {
+			return new String[0];
+		}
+		
+		// Initialize the static member variable anagramList to contain a sorted list of alphabetically sorted elements
+		insertionSort(s, new StringComparator());
+		
+		String maxValue = null;
+		int maxCount = 0;
+		
+		// Find the mode out of the sorted list of anagrams
+        for (int i = 0; i < s.length; i++) 
+        {
+            int count = 0;
+            for (int j = 0; j < s.length; j++) 
+            {
+                if (areAnagrams(s[j], s[i]))
+                    ++count;
+            }
+            if (count > maxCount) 
+            {
+                maxCount = count;
+                maxValue = s[i];
+            }
+        }
+        
+        ArrayList<String> tmp = new ArrayList<String>();
+        
+        // Add all items from the input array that match the most occurring anagram of anagramList
+        for(int i = 0; i < s.length; i++) {
+        	if(areAnagrams(maxValue, s[i])) {
+        		tmp.add(s[i]);
+        	}
+        }
+	
+		return tmp.toArray(new String[tmp.size()]);
 	}
 	
 	/**
@@ -124,6 +172,30 @@ public class AnagramUtil {
 	 * 				  Name of text file containing a list of words
 	 */
 	public static String[] getLargestAnagramGroup(String filename) {
-		return null;
+		
+		try{
+			File f = new File(filename);
+			in = new Scanner(f);
+			
+			ArrayList<String> words = new ArrayList<String>();
+			
+			// Return an empty array if the file exists but is empty
+			if(!in.hasNext())
+				return new String[0];
+			
+			// Copy each new word in the file into an arrayList
+			while(in.hasNext())
+				words.add(in.nextLine());
+			
+			// Convert arrayList of words into an array
+			String[] array = words.toArray(new String[words.size()]);
+			
+			return getLargestAnagramGroup(array);
+		}
+		
+		// Return an empty array if the file does not exist
+		catch(IOException e){
+			return new String[0];
+		}
 	}
 }
