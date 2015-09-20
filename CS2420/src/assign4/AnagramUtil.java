@@ -5,7 +5,7 @@ import java.util.Comparator;
 /**
  * A utility that determines the largest anagrams in a list of words. 
  * 
- * This class assumes all inputs are single words and not phrases, punctuation is not permitted
+ * This class assumes all inputs are single words and not phrases, punctuation is not permitted.
  * It is assumed that the word list provided to the class does not contain duplicates.
  * 
  * @author Tim Ellenberger, ellenber
@@ -20,8 +20,35 @@ public class AnagramUtil {
 	 * 			The string to be sorted
 	 */
 	public static String sort(String s) {
+
+		// Check that the input string is valid
+		if(s == null){
+			throw new NullPointerException();
+		}
+		else if(!s.matches("[a-zA-Z]+")) {
+			throw new IllegalArgumentException("Input string contains non-alphabetized characters");
+		}
 		
-		return s;
+		// Impose that all strings are lower case, assume that anagrams are case-insensitive
+		s = s.toLowerCase();
+		
+		// Copy individual letters from input string into an char array
+		char[] letters = s.toCharArray();
+		char tmp;
+		
+		// Utilize the insertion sort algorithm to rearrange letters in char array in alphabetical order
+		for(int i = 1; i < letters.length; i++) {
+			tmp = letters[i];
+			int j = i;
+					
+			for(; j > 0 && tmp < letters[j - 1]; j--) {
+				letters[j] = letters[j - 1];
+			}
+			letters[j] = tmp;
+		}
+		
+		// Return the char array reassembled as a single string
+		return new String(letters);
 	}
 	
 	/**
@@ -54,8 +81,9 @@ public class AnagramUtil {
 	
 	/**
 	 * Returns the largest group of anagrams in the input array of words, in no particular order
-	 * 
 	 * Returns an empty array if there are no anagrams in the input array.
+	 * 
+	 * If multiple groups of anagrams are of equal size, return the first group of anagrams.
 	 * 
 	 * Utilizes areAnagrams(String s1, String s2) and insertionSort(T[] arr, Comparator<? super T c)
 	 * 
@@ -81,6 +109,4 @@ public class AnagramUtil {
 		
 		return null;
 	}
-
-	
 }
