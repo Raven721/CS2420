@@ -28,6 +28,9 @@ public class AnagramUtil {
 		else if(!s.matches("[a-zA-Z]+")) {
 			throw new IllegalArgumentException("Input string contains non-alphabetized characters");
 		}
+		else if(s.length() < 2) {
+			throw new IllegalArgumentException("Input string is too short(< 2 characters) to be considered an anagram");
+		}
 		
 		// Impose that all strings are lower case, assume that anagrams are case-insensitive
 		s = s.toLowerCase();
@@ -41,6 +44,7 @@ public class AnagramUtil {
 			tmp = letters[i];
 			int j = i;
 					
+			// While the current letter is 'smaller' than the letter to its left, swap the letters
 			for(; j > 0 && tmp < letters[j - 1]; j--) {
 				letters[j] = letters[j - 1];
 			}
@@ -62,6 +66,19 @@ public class AnagramUtil {
 	 */
 	public static <T> void insertionSort(T[] arr, Comparator<? super T> c) {
 		
+		T tmp;
+		
+		// Cycle through the array elements starting at the second element
+		for(int i = 1; i < arr.length; i++) {
+			tmp = arr[i];
+			int j = i;
+			
+			// While the current letter is 'smaller' than the letter to its left, swap the letters
+			for(; j > 0 && c.compare(arr[j], tmp) > 0; j--) {
+				arr[j + 1] = arr[j];
+			}
+			arr[j + 1] = tmp;
+		}
 	}
 	
 	/**
@@ -72,10 +89,11 @@ public class AnagramUtil {
 	 * 
 	 * @param s1
 	 * @param s2
-	 * @return
 	 */
 	public static boolean areAnagrams(String s1, String s2) {
-		
+		if(sort(s1).equals(sort(s2))) {
+			return true;
+		}	
 		return false;
 	}
 	
@@ -106,7 +124,6 @@ public class AnagramUtil {
 	 * 				  Name of text file containing a list of words
 	 */
 	public static String[] getLargestAnagramGroup(String filename) {
-		
 		return null;
 	}
 }

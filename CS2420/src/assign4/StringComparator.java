@@ -14,8 +14,12 @@ public class StringComparator implements Comparator<String>{
 
 	@Override
 	public int compare(String o1, String o2) {
-		// TODO Auto-generated method stub
-		return 0;
+		if(AnagramUtil.areAnagrams(o1, o2)) {
+			return -1;
+		}
+		else {
+			return 1;
+		}
 	}
 
 }
