@@ -163,11 +163,10 @@ public class AnagramUtilTester {
 		assertArrayEquals(anagrams, AnagramUtil.getLargestAnagramGroup("CS2420\\src\\assign4\\sample_word_list.txt"));
 	}
 	
-//	@Test
-//	public void testGetLargestAnagramGroupWithInvalidFileInput() {
-//		String[] returnedAnagrams;
-//		
-//		exception.expect(IOException.class);
-//		returnedAnagrams = AnagramUtil.getLargestAnagramGroup("DoesNotExist.txt");
-//	}
+	@Test
+	public void testGetLargestAnagramGroupWithInvalidFileInput() {
+
+		// Returns an empty array if the file is not found
+		assertArrayEquals(new String[0], AnagramUtil.getLargestAnagramGroup("DoesNotExist.txt"));
+	}
 }
