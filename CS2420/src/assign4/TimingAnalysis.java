@@ -26,16 +26,25 @@ import java.util.Random;
 public class TimingAnalysis {
 
 	public static void main(String[] args) {
+		// Run timing analysis on areAnagrams(String s1, String s2)
+		timeAreAnagrams();
+		
+		// Run timing analysis on getLargestAnagramGroup
+		timeGetLargestAnagramGroup();
+	}
+	
+	private static void timeAreAnagrams() {
 		long startTime, midptTime, stopTime;
 		long timesToLoop = 1000; 
 
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
 
+		System.out.println("-------------  Timing Analysis: areAnagrams(String s1, String s2)  ----------------");
 		System.out.println("\nN\tT(N)  \t|\tT(N)/logN\tT(N)/N\t\tT(N)/N^2\tT(N)/N^3");
 		System.out.println("-----------------------------------------------------------------------------------");
 
-		for (int N = 1000; N <= 20000; N += 1000) { 
+		for (int N = 10000; N <= 200000; N += 10000) { 
 
 			String[] wordList1 = generateStringArray(N);
 			String[] wordList2 = generateStringArray(N);
@@ -46,12 +55,6 @@ public class TimingAnalysis {
 			startTime = System.nanoTime();
 			while (System.nanoTime() - startTime < 1000000000)
 				;
-
-//			// time the routine getLargestAnagramGroup
-//			startTime = System.nanoTime();
-//			for (long i = 0; i < timesToLoop; i++) {
-//				AnagramUtil.getLargestAnagramGroup(wordList1);
-//			}
 						
 			// time the routine areAnagrams
 			startTime = System.nanoTime();
@@ -79,10 +82,61 @@ public class TimingAnalysis {
 							+ "\t\t" + formatter.format(avgTime / N) + "\t\t" + formatter.format(avgTime / (N * N))
 							+ "\t\t" + formatter.format(avgTime / (N * N * N)));
 		}
+		
+		System.out.println("-----------------------------------------------------------------------------------");
+	}
+
+	
+	private static void timeGetLargestAnagramGroup() {
+		long startTime, midptTime, stopTime;
+		long timesToLoop = 100; 
+
+		// try computing T(N)/F(N), see if it converges
+		DecimalFormat formatter = new DecimalFormat("0000E0");
+
+		System.out.println("-------------  Timing Analysis: getLargestAnagramGroup(String[] s))  --------------");
+		System.out.println("\nN\tT(N)  \t|\tT(N)/logN\tT(N)/N\t\tT(N)/N^2\tT(N)/N^3");
+		System.out.println("-----------------------------------------------------------------------------------");
+
+		for (int N = 1000; N <= 20000; N += 1000) { 
+
+			String[] wordList1 = generateStringArray(N);
+			
+			System.out.print(N + "\t");
+
+			// let things stabilize
+			startTime = System.nanoTime();
+			while (System.nanoTime() - startTime < 1000000000)
+				;
+
+			// time the routine getLargestAnagramGroup
+			startTime = System.nanoTime();
+			for (long i = 0; i < timesToLoop; i++) {
+				AnagramUtil.getLargestAnagramGroup(wordList1);
+			}
+						
+			midptTime = System.nanoTime();
+
+			// time the empty loop
+			for (int i = 0; i < timesToLoop; i++) {
+			}
+
+			stopTime = System.nanoTime();
+
+			// compute the average time
+			double avgTime = ((midptTime - startTime) - (stopTime - midptTime)) / timesToLoop;
+
+			System.out.println(
+					formatter.format(avgTime) + "\t|\t" + formatter.format(avgTime / (Math.log10(N) / Math.log10(2)))
+							+ "\t\t" + formatter.format(avgTime / N) + "\t\t" + formatter.format(avgTime / (N * N))
+							+ "\t\t" + formatter.format(avgTime / (N * N * N)));
+		}
+		
+		System.out.println("-----------------------------------------------------------------------------------");
 	}
 
 	/**
-	 * Returns an string array of a specified size, filled with randomly
+	 * Returns a string array of a specified size, filled with randomly
 	 * generated strings in length varying from 2 to 6 characters. Characters
 	 * range from a to z
 	 * 
