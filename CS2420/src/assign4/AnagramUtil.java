@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Scanner;
 
@@ -198,5 +199,70 @@ public class AnagramUtil {
 		catch(IOException e){
 			return new String[0];
 		}
+	}
+	
+	/**
+	 * Returns the largest group of anagrams in the input array of words, in no particular order
+	 * Returns an empty array if there are no anagrams in the input array.
+	 * 
+	 * If multiple groups of anagrams are of equal size, return the first group of anagrams.
+	 * 
+	 * Utilizes areAnagrams(String s1, String s2) and Arrays.sort()
+	 * 
+	 * @param s
+	 * 		   String array of words to be analyzed
+	 */
+	public static String[] getLargestAnagramGroupUsingSortMethod(String[] s) {
+		
+		// Return empty array is the input array is also empty
+		if(s == null) {
+			return new String[0];
+		}
+
+		String[] sortedString = {};
+		char[] letterBreakdown = {};
+		
+		// Iterate through each string in the input array
+		for(int i = 0; i < s.length; i++) {
+			// Break down the current string into a character array
+			letterBreakdown = s[i].toLowerCase().toCharArray();
+			// Sort the character array
+			Arrays.sort(letterBreakdown);
+			// Reassemble character array as a string
+			sortedString[i] = new String(letterBreakdown);
+		}
+		
+		// Sort the new string array of alphabetically sorted elements
+		Arrays.sort(sortedString);
+		
+		String maxValue = null;
+		int maxCount = 0;
+		
+		// Find the mode out of the sorted list of anagrams
+        for (int i = 0; i < s.length; i++) 
+        {
+            int count = 0;
+            for (int j = 0; j < s.length; j++) 
+            {
+                if (areAnagrams(s[j], s[i]))
+                    ++count;
+            }
+            if (count > maxCount) 
+            {
+                maxCount = count;
+                maxValue = s[i];
+            }
+        }
+        
+        ArrayList<String> tmp = new ArrayList<String>();
+        
+        // Add all items from the input array that match the most occurring anagram of anagramList
+        for(int i = 0; i < s.length; i++) {
+        	if(areAnagrams(maxValue, s[i])) {
+        		tmp.add(s[i]);
+        	}
+        }
+	
+		return tmp.toArray(new String[tmp.size()]);
 	}
 }
