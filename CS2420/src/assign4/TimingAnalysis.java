@@ -33,6 +33,9 @@ public class TimingAnalysis {
 		timeGetLargestAnagramGroup();
 	}
 	
+	/**
+	 * Runs a timing analysis on the areAnagrams method with an increasing problem size
+	 */
 	private static void timeAreAnagrams() {
 		long startTime, midptTime, stopTime;
 		long timesToLoop = 1000; 
@@ -86,7 +89,9 @@ public class TimingAnalysis {
 		System.out.println("-----------------------------------------------------------------------------------");
 	}
 
-	
+	/**
+	 * Runs a timing analysis on the getLargestAnagramGroup method with an increasing problem size
+	 */
 	private static void timeGetLargestAnagramGroup() {
 		long startTime, midptTime, stopTime;
 		long timesToLoop = 100; 
