@@ -133,8 +133,16 @@ public class AnagramUtilTester {
 	//////// getLargestAnagramGroup(String[] s) ////////
 	@Test
 	public void testGetLargestAnagramGroupWithValidInput() {
-		String[] list = {"hi", "ih", "ok", "ko"};
-		String[] anagrams = {"hi", "ih"};
+		String[] list = {"abe", "bea", "eba", "ok", "ko"};
+		String[] anagrams = {"abe", "bea", "eba"};
+		
+		assertArrayEquals(anagrams, AnagramUtil.getLargestAnagramGroup(list));
+	}
+	
+	@Test
+	public void testGetLargestAnagramGroupWithValidInputNoAnagrams() {
+		String[] list = {"dog", "cat", "lemur", "cow", "llama"};
+		String[] anagrams = new String[0];
 		
 		assertArrayEquals(anagrams, AnagramUtil.getLargestAnagramGroup(list));
 	}
@@ -160,7 +168,7 @@ public class AnagramUtilTester {
 		
 		String[] anagrams = {"carets", "Caters", "caster", "crates", "Reacts", "recast", "traces"};
 		
-		assertArrayEquals(anagrams, AnagramUtil.getLargestAnagramGroup("CS2420\\src\\assign4\\sample_word_list.txt"));
+		assertArrayEquals(anagrams, AnagramUtil.getLargestAnagramGroup("src\\assign4\\sample_word_list.txt"));
 	}
 	
 	@Test
@@ -168,5 +176,53 @@ public class AnagramUtilTester {
 
 		// Returns an empty array if the file is not found
 		assertArrayEquals(new String[0], AnagramUtil.getLargestAnagramGroup("DoesNotExist.txt"));
+	}
+	
+	////////getLargestAnagramGroupUsingSortMethod(String filename) ////////
+	@Test
+	public void testGetLargestAnagramGroupUsingSortMethodWithValidFileInput() {
+	
+		String[] anagrams = {"carets", "Caters", "caster", "crates", "Reacts", "recast", "traces"};
+	
+		assertArrayEquals(anagrams, AnagramUtil.getLargestAnagramGroupUsingSortMethod("src\\assign4\\sample_word_list.txt"));
+	}
+
+	@Test
+	public void testGetLargestAnagramGroupUsingSortMethodWithInvalidFileInput() {
+
+		// Returns an empty array if the file is not found
+		assertArrayEquals(new String[0], AnagramUtil.getLargestAnagramGroupUsingSortMethod("DoesNotExist.txt"));
+	}
+	
+	//////// getLargestAnagramGroupUsingSort(String[] s) ////////
+	@Test
+	public void testGetLargestAnagramGroupUsingSortWithValidInput() {
+		String[] list = {"abe", "bea", "eba", "ok", "ko"};
+		String[] anagrams = {"abe", "bea", "eba"};
+		
+		assertArrayEquals(anagrams, AnagramUtil.getLargestAnagramGroup(list));
+	}
+	
+	@Test
+	public void testGetLargestAnagramGroupUsingSortWithValidInputNoAnagrams() {
+		String[] list = {"dog", "cat", "lemur", "cow", "llama"};
+		String[] anagrams = new String[0];
+		
+		assertArrayEquals(anagrams, AnagramUtil.getLargestAnagramGroup(list));
+	}
+	
+	@Test
+	public void testGetLargestAnagramGroupUsingSortWithNullInput() {
+		String[] list = null;
+		
+		assertArrayEquals(new String[0], AnagramUtil.getLargestAnagramGroup(list));
+	}
+	
+	@Test
+	public void testGetLargestAnagramGroupUsingSortWithInvalidInput() {
+		String[] list = {"", "ih", "ok", "ko"};
+		
+		exception.expect(IllegalArgumentException.class);
+		AnagramUtil.getLargestAnagramGroup(list);
 	}
 }

@@ -14,7 +14,7 @@ public class StringComparator implements Comparator<String>{
 
 	@Override
 	public int compare(String o1, String o2) {
-		if(AnagramUtil.areAnagrams(o1, o2)) {
+		if((AnagramUtil.sort(o1)).compareTo(AnagramUtil.sort(o2)) < 0) {
 			return -1;
 		}
 		else {
