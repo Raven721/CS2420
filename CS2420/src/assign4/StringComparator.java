@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 /**
  * Comparator class that compares two strings.
- * In this class, a string is considered greater than another string if it alphabetically precedes the other.
+ * A string is considered less than another string if its sorted characters alphabetically precedes the other strings sorted characters.
  * 
  * @author Tim Ellenberger, ellenber
  * @author Jay Mendez, jaym

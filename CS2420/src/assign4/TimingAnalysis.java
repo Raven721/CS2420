@@ -147,7 +147,7 @@ public class TimingAnalysis {
 	 */
 	private static void timeGetLargestAnagramGroupUsingSortMethod() {
 		long startTime, midptTime, stopTime;
-		long timesToLoop = 2; 
+		long timesToLoop = 3; 
 
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");

@@ -249,7 +249,7 @@ public class AnagramUtil {
 	 * If multiple groups of anagrams are of equal size, return the first group
 	 * of anagrams.
 	 * 
-	 * Utilizes areAnagrams(String s1, String s2) and Arrays.sort()
+	 * Utilizes areAnagrams(String s1, String s2) and Arrays.sort() with the included custom StringComparator class
 	 * 
 	 * @param s
 	 *            String array of words to be analyzed
