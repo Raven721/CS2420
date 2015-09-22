@@ -152,7 +152,7 @@ public class TimingAnalysis {
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
 
-		System.out.println("-------------  Timing Analysis: getLargestAnagramGroup(String[] s))  --------------");
+		System.out.println("------  Timing Analysis: getLargestAnagramGroupUsingSortMethod(String[] s))  ------");
 		System.out.println("\t\t\t\ttimesToLoop: " + timesToLoop + " | Should be O(N^2)");
 		System.out.println("\nN\tT(N)  \t|\tT(N)/logN\tT(N)/N\t\tT(N)/N^2\tT(N)/N^3");
 		System.out.println("-----------------------------------------------------------------------------------");
