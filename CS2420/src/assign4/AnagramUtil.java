@@ -65,6 +65,37 @@ public class AnagramUtil {
 		// Return the char array reassembled as a single string
 		return new String(letters);
 	}
+	
+	/**
+	 * Returns the sorted version of an input string using the Arrays.sort method
+	 * 
+	 * @param s
+	 *            The string to be sorted
+	 */
+	public static String sortUsingArraySortMethod(String s) {
+
+		// Check that the input string is valid
+		if (s == null) {
+			throw new NullPointerException();
+		} else if (!s.matches("[a-zA-Z]+")) {
+			throw new IllegalArgumentException("Input string contains non-alphabetized characters");
+		} else if (s.length() < 2) {
+			throw new IllegalArgumentException("Input string is too short(< 2 characters) to be considered an anagram");
+		}
+
+		// Impose that all strings are lower case, assume that anagrams are
+		// case-insensitive
+		s = s.toLowerCase();
+
+		// Copy individual letters from input string into an char array
+		char[] letters = s.toCharArray();
+		
+		// Sort the character array using Arrays.sort(char[] c)
+		Arrays.sort(letters);
+
+		// Return the character array reassembled as a single string
+		return new String(letters);
+	}
 
 	/**
 	 * A generic method that sorts the input array using an insertion sort and
@@ -262,7 +293,7 @@ public class AnagramUtil {
 		}
 
 		// Rearranges the elements in the input string array so that anagrams sit adjacent to each other.
-		Arrays.sort(s, new StringComparator());
+		Arrays.sort(s, new ArraySortStringComparator());
 
 		// Find the most recurring string in the newly sorted string array.
 		String prev = s[0], mostCommon = null;

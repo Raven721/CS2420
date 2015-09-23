@@ -46,10 +46,10 @@ public class TimingAnalysis {
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
 
-		System.out.println("-------------  Timing Analysis: areAnagrams(String s1, String s2)  ----------------");
+		System.out.println("--------------------  Timing Analysis: areAnagrams(String s1, String s2)  ----------------------");
 		System.out.println("\t\t\t\ttimesToLoop: " + timesToLoop + " | Should be O(N^2)");
-		System.out.println("\nN\tT(N)  \t|\tT(N)/logN\tT(N)/N\t\tT(N)/N^2\tT(N)/N^3");
-		System.out.println("-----------------------------------------------------------------------------------");
+		System.out.println("\nN\tT(N)  \t|\tT(N)/logN\tT(N)/NlogN\tT(N)/N\t\tT(N)/N^2\tT(N)/N^3");
+		System.out.println("------------------------------------------------------------------------------------------------");
 
 		for (int N = 1000; N <= 20000; N += 1000) { 
 
@@ -81,11 +81,12 @@ public class TimingAnalysis {
 
 			System.out.println(
 					formatter.format(avgTime) + "\t|\t" + formatter.format(avgTime / (Math.log10(N) / Math.log10(2)))
+							+ "\t\t" + formatter.format(avgTime / (N * (Math.log10(N) /  Math.log10(2))) )
 							+ "\t\t" + formatter.format(avgTime / N) + "\t\t" + formatter.format(avgTime / (N * N))
 							+ "\t\t" + formatter.format(avgTime / (N * N * N)));
 		}
 		
-		System.out.println("-----------------------------------------------------------------------------------");
+		System.out.println("------------------------------------------------------------------------------------------------");
 	}
 
 	/**
@@ -100,10 +101,10 @@ public class TimingAnalysis {
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
 
-		System.out.println("-------------  Timing Analysis: getLargestAnagramGroup(String[] s))  --------------");
+		System.out.println("--------------------  Timing Analysis: getLargestAnagramGroup(String[] s))  --------------------");
 		System.out.println("\t\t\t\ttimesToLoop: " + timesToLoop + " | Should be O(N^2)");
-		System.out.println("\nN\tT(N)  \t|\tT(N)/logN\tT(N)/N\t\tT(N)/N^2\tT(N)/N^3");
-		System.out.println("-----------------------------------------------------------------------------------");
+		System.out.println("\nN\tT(N)  \t|\tT(N)/logN\tT(N)/NlogN\tT(N)/N\t\tT(N)/N^2\tT(N)/N^3");
+		System.out.println("------------------------------------------------------------------------------------------------");
 
 		for (int N = 1000; N <= 20000; N += 1000) { 
 
@@ -135,11 +136,12 @@ public class TimingAnalysis {
 
 			System.out.println(
 					formatter.format(avgTime) + "\t|\t" + formatter.format(avgTime / (Math.log10(N) / Math.log10(2)))
+							+ "\t\t" + formatter.format(avgTime / (N * (Math.log10(N) /  Math.log10(2))) )
 							+ "\t\t" + formatter.format(avgTime / N) + "\t\t" + formatter.format(avgTime / (N * N))
 							+ "\t\t" + formatter.format(avgTime / (N * N * N)));
 		}
 		
-		System.out.println("-----------------------------------------------------------------------------------");
+		System.out.println("------------------------------------------------------------------------------------------------");
 	}
 	
 	/**
@@ -147,17 +149,17 @@ public class TimingAnalysis {
 	 */
 	private static void timeGetLargestAnagramGroupUsingSortMethod() {
 		long startTime, midptTime, stopTime;
-		long timesToLoop = 3; 
+		long timesToLoop = 20; 
 
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
 
-		System.out.println("------  Timing Analysis: getLargestAnagramGroupUsingSortMethod(String[] s))  ------");
-		System.out.println("\t\t\t\ttimesToLoop: " + timesToLoop + " | Should be O(N^2)");
-		System.out.println("\nN\tT(N)  \t|\tT(N)/logN\tT(N)/N\t\tT(N)/N^2\tT(N)/N^3");
-		System.out.println("-----------------------------------------------------------------------------------");
+		System.out.println("-----------  Timing Analysis: getLargestAnagramGroupUsingSortMethod(String[] s))  --------------");
+		System.out.println("\t\t\t\ttimesToLoop: " + timesToLoop + " | Should be O(NlogN)");
+		System.out.println("\nN\tT(N)  \t|\tT(N)/logN\tT(N)/NlogN\tT(N)/N\t\tT(N)/N^2\tT(N)/N^3");
+		System.out.println("------------------------------------------------------------------------------------------------");
 
-		for (int N = 1000; N <= 20000; N += 1000) { 
+		for (int N = 10000; N <= 200000; N += 10000) { 
 
 			String[] wordList1 = generateStringArray(N);
 			
@@ -187,11 +189,12 @@ public class TimingAnalysis {
 
 			System.out.println(
 					formatter.format(avgTime) + "\t|\t" + formatter.format(avgTime / (Math.log10(N) / Math.log10(2)))
+							+ "\t\t" + formatter.format(avgTime / (N * (Math.log10(N) /  Math.log10(2))) )
 							+ "\t\t" + formatter.format(avgTime / N) + "\t\t" + formatter.format(avgTime / (N * N))
 							+ "\t\t" + formatter.format(avgTime / (N * N * N)));
 		}
 		
-		System.out.println("-----------------------------------------------------------------------------------");
+		System.out.println("------------------------------------------------------------------------------------------------");
 	}
 
 	/**
