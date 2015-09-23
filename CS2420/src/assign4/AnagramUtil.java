@@ -9,7 +9,7 @@ import java.util.Comparator;
 import java.util.Scanner;
 
 /**
- * A utility that determines the largest anagrams in a list of words.
+ * A utility that determines the largest group of anagrams in a list of words.
  * 
  * This class assumes all inputs are single words and not phrases, punctuation
  * is not permitted. It is assumed that the word list provided to the class does
@@ -27,7 +27,7 @@ public class AnagramUtil {
 	 * Returns the sorted version of an input string using insertion sort.
 	 * 
 	 * @param s
-	 *            The string to be sorted
+	 *          The string to be sorted
 	 */
 	public static String sort(String s) {
 
@@ -67,7 +67,7 @@ public class AnagramUtil {
 	}
 	
 	/**
-	 * Returns the sorted version of an input string using the Arrays.sort method
+	 * Returns the sorted version of an input string using the Arrays.sort(char[] c) method
 	 * 
 	 * @param s
 	 *            The string to be sorted
