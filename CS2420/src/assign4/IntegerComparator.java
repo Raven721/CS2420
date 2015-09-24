@@ -13,9 +13,8 @@ import java.util.Comparator;
 public class IntegerComparator implements Comparator<Integer> {
 
 	/**
-	 * If the first parameter is larger than the second, return 1
 	 * If the first parameter is smaller than the second, return -1
-	 * If both parameters are equivalent, return 0
+	 * If the first parameter is smaller than or equal to the second, return 1
 	 */
 	@Override
 	public int compare(Integer arg0, Integer arg1) {

@@ -357,7 +357,7 @@ public class AnagramUtilTester {
 	@Test
 	public void testInsertionSortWithIntegerType() {
 
-		// Testing the insertion sort method using the ArraySortStringComparator
+		// Testing the insertion sort method using the IntegerComparator
 		Integer[] unsorted = {4, 5, 2, 7, 3, 9, 8, 1, 6};
 		Integer[] sorted = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 
