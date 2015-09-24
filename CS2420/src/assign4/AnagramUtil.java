@@ -159,10 +159,10 @@ public class AnagramUtil {
 		if (s == null) {
 			return new String[0];
 		}
-
+		
 		// Rearranges the elements in the input string array so that anagrams sit adjacent to each other.
 		insertionSort(s, new StringComparator());
-
+		
 		// Find the most recurring string in the newly sorted string array.
 		String prev = s[0], mostCommon = null;
 		int num = 0, max = 0;

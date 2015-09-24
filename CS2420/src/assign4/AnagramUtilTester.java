@@ -1,6 +1,7 @@
 package assign4;
 
 import static org.junit.Assert.*;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -310,5 +311,58 @@ public class AnagramUtilTester {
 		
 		exception.expect(IllegalArgumentException.class);
 		AnagramUtil.getLargestAnagramGroupUsingSortMethod(list);
+	}
+	
+	//////// StringComparator ////////
+	@Test
+	public void testInsertionSortWithInsertionSortComparatorWithStringType() {
+
+		// Testing the insertion sort method using the StringComparator class
+		String[] unsorted = {"carets", "Caller", "eat", "cellar", "recall", "Caters", "Ate", "caster", "aspired", 
+				"allergy", "despair", "asp", "pas", "least", "sap", "spa", "diapers", "praised", "crates", "Reacts", 
+				"bats", "tea", "Stab", "stale", "tabs", "recast", "darters", "Gallery", "retards", "starred", "code", 
+				"Coed", "deco", "traders", "traces"};
+		
+		String[] sorted = {"bats", "Stab", "tabs", "Caller", "cellar", "recall", "carets", "Caters", "caster",
+				"crates", "Reacts", "recast", "traces", "aspired", "despair", "diapers", "praised", "darters",
+				"retards", "starred", "traders", "allergy", "Gallery", "least", "stale", "eat", "Ate", "tea",
+				"asp", "pas", "sap", "spa", "code", "Coed", "deco"};
+		
+		AnagramUtil.insertionSort(unsorted, new StringComparator());
+		
+		assertArrayEquals(unsorted, sorted);
+	}
+	
+	//////// ArraySortStringComparator() ////////
+	@Test
+	public void testInsertionSortWithArraySortWithStringType() {
+
+		// Testing the insertion sort method using the ArraySortStringComparator
+		String[] unsorted = {"carets", "Caller", "eat", "cellar", "recall", "Caters", "Ate", "caster", "aspired", 
+				"allergy", "despair", "asp", "pas", "least", "sap", "spa", "diapers", "praised", "crates", "Reacts", 
+				"bats", "tea", "Stab", "stale", "tabs", "recast", "darters", "Gallery", "retards", "starred", "code", 
+				"Coed", "deco", "traders", "traces"};
+		
+		String[] sorted = {"bats", "Stab", "tabs", "Caller", "cellar", "recall", "carets", "Caters", "caster",
+				"crates", "Reacts", "recast", "traces", "aspired", "despair", "diapers", "praised", "darters",
+				"retards", "starred", "traders", "allergy", "Gallery", "least", "stale", "eat", "Ate", "tea",
+				"asp", "pas", "sap", "spa", "code", "Coed", "deco"};
+		
+		AnagramUtil.insertionSort(unsorted, new ArraySortStringComparator());
+		
+		assertArrayEquals(unsorted, sorted);
+	}
+	
+	//////// IntegerComparator() ////////
+	@Test
+	public void testInsertionSortWithIntegerType() {
+
+		// Testing the insertion sort method using the ArraySortStringComparator
+		Integer[] unsorted = {4, 5, 2, 7, 3, 9, 8, 1, 6};
+		Integer[] sorted = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+		AnagramUtil.insertionSort(unsorted, new IntegerComparator());
+		
+		assertArrayEquals(unsorted, sorted);
 	}
 }
