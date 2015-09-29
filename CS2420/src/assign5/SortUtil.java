@@ -12,13 +12,24 @@ import java.util.Collections;
  */
 public class SortUtil {
 	
+	private static int MergeToInsertionThreshold = 0;
+	
+	/**
+	 * Method for setting the threshold list size when the merge sort should utilize an insertion sort
+	 * @param size
+	 * 			  Desired length of sub-array in the mergesort method to switch over to insertion sort
+	 */
+	public static void setThreshold(int size) {
+		MergeToInsertionThreshold = size;
+	}
+	
 	/**
 	 * Performs a mergesort on an ArrayList of a given type
 	 * 
 	 * @param arr 
 	 * 			  The array of a given type to be sorted
 	 */
-	public static <T extends Comparable<? super T>> void mergesort(ArrayList<T> msArray) {
+	public static <T extends Comparable<? super T>> void mergesort(ArrayList<T> array) {
 		
 	}
 	
