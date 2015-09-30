@@ -130,7 +130,7 @@ public class SortUtilTester {
 	
 	@Test
 	public void testMergeSortWithNullInputArrayElement() {
-		// Exception should be thrown if the input array is null
+		// Exception should be thrown if the input array contains a null element
 		
 		ArrayList<Integer> nullElementList = new ArrayList<Integer>();
 		
@@ -151,7 +151,7 @@ public class SortUtilTester {
 	
 	@Test
 	public void testMergeSortWithInvalidArrayLength() {
-		// Exception should be thrown if the input array is null
+		// Exception should be thrown if the input array contains less than 2 elements
 		
 		ArrayList<Integer> nullList = new ArrayList<Integer>();
 		
