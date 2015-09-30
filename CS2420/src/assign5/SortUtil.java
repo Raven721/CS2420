@@ -180,60 +180,60 @@ public class SortUtil {
 		quicksort(array, 0, array.size() - 1);
 	}
 
-	private static <T extends Comparable<? super T>> void quicksort(ArrayList<T> arr, int left, int right) {
+	private static <T extends Comparable<? super T>> void quicksort(ArrayList<T> array, int left, int right) {
 		if (left + MergeToInsertionThreshold > right) {
-			insertionSort(arr, left, right);
+			insertionSort(array, left, right);
 		} else {
 			// Sort low, middle, high
 			int middle = left + (right - left) / 2;
 			T pivot;
 			if (pivotChoice == 0) {
-				if (arr.get(right).compareTo(arr.get(middle)) < 0) {
-					swapReferences(arr, left, middle);
+				if (array.get(right).compareTo(array.get(middle)) < 0) {
+					swapReferences(array, middle, right);
 				}
-				swapReferences(arr, middle, right - 1);
+				swapReferences(array, middle, right - 1);
 			} else if (pivotChoice == 1) {
 				int quarter = left + (right - left) / 4;
-				if (arr.get(right).compareTo(arr.get(quarter)) < 0) {
-					swapReferences(arr, quarter, right);
+				if (array.get(right).compareTo(array.get(quarter)) < 0) {
+					swapReferences(array, quarter, right);
 				}
-				swapReferences(arr, quarter, right - 1);
+				swapReferences(array, quarter, right - 1);
 			} else if (pivotChoice == 2) {
-				if (arr.get(middle).compareTo(arr.get(left)) < 0) {
-					swapReferences(arr, left, middle);
+				if (array.get(middle).compareTo(array.get(left)) < 0) {
+					swapReferences(array, left, middle);
 				}
-				if (arr.get(right).compareTo(arr.get(left)) < 0) {
-					swapReferences(arr, left, right);
+				if (array.get(right).compareTo(array.get(left)) < 0) {
+					swapReferences(array, left, right);
 				}
-				if (arr.get(right).compareTo(arr.get(middle)) < 0) {
-					swapReferences(arr, middle, right);
+				if (array.get(right).compareTo(array.get(middle)) < 0) {
+					swapReferences(array, middle, right);
 				}
 
-				swapReferences(arr, middle, right - 1);
+				swapReferences(array, middle, right - 1);
 			} else {
 				System.err.println("Invalid pivot choice. Choice defaulted to 1");
-				swapReferences(arr, left, right - 1);
+				swapReferences(array, left, right - 1);
 			}
 
-			pivot = arr.get(right - 1);
+			pivot = array.get(right - 1);
 			int i;
 			int j;
 			for (i = left - 1, j = right - 1;;) {
-				while (i < right - 1 && arr.get(++i).compareTo(pivot) < 0)
+				while (i < right - 1 && array.get(++i).compareTo(pivot) < 0)
 					;
-				while (j > left && pivot.compareTo(arr.get(--j)) < 0)
+				while (j > left && pivot.compareTo(array.get(--j)) < 0)
 					;
 				if (i >= j) {
 					break;
 				}
 
-				swapReferences(arr, i, j);
+				swapReferences(array, i, j);
 			}
 
-			swapReferences(arr, i, right - 1);
+			swapReferences(array, i, right - 1);
 
-			quicksort(arr, left, i - 1);
-			quicksort(arr, i + 1, right);
+			quicksort(array, left, i - 1);
+			quicksort(array, i + 1, right);
 		}
 	}
 

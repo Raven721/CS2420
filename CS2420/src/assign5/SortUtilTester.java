@@ -163,27 +163,71 @@ public class SortUtilTester {
 	}
 
 	 @Test
-	 public void testMergeSortWithValidUnsortedList() {
+	 public void testMergeSortWithValidPermutatedList() {
 		 ArrayList<Integer> unsortedList = SortUtil.generatePermutedOrder(10);
 		 ArrayList<Integer> sortedList = SortUtil.generateSortedOrder(10);
 	
-		 SortUtil.setThreshold(2);
+		 SortUtil.setThreshold(5);
 	
 		 SortUtil.mergesort(unsortedList);
 		 assertEquals(sortedList, unsortedList);
+	 }
+	 
+	 @Test
+	 public void testMergeSortWithValidSortedList() {
+		 ArrayList<Integer> unsortedList = SortUtil.generateSortedOrder(10);
+		 ArrayList<Integer> sortedList = SortUtil.generateSortedOrder(10);
 	
+		 SortUtil.setThreshold(5);
+	
+		 SortUtil.mergesort(unsortedList);
+		 assertEquals(sortedList, unsortedList);
+	 }
+	 
+	 @Test
+	 public void testMergeSortWithValidReverseSortedList() {
+		 ArrayList<Integer> unsortedList = SortUtil.generateReverseSortedOrder(10);
+		 ArrayList<Integer> sortedList = SortUtil.generateSortedOrder(10);
+	
+		 SortUtil.setThreshold(5);
+	
+		 SortUtil.mergesort(unsortedList);
+		 assertEquals(sortedList, unsortedList);
 	 }
 
 	//////// quicksort(ArrayList<T> array) ////////
-//	@Test
-//	public void testQuickSortWithValidUnsortedList() {
-//		ArrayList<Integer> unsortedList = SortUtil.generatePermutedOrder(10);
-//		ArrayList<Integer> sortedList = SortUtil.generateSortedOrder(10);
-//
-//		SortUtil.setPivotChoice(0);
-//
-//		SortUtil.quicksort(unsortedList);
-//		assertEquals(sortedList, unsortedList);
-//
-//	}
+	@Test
+	public void testQuickSortWithValidPermutedList() {
+		ArrayList<Integer> unsortedList = SortUtil.generatePermutedOrder(10);
+		ArrayList<Integer> sortedList = SortUtil.generateSortedOrder(10);
+
+		SortUtil.setPivotChoice(0);
+
+		SortUtil.quicksort(unsortedList);
+		assertEquals(sortedList, unsortedList);
+	}
+	
+	@Test
+	public void testQuickSortWithValidSortedList() {
+		ArrayList<Integer> unsortedList = SortUtil.generateSortedOrder(10);
+		ArrayList<Integer> sortedList = SortUtil.generateSortedOrder(10);
+
+		SortUtil.setPivotChoice(0);
+
+		SortUtil.quicksort(unsortedList);
+		assertEquals(sortedList, unsortedList);
+
+	}
+	
+	@Test
+	public void testQuickSortWithValidReverseSortedList() {
+		ArrayList<Integer> unsortedList = SortUtil.generateReverseSortedOrder(10);
+		ArrayList<Integer> sortedList = SortUtil.generateSortedOrder(10);
+
+		SortUtil.setPivotChoice(0);
+
+		SortUtil.quicksort(unsortedList);
+		assertEquals(sortedList, unsortedList);
+
+	}
 }
