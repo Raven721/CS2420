@@ -61,7 +61,7 @@ public class TimingAnalysis {
 	 */
 	private static void timeMergeSortThresholdExperiment() {
 		long startTime, midptTime, stopTime;
-		long timesToLoop = 100;
+		long timesToLoop = 150;
 
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
@@ -69,7 +69,7 @@ public class TimingAnalysis {
 		System.out.println(
 				"----------------------  Timing Analysis: mergesort Threshold Experiment ------------------------");
 		System.out.println("\t\t\t    timesToLoop: " + timesToLoop);
-		System.out.println("\nThreshold\tN\tT(N)  \t|\tInsertion Sort Threshold");
+		System.out.println("\nThreshold\tN\tT(N)  \t|\tActual Insertion Sort Threshold");
 		System.out.println(
 				"------------------------------------------------------------------------------------------------");
 
@@ -79,20 +79,26 @@ public class TimingAnalysis {
 				ArrayList<Integer> sortedList = SortUtil.generatePermutedOrder(N);
 
 				// Set the threshold, print the threshold
+				double actualThreshold = 0;
 				if (k == 1) {
 					SortUtil.setInsertionSortThreshold(1);
+					actualThreshold = 1;
 					System.out.print("(1)\t");
 				} else if (k == 2) {
 					SortUtil.setInsertionSortThreshold(N / 2);
+					actualThreshold = N / 2;
 					System.out.print("(N / 2)\t");
 				} else if (k == 3) {
 					SortUtil.setInsertionSortThreshold(N / 4);
+					actualThreshold = N / 4;
 					System.out.print("(N / 4)\t");
 				} else if (k == 4) {
 					SortUtil.setInsertionSortThreshold(N / 10);
+					actualThreshold = N / 10;
 					System.out.print("(N / 10)\t");
 				} else if (k == 5) {
 					SortUtil.setInsertionSortThreshold(N / 20);
+					actualThreshold = N / 20;
 					System.out.print("(N / 20)\t");
 				}
 
@@ -119,7 +125,7 @@ public class TimingAnalysis {
 				// compute the average time
 				double avgTime = ((midptTime - startTime) - (stopTime - midptTime)) / timesToLoop;
 
-				System.out.println(formatter.format(avgTime) + "\t|\t" + formatter.format(k));
+				System.out.println(formatter.format(avgTime) + "\t|\t" + formatter.format(actualThreshold));
 			}
 
 			System.out.println(
