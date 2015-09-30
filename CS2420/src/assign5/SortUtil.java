@@ -13,7 +13,8 @@ import java.util.Collections;
  */
 public class SortUtil {
 
-	private static int MergeToInsertionThreshold = 5;
+	// If the insertion sort threshold is never set, default to 0
+	private static int MergeToInsertionThreshold = 0;
 	private static int pivotChoice = 0;
 
 	/**
@@ -31,6 +32,8 @@ public class SortUtil {
 	/**
 	 * Performs a mergesort on an ArrayList of a given type
 	 * 
+	 * @param <T>
+	 *            Generic object that implements Comparable
 	 * @param arr
 	 *            The array of a given type to be sorted
 	 */
@@ -52,10 +55,11 @@ public class SortUtil {
 		}
 
 		@SuppressWarnings("unchecked")
-		T[] subArray = (T[]) new Comparable[array.size()];
+		T[] tempArray = (T[]) new Comparable[array.size()];
+		
 
 		// mergesort(Array to sort, subArray, leftEnd, rightEnd)
-		mergesort(array, subArray, 0, array.size() - 1);
+		mergesort(array, tempArray, 0, array.size() - 1);
 	}
 
 	/**
@@ -65,33 +69,31 @@ public class SortUtil {
 	 *            Generic object that implements Comparable
 	 * @param array
 	 *            The ArrayList that is to be sorted
-	 * @param subArray
+	 * @param tempArray
 	 *            Temporary array to place the merged result
 	 * @param leftEnd
 	 *            Array index of left end of subArray
 	 * @param rightEnd
 	 *            Array index of right end of subArray
 	 */
-	private static <T extends Comparable<? super T>> void mergesort(ArrayList<T> array, T[] subArray, int leftEnd,
+	private static <T extends Comparable<? super T>> void mergesort(ArrayList<T> array, T[] tempArray, int leftEnd,
 			int rightEnd) {
 
 		if (leftEnd + MergeToInsertionThreshold > rightEnd) {
 			insertionSort(array, leftEnd, rightEnd);
-			System.out.println("Insertion Sort: " + array.toString());
 		} else {
 			int center = (leftEnd + rightEnd) / 2;
-			mergesort(array, subArray, leftEnd, center);
-			System.out.println("Insertion Sort: " + array.toString());
-			mergesort(array, subArray, center + 1, rightEnd);
-			System.out.println("Insertion Sort: " + array.toString());
-			mergeSubArrays(array, subArray, leftEnd, center + 1, rightEnd);
-			System.out.println("Insertion Sort: " + array.toString());
+			mergesort(array, tempArray, leftEnd, center);
+			mergesort(array, tempArray, center + 1, rightEnd);
+			mergeSubArrays(array, tempArray, leftEnd, center + 1, rightEnd);
 		}
 	}
 
 	/**
 	 * Helper method that merges two sorted halves of a sub-array
 	 * 
+	 * @param <T>
+	 *            Generic object that implements Comparable
 	 * @param array
 	 *            Array to be sorted
 	 * @param tempArray
@@ -105,24 +107,26 @@ public class SortUtil {
 	 */
 	private static <T extends Comparable<? super T>> void mergeSubArrays(ArrayList<T> array, T[] tempArray, int leftPos,
 			int rightPos, int rightEnd) {
+		
 		int leftEnd = rightPos - 1;
 		int tempPos = leftPos;
 		int numElements = rightEnd - leftPos + 1;
 
 		// Main loop
-		while (leftPos <= leftEnd && rightPos <= rightEnd)
+		while (leftPos <= leftEnd && rightPos <= rightEnd) { 
 			if (array.get(leftPos).compareTo(array.get(rightPos)) <= 0)
-				tempArray[tempPos + 1] = array.get(leftPos + 1);
+				tempArray[tempPos++] = array.get(leftPos++);
 			else
-				tempArray[tempPos + 1] = array.get(rightPos + 1);
-
+				tempArray[tempPos++] = array.get(rightPos++);
+		}
+		
 		// Write while loop for left sub-array
 		while (leftPos <= leftEnd)
-			tempArray[tempPos + 1] = array.get(leftPos + 1);
+			tempArray[tempPos++] = array.get(leftPos++);
 
 		// Write while loop for right sub-array
 		while (rightPos <= rightEnd)
-			tempArray[tempPos + 1] = array.get(rightPos + 1);
+			tempArray[tempPos++] = array.get(rightPos++);
 
 		// Copy from tempArray array back to array
 		for (int i = 0; i < numElements; i++, rightEnd--)
@@ -133,6 +137,8 @@ public class SortUtil {
 	 * Helper method that performs an insertion sort algorithm on an input array
 	 * between two indexes
 	 * 
+	 * @param <T>
+	 *            Generic object that implements Comparable
 	 * @param array
 	 *            Array to be sorted using insertion sort
 	 * @param leftEnd
@@ -165,6 +171,8 @@ public class SortUtil {
 	/**
 	 * Performs a quicksort on an ArrayList of a given type
 	 * 
+	 * @param <T>
+	 *            Generic object that implements Comparable
 	 * @param arr
 	 *            The array of a given type to be sorted
 	 */
@@ -306,5 +314,4 @@ public class SortUtil {
 
 		return sortedList;
 	}
-
 }
