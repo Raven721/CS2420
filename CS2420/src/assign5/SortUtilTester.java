@@ -117,4 +117,45 @@ public class SortUtilTester {
 		SortUtil.generatePermutedOrder(-1);
 	}
 
+	//////// mergesort(ArrayList<T> array) ////////
+	@Test
+	public void testMergeSortWithNullInputArray() {
+		// Exception should be thrown if the input array is null
+		
+		ArrayList<Integer> nullList = null;
+		
+		exception.expect(NullPointerException.class);
+		SortUtil.mergesort(nullList);
+	}
+	
+	@Test
+	public void testMergeSortWithNullInputArrayElement() {
+		// Exception should be thrown if the input array is null
+		
+		ArrayList<Integer> nullElementList = new ArrayList<Integer>();
+		
+		nullElementList.add(1);
+		nullElementList.add(2);
+		nullElementList.add(3);
+		nullElementList.add(4);
+		nullElementList.add(5);
+		nullElementList.add(null);
+		nullElementList.add(7);
+		nullElementList.add(8);
+		nullElementList.add(9);
+		nullElementList.add(10);
+		
+		exception.expect(NullPointerException.class);
+		SortUtil.mergesort(nullElementList);
+	}
+	
+	@Test
+	public void testMergeSortWithInvalidArrayLength() {
+		// Exception should be thrown if the input array is null
+		
+		ArrayList<Integer> nullList = new ArrayList<Integer>();
+		
+		exception.expect(IllegalArgumentException.class);
+		SortUtil.mergesort(nullList);
+	}
 }

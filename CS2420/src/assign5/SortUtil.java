@@ -31,6 +31,21 @@ public class SortUtil {
 	 */
 	public static <T extends Comparable<? super T>> void mergesort(ArrayList<T> array) {
 		
+		// Throw an exception if the input array is null
+		if(array == null)
+			throw new NullPointerException("Input array is null");
+		
+		// Throw an exception if the input array has less than two elements
+		if(array.size() < 2)
+			throw new IllegalArgumentException("Input array contains less than 2 elements");
+		
+		// Throw an exception if the input array contains a null element
+		for(T element: array) {
+			if(element == null) {
+				throw new NullPointerException("Input array contains a null element");
+			}
+		}
+		
 		@SuppressWarnings("unchecked")
 		T[] subArray = (T[]) new Comparable[array.size()];
 		
