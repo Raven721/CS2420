@@ -65,7 +65,21 @@ public class SortUtil {
 		}
 	}
 	
-	public static <T extends Comparable<? super T>> void mergeSubArrays
+	/**
+	 * Helper method that merges two sorted halves of a sub-array
+	 * 
+	 * @param array
+	 * 				Array to be sorted
+	 * @param tempArray
+	 * 				A temporary cache to store the merge results
+	 * @param leftPos
+	 * 				The left-most index of the sub-array
+	 * @param rightPos
+	 * 				The right-most index of the sub-array
+	 * @param rightEnd
+	 * 				The right-most index of the sub-array
+	 */
+	private static <T extends Comparable<? super T>> void mergeSubArrays
 			(ArrayList<T> array, T[] tempArray, int leftPos, int rightPos, int rightEnd) {
 		int leftEnd = rightPos - 1;
 		int tempPos = leftPos;
@@ -86,7 +100,7 @@ public class SortUtil {
 		while(rightPos <= rightEnd)
 			tempArray[tempPos + 1] = array.get(rightPos + 1);
 		
-		// Copy from temp array back to array
+		// Copy from tempArray array back to array
 		for(int i = 0; i < numElements; i++, rightEnd--)
 			array.set(rightEnd, tempArray[rightEnd]);
 	}
