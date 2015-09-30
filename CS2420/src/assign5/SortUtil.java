@@ -14,7 +14,7 @@ import java.util.Collections;
 public class SortUtil {
 
 	// If the insertion sort threshold/pivotChoice is never set, default to 0
-	private static int InsertionSortThreshold = 0;
+	private static int insertionSortThreshold = 0;
 	private static int pivotChoice = 0;
 
 	/**
@@ -25,8 +25,8 @@ public class SortUtil {
 	 *            Desired length of sub-array in the mergesort method to switch
 	 *            over to insertion sort
 	 */
-	public static void setThreshold(int size) {
-		InsertionSortThreshold = size;
+	public static void setInsertionSortThreshold(int size) {
+		insertionSortThreshold = size;
 	}
 	
 	/**
@@ -95,7 +95,7 @@ public class SortUtil {
 	private static <T extends Comparable<? super T>> void mergesort(ArrayList<T> array, T[] tempArray, int leftEnd,
 			int rightEnd) {
 
-		if (leftEnd + InsertionSortThreshold > rightEnd) {
+		if (leftEnd + insertionSortThreshold > rightEnd) {
 			insertionSort(array, leftEnd, rightEnd);
 		} else {
 			int center = (leftEnd + rightEnd) / 2;
@@ -205,7 +205,7 @@ public class SortUtil {
 	 */
 	private static <T extends Comparable<? super T>> void quicksort(ArrayList<T> array, int left, int right) {
 		// Cutoff to perform an insertion sort
-		if (left + InsertionSortThreshold > right) {
+		if (left + insertionSortThreshold > right) {
 			insertionSort(array, left, right);
 		} else {
 			int middle = left + (right - left) / 2;

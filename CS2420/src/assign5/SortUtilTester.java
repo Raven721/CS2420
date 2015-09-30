@@ -167,7 +167,7 @@ public class SortUtilTester {
 		 ArrayList<Integer> unsortedList = SortUtil.generatePermutedOrder(10);
 		 ArrayList<Integer> sortedList = SortUtil.generateSortedOrder(10);
 	
-		 SortUtil.setThreshold(5);
+		 SortUtil.setInsertionSortThreshold(5);
 	
 		 SortUtil.mergesort(unsortedList);
 		 assertEquals(sortedList, unsortedList);
@@ -178,7 +178,7 @@ public class SortUtilTester {
 		 ArrayList<Integer> unsortedList = SortUtil.generateSortedOrder(10);
 		 ArrayList<Integer> sortedList = SortUtil.generateSortedOrder(10);
 	
-		 SortUtil.setThreshold(5);
+		 SortUtil.setInsertionSortThreshold(5);
 	
 		 SortUtil.mergesort(unsortedList);
 		 assertEquals(sortedList, unsortedList);
@@ -189,7 +189,7 @@ public class SortUtilTester {
 		 ArrayList<Integer> unsortedList = SortUtil.generateReverseSortedOrder(10);
 		 ArrayList<Integer> sortedList = SortUtil.generateSortedOrder(10);
 	
-		 SortUtil.setThreshold(5);
+		 SortUtil.setInsertionSortThreshold(5);
 	
 		 SortUtil.mergesort(unsortedList);
 		 assertEquals(sortedList, unsortedList);
@@ -214,7 +214,7 @@ public class SortUtilTester {
 		 sortedList.add('e');
 		 sortedList.add('f');
 	
-		 SortUtil.setThreshold(5);
+		 SortUtil.setInsertionSortThreshold(5);
 	
 		 SortUtil.mergesort(unsortedList);
 		 assertEquals(sortedList, unsortedList);
@@ -239,7 +239,7 @@ public class SortUtilTester {
 		 sortedList.add("epsilon");
 		 sortedList.add("facade");
 	
-		 SortUtil.setThreshold(5);
+		 SortUtil.setInsertionSortThreshold(5);
 	
 		 SortUtil.mergesort(unsortedList);
 		 assertEquals(sortedList, unsortedList);
