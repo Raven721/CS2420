@@ -15,7 +15,7 @@ public class SortUtil {
 
 	// If the insertion sort threshold/pivotChoice is never set, default to 0
 	private static int insertionSortThreshold = 0;
-	private static int pivotChoice = 0;
+	private static int pivotStrategy = 0;
 
 	/**
 	 * Method for setting the threshold list size when the merge sort should
@@ -30,19 +30,23 @@ public class SortUtil {
 	}
 	
 	/**
-	 * Method for setting the pivot point for the quick sort method
+	 * Method for setting the pivot strategy to be used with the quicksort algorithm
 	 * 
 	 * Input must range between 0 to 2
 	 * 
-	 * @param choice
+	 * 		pivotStrategy = 0: Choose the middle element as the pivot
+	 * 		pivotStrategy = 1: Choose the first element as the pivot
+	 * 		pivotStrategy = 2: Choose the median of the left, middle and right elements
+	 * 
+	 * @param strategy
 	 * 				The selector for the pivot point
 	 */
-	public static void setPivotChoice(int choice) {
+	public static void setPivotStrategy(int strategy) {
 		// Ensure that the input is within the range of 0 to 2
-		if(choice <= 2 && choice >= 0)
-			pivotChoice = choice;
+		if(strategy <= 2 && strategy >= 0)
+			pivotStrategy = strategy;
 		else
-			throw new IllegalArgumentException("Pivot choice must be either 0, 1 or 2.");
+			throw new IllegalArgumentException("Pivot strategy selection must be either 0, 1 or 2.");
 	}
 
 	/**
@@ -179,7 +183,11 @@ public class SortUtil {
 	}
 	
 	/**
-	 * Performs a quicksort on an ArrayList of a given type
+	 * Performs a quicksort on an ArrayList of a given type with multiple pivot strategies
+	 * 
+	 *  	pivotStrategy = 0: Choose the middle element as the pivot
+	 * 		pivotStrategy = 1: Choose the first element as the pivot
+	 * 		pivotStrategy = 2: Choose the median of the left, middle and right elements
 	 * 
 	 * @param <T>
 	 *            Generic object that implements Comparable
@@ -192,7 +200,11 @@ public class SortUtil {
 
 	/**
 	 * A recursive helper method that performs a quicksort on an ArrayList of a given type
-	 * Uses median-of-three partitioning and a cutoff
+	 * This method contains three selectable strategies for performing the quicksort:
+	 * 
+	 * 		pivotStrategy = 0: Choose the middle element as the pivot
+	 * 		pivotStrategy = 1: Choose the first element as the pivot
+	 * 		pivotStrategy = 2: Choose the median of the left, middle and right elements
 	 * 
 	 * @param <T>
 	 *          Generic object that implements Comparable
@@ -211,19 +223,27 @@ public class SortUtil {
 			int middle = left + (right - left) / 2;
 			T pivot;
 			
-			// Sort low, middle or high depending on the pivotChoice 
-			if (pivotChoice == 0) {
+			// Choose the middle element as the pivot
+			if (pivotStrategy == 0) {
 				if (array.get(right).compareTo(array.get(middle)) < 0) {
 					swapReferences(array, middle, right);
 				}
+				
+				// Swap the pivot point to the end
 				swapReferences(array, middle, right - 1);
-			} else if (pivotChoice == 1) {
+				
+			// Choose the first element as the pivot
+			} else if (pivotStrategy == 1) {
 				int quarter = left + (right - left) / 4;
 				if (array.get(right).compareTo(array.get(quarter)) < 0) {
 					swapReferences(array, quarter, right);
 				}
+				
+				// Swap the pivot point to the end
 				swapReferences(array, quarter, right - 1);
-			} else if (pivotChoice == 2) {
+				
+			// Choose the median of the left, middle and right
+			} else if (pivotStrategy == 2) {
 				if (array.get(middle).compareTo(array.get(left)) < 0) {
 					swapReferences(array, left, middle);
 				}
@@ -234,9 +254,11 @@ public class SortUtil {
 					swapReferences(array, middle, right);
 				}
 
+				// Swap the pivot point to the end
 				swapReferences(array, middle, right - 1);
 			}
 			
+			// Set the pivot
 			pivot = array.get(right - 1);
 			
 			// Begin partitioning
@@ -253,7 +275,8 @@ public class SortUtil {
 
 				swapReferences(array, i, j);
 			}
-			// Restore pivot
+			
+			// Restore the pivot
 			swapReferences(array, i, right - 1);
 
 			quicksort(array, left, i - 1);

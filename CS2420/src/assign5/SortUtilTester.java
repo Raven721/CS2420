@@ -252,21 +252,21 @@ public class SortUtilTester {
 		ArrayList<Integer> sortedList = SortUtil.generateSortedOrder(10);
 
 		// Test with pivot choice 0
-		SortUtil.setPivotChoice(0);
+		SortUtil.setPivotStrategy(0);
 
 		SortUtil.quicksort(unsortedList);
 		assertEquals(sortedList, unsortedList);
 		
 		// Test with pivot choice 1
 		unsortedList = SortUtil.generatePermutedOrder(10);
-		SortUtil.setPivotChoice(1);
+		SortUtil.setPivotStrategy(1);
 
 		SortUtil.quicksort(unsortedList);
 		assertEquals(sortedList, unsortedList);
 		
 		// Test with pivot choice 2
 		unsortedList = SortUtil.generatePermutedOrder(10);
-		SortUtil.setPivotChoice(2);
+		SortUtil.setPivotStrategy(2);
 
 		SortUtil.quicksort(unsortedList);
 		assertEquals(sortedList, unsortedList);
@@ -278,21 +278,21 @@ public class SortUtilTester {
 		ArrayList<Integer> sortedList = SortUtil.generateSortedOrder(10);
 		
 		// Test with pivot choice 0
-		SortUtil.setPivotChoice(0);
+		SortUtil.setPivotStrategy(0);
 
 		SortUtil.quicksort(unsortedList);
 		assertEquals(sortedList, unsortedList);
 		
 		// Test with pivot choice 1
 		unsortedList = SortUtil.generateSortedOrder(10);
-		SortUtil.setPivotChoice(1);
+		SortUtil.setPivotStrategy(1);
 
 		SortUtil.quicksort(unsortedList);
 		assertEquals(sortedList, unsortedList);
 		
 		// Test with pivot choice 2
 		unsortedList = SortUtil.generateSortedOrder(10);
-		SortUtil.setPivotChoice(2);
+		SortUtil.setPivotStrategy(2);
 
 		SortUtil.quicksort(unsortedList);
 		assertEquals(sortedList, unsortedList);
@@ -304,21 +304,21 @@ public class SortUtilTester {
 		ArrayList<Integer> sortedList = SortUtil.generateSortedOrder(10);
 		
 		// Test with pivot choice 0
-		SortUtil.setPivotChoice(0);
+		SortUtil.setPivotStrategy(0);
 
 		SortUtil.quicksort(unsortedList);
 		assertEquals(sortedList, unsortedList);
 		
 		// Test with pivot choice 1
 		unsortedList = SortUtil.generateReverseSortedOrder(10);
-		SortUtil.setPivotChoice(1);
+		SortUtil.setPivotStrategy(1);
 
 		SortUtil.quicksort(unsortedList);
 		assertEquals(sortedList, unsortedList);
 		
 		// Test with pivot choice 2
 		unsortedList = SortUtil.generateReverseSortedOrder(10);
-		SortUtil.setPivotChoice(2);
+		SortUtil.setPivotStrategy(2);
 
 		SortUtil.quicksort(unsortedList);
 		assertEquals(sortedList, unsortedList);
@@ -375,9 +375,9 @@ public class SortUtilTester {
 	public void testPivotChoiceWithInvalidInput() {
 		// Exception should be thrown if the input is not between 0 and 2
 		exception.expect(IllegalArgumentException.class);
-		SortUtil.setPivotChoice(-1);
+		SortUtil.setPivotStrategy(-1);
 		
 		exception.expect(IllegalArgumentException.class);
-		SortUtil.setPivotChoice(3);
+		SortUtil.setPivotStrategy(3);
 	}
 }
