@@ -61,7 +61,13 @@ public class TimingAnalysis {
 
 		for (int k = 0; k <= 6; k++) { 
 
-			SortUtil.setInsertionSortThreshold(100000/k);
+			if(k == 0)
+				SortUtil.setInsertionSortThreshold(0);
+			else if(k == 6)
+				SortUtil.setInsertionSortThreshold(100000);
+			else
+				SortUtil.setInsertionSortThreshold(100000/k);
+			
 			ArrayList<Integer> sortedList = SortUtil.generateSortedOrder(100000);
 			
 			System.out.print(100000 + "\t");
