@@ -12,7 +12,8 @@ import java.util.Collections;
  */
 public class SortUtil {
 	
-	private static int MergeToInsertionThreshold = 0;
+	private static int MergeToInsertionThreshold = 5;
+	private static int pivotChoice = 0;
 	
 	/**
 	 * Method for setting the threshold list size when the merge sort should utilize an insertion sort
@@ -70,13 +71,18 @@ public class SortUtil {
 	private static <T extends Comparable<? super T>> void mergesort
 			(ArrayList<T> array, T[] subArray, int leftEnd, int rightEnd) {
 		
-		if(leftEnd +  MergeToInsertionThreshold > rightEnd)
+		if(leftEnd +  MergeToInsertionThreshold > rightEnd){
 			insertionSort(array, leftEnd, rightEnd);
+			System.out.println("Insertion Sort: " + array.toString());
+		}
 		else{
 			int center = (leftEnd + rightEnd) / 2;
 			mergesort(array, subArray, leftEnd, center);
+			System.out.println("Insertion Sort: " + array.toString());
 			mergesort(array, subArray, center + 1, rightEnd);
+			System.out.println("Insertion Sort: " + array.toString());
 			mergeSubArrays(array, subArray, leftEnd, center + 1, rightEnd);
+			System.out.println("Insertion Sort: " + array.toString());
 		}
 	}
 	
@@ -145,6 +151,13 @@ public class SortUtil {
 		}
 	}
 	
+	public static <T extends Comparable<? super T>> void swapReferences(ArrayList<T> arr, int index1, int index2)
+	{
+		T tmp = arr.get(index1);
+		arr.set(index1, arr.get(index2));
+		arr.set(index2, tmp);
+	}
+	
 	/**
 	 * Performs a quicksort on an ArrayList of a given type
 	 * 
@@ -152,7 +165,85 @@ public class SortUtil {
 	 * 			  The array of a given type to be sorted
 	 */
 	public static <T extends Comparable<? super T>> void quicksort(ArrayList<T> array) {
-		
+		quicksort(array, 0, array.size() - 1);
+	}
+	
+	private static <T extends Comparable<? super T>> void quicksort(ArrayList<T> arr, int left, int right)
+	{
+		if(left + MergeToInsertionThreshold > right)
+		{
+			insertionSort(arr, left, right);
+		}
+		else
+		{
+			//Sort low, middle, high
+			int middle = left + (right - left) / 2;
+			T pivot;
+			if(pivotChoice == 0)
+			{
+				if(arr.get(right).compareTo(arr.get(middle)) < 0 )
+				{
+					swapReferences(arr, left, middle);
+				}
+				swapReferences(arr, middle, right - 1);
+			}
+			else if(pivotChoice == 1)
+			{
+				int quarter = left + (right - left) / 4;
+				if(arr.get(right).compareTo(arr.get(quarter)) < 0)
+				{
+					swapReferences(arr, quarter, right);
+				}
+				swapReferences(arr, quarter, right - 1);
+			}
+			else if(pivotChoice == 2)
+			{
+				if(arr.get(middle).compareTo(arr.get(left)) < 0)
+				{
+					swapReferences(arr, left, middle);
+				}
+				if(arr.get(right).compareTo(arr.get(left)) < 0)
+				{
+					swapReferences(arr, left, right);
+				}
+				if(arr.get(right).compareTo(arr.get(middle)) < 0)
+				{
+					swapReferences(arr, middle, right);
+				}
+				
+				swapReferences(arr, middle, right - 1);
+			}
+			else
+			{
+				System.err.println("Invalid pivot choice. Choice defaulted to 1");
+				swapReferences(arr, left, right - 1);
+			}
+			
+			pivot = arr.get(right - 1);
+			int i;
+			int j;
+			for(i = left - 1, j = right - 1;;)
+			{
+				while(i < right - 1 && arr.get(++i).compareTo(pivot) < 0);
+				while(j > left && pivot.compareTo(arr.get(--j)) < 0);
+				if(i >= j)
+				{
+					break;
+				}
+				
+				swapReferences(arr, i , j);
+			}
+			
+			swapReferences(arr, i, right - 1);
+			
+			quicksort(arr, left, i - 1);
+			quicksort(arr, i + 1, right);
+		}
+	}
+	
+	public static void setPivotChoice(int choice)
+	{
+		pivotChoice = choice;
 	}
 	
 	/**

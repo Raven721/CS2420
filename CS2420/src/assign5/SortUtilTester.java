@@ -158,4 +158,18 @@ public class SortUtilTester {
 		exception.expect(IllegalArgumentException.class);
 		SortUtil.mergesort(nullList);
 	}
+	
+	@Test
+	public void testMergeSortWithValidUnsortedList() {
+		ArrayList<Integer> unsortedList = SortUtil.generatePermutedOrder(10);
+		ArrayList<Integer> sortedList = SortUtil.generateSortedOrder(10);
+		
+		SortUtil.setThreshold(2);
+		
+		SortUtil.mergesort(unsortedList);
+		assertEquals(sortedList, unsortedList);
+		
+		
+		
+	}
 }
