@@ -61,11 +61,11 @@ public class TimingAnalysis {
 
 		for (int k = 1; k <= 5; k++) { 
 
-			SortUtil.setInsertionSortThreshold(100000/k);
+			SortUtil.setInsertionSortThreshold(500000/k);
 			
-			ArrayList<Integer> sortedList = SortUtil.generateSortedOrder(100000);
+			ArrayList<Integer> sortedList = SortUtil.generateSortedOrder(500000);
 			
-			System.out.print(100000 + "\t");
+			System.out.print(500000 + "\t");
 
 			// let things stabilize
 			startTime = System.nanoTime();
