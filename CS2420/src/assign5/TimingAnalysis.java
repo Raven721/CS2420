@@ -56,17 +56,12 @@ public class TimingAnalysis {
 
 		System.out.println("----------------------  Timing Analysis: mergesort Threshold Experiment ------------------------");
 		System.out.println("\t\t\t    timesToLoop: " + timesToLoop);
-		System.out.println("\nN\tT(N)  \t|\tK\tT(N)/NlogN\tT(N)/N\t\tT(N)/N^2\tT(N)/N^3");
+		System.out.println("\nN\tT(N)  \t|\tInsertion Point");
 		System.out.println("------------------------------------------------------------------------------------------------");
 
-		for (int k = 0; k <= 6; k++) { 
+		for (int k = 1; k <= 5; k++) { 
 
-			if(k == 0)
-				SortUtil.setInsertionSortThreshold(0);
-			else if(k == 6)
-				SortUtil.setInsertionSortThreshold(100000);
-			else
-				SortUtil.setInsertionSortThreshold(100000/k);
+			SortUtil.setInsertionSortThreshold(100000/k);
 			
 			ArrayList<Integer> sortedList = SortUtil.generateSortedOrder(100000);
 			
