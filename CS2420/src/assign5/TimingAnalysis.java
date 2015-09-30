@@ -61,7 +61,7 @@ public class TimingAnalysis {
 	 */
 	private static void timeMergeSortThresholdExperiment() {
 		long startTime, midptTime, stopTime;
-		long timesToLoop = 200;
+		long timesToLoop = 100;
 
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
@@ -75,7 +75,7 @@ public class TimingAnalysis {
 
 		for (int k = 5; k >= 1; k--) {
 			System.out.println("\t\t\t---------- InsertionSort Threshold: " + k + " -------------\n");
-			for (int N = 1000000; N <= 20000000; N += 1000000) {
+			for (int N = 100000; N <= 1000000; N += 100000) {
 				ArrayList<Integer> sortedList = SortUtil.generatePermutedOrder(N);
 
 				// Set the threshold, print the threshold
@@ -133,7 +133,7 @@ public class TimingAnalysis {
 	 */
 	private static void timeQuickSortThresholdExperiment() {
 		long startTime, midptTime, stopTime;
-		long timesToLoop = 200;
+		long timesToLoop = 100;
 
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
@@ -147,7 +147,7 @@ public class TimingAnalysis {
 
 		for (int k = 0; k <= 2; k++) {
 			System.out.println("\t\t\t---------- Pivot Strategy: " + k + " -------------\n");
-			for (int N = 100000; N <= 2000000; N += 100000) {
+			for (int N = 100000; N <= 1000000; N += 100000) {
 				ArrayList<Integer> sortedList = SortUtil.generatePermutedOrder(N);
 				SortUtil.setInsertionSortThreshold(N / 20);
 
