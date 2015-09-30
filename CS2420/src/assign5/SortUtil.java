@@ -31,6 +31,89 @@ public class SortUtil {
 	 */
 	public static <T extends Comparable<? super T>> void mergesort(ArrayList<T> array) {
 		
+		@SuppressWarnings("unchecked")
+		T[] subArray = (T[]) new Comparable[array.size()];
+		
+		// mergesort(Array to sort, subArray, leftEnd, rightEnd) 
+		mergesort(array, subArray, 0, array.size() - 1);
+	}
+	
+	/**
+	 * Helper method that recursively works through the mergesort 
+	 * 
+	 * @param <T> 
+	 * 				Generic object that implements Comparable
+	 * @param array 
+	 * 				The ArrayList that is to be sorted
+	 * @param subArray 
+	 * 				Temporary array to place the merged result
+	 * @param leftEnd 
+	 * 				Array index of left end of subArray
+	 * @param rightEnd 
+	 * 				Array index of right end of subArray
+	 */
+	private static <T extends Comparable<? super T>> void mergesort
+			(ArrayList<T> array, T[] subArray, int leftEnd, int rightEnd) {
+		
+		if(leftEnd +  MergeToInsertionThreshold > rightEnd)
+			insertionSort(array, leftEnd, rightEnd);
+		else{
+			int center = (leftEnd + rightEnd) / 2;
+			mergesort(array, subArray, leftEnd, center);
+			mergesort(array, subArray, center + 1, rightEnd);
+			mergeSubArrays(array, subArray, leftEnd, center + 1, rightEnd);
+		}
+	}
+	
+	public static <T extends Comparable<? super T>> void mergeSubArrays
+			(ArrayList<T> array, T[] tempArray, int leftPos, int rightPos, int rightEnd) {
+		int leftEnd = rightPos - 1;
+		int tempPos = leftPos;
+		int numElements = rightEnd - leftPos + 1;
+		
+		// Main loop
+		while(leftPos <= leftEnd && rightPos <= rightEnd)
+			if(array.get(leftPos).compareTo(array.get(rightPos)) <= 0)
+				tempArray[tempPos + 1] = array.get(leftPos + 1);
+			else
+				tempArray[tempPos + 1] = array.get(rightPos + 1);
+		
+		// Write while loop for left sub-array
+		while(leftPos <= leftEnd)
+			tempArray[tempPos + 1] = array.get(leftPos + 1);
+		
+		// Write while loop for right sub-array
+		while(rightPos <= rightEnd)
+			tempArray[tempPos + 1] = array.get(rightPos + 1);
+		
+		// Copy from temp array back to array
+		for(int i = 0; i < numElements; i++, rightEnd--)
+			array.set(rightEnd, tempArray[rightEnd]);
+	}
+	
+	/**
+	 * Helper method that performs an insertion sort algorithm on an input array between two indexes
+	 * 
+	 * @param array
+	 * 				Array to be sorted using insertion sort
+	 * @param leftEnd
+	 * 				Index of the left-most element in the input array to be sorted
+	 * @param rightEnd
+	 * 				Index of the right-most element in the input array to be sorted
+	 */
+	private static <T extends Comparable<? super T>> void insertionSort
+			(ArrayList<T> array, int leftEnd, int rightEnd) {
+		// Cycle through the input array between the two input indexes leftEnd and rightEnd
+		for(int i = leftEnd + 1; i <= rightEnd; i++) {
+			T current = array.get(i);
+			int j = i;
+			
+			// Compare and swap elements
+			for(; j > leftEnd && current.compareTo(array.get(j - 1)) < 0; j--) 
+				array.set(j, array.get(j - 1));
+			
+			array.set(j, current);
+		}
 	}
 	
 	/**
@@ -39,7 +122,7 @@ public class SortUtil {
 	 * @param arr 
 	 * 			  The array of a given type to be sorted
 	 */
-	public static <T extends Comparable<? super T>> void quicksort(ArrayList<T> qsArray) {
+	public static <T extends Comparable<? super T>> void quicksort(ArrayList<T> array) {
 		
 	}
 	
