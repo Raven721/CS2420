@@ -13,8 +13,8 @@ import java.util.Collections;
  */
 public class SortUtil {
 
-	// If the insertion sort threshold is never set, default to 0
-	private static int MergeToInsertionThreshold = 0;
+	// If the insertion sort threshold/pivotChoice is never set, default to 0
+	private static int InsertionSortThreshold = 0;
 	private static int pivotChoice = 0;
 
 	/**
@@ -26,7 +26,23 @@ public class SortUtil {
 	 *            over to insertion sort
 	 */
 	public static void setThreshold(int size) {
-		MergeToInsertionThreshold = size;
+		InsertionSortThreshold = size;
+	}
+	
+	/**
+	 * Method for setting the pivot point for the quick sort method
+	 * 
+	 * Input must range between 0 to 2
+	 * 
+	 * @param choice
+	 * 				The selector for the pivot point
+	 */
+	public static void setPivotChoice(int choice) {
+		// Ensure that the input is within the range of 0 to 2
+		if(choice <= 2 && choice >= 0)
+			pivotChoice = choice;
+		else
+			throw new IllegalArgumentException("Pivot choice must be either 0, 1 or 2.");
 	}
 
 	/**
@@ -79,7 +95,7 @@ public class SortUtil {
 	private static <T extends Comparable<? super T>> void mergesort(ArrayList<T> array, T[] tempArray, int leftEnd,
 			int rightEnd) {
 
-		if (leftEnd + MergeToInsertionThreshold > rightEnd) {
+		if (leftEnd + InsertionSortThreshold > rightEnd) {
 			insertionSort(array, leftEnd, rightEnd);
 		} else {
 			int center = (leftEnd + rightEnd) / 2;
@@ -161,13 +177,7 @@ public class SortUtil {
 			array.set(j, current);
 		}
 	}
-
-	public static <T extends Comparable<? super T>> void swapReferences(ArrayList<T> arr, int index1, int index2) {
-		T tmp = arr.get(index1);
-		arr.set(index1, arr.get(index2));
-		arr.set(index2, tmp);
-	}
-
+	
 	/**
 	 * Performs a quicksort on an ArrayList of a given type
 	 * 
@@ -180,13 +190,28 @@ public class SortUtil {
 		quicksort(array, 0, array.size() - 1);
 	}
 
+	/**
+	 * A recursive helper method that performs a quicksort on an ArrayList of a given type
+	 * Uses median-of-three partitioning and a cutoff
+	 * 
+	 * @param <T>
+	 *          Generic object that implements Comparable
+	 * @param array
+	 * 			Input ArrayList to be sorted  
+	 * @param left
+	 * 			Index of the left-most item in the sort
+	 * @param right
+	 * 			Index of the right-most item in the sort
+	 */
 	private static <T extends Comparable<? super T>> void quicksort(ArrayList<T> array, int left, int right) {
-		if (left + MergeToInsertionThreshold > right) {
+		// Cutoff to perform an insertion sort
+		if (left + InsertionSortThreshold > right) {
 			insertionSort(array, left, right);
 		} else {
-			// Sort low, middle, high
 			int middle = left + (right - left) / 2;
 			T pivot;
+			
+			// Sort low, middle or high depending on the pivotChoice 
 			if (pivotChoice == 0) {
 				if (array.get(right).compareTo(array.get(middle)) < 0) {
 					swapReferences(array, middle, right);
@@ -210,12 +235,11 @@ public class SortUtil {
 				}
 
 				swapReferences(array, middle, right - 1);
-			} else {
-				System.err.println("Invalid pivot choice. Choice defaulted to 1");
-				swapReferences(array, left, right - 1);
 			}
-
+			
 			pivot = array.get(right - 1);
+			
+			// Begin partitioning
 			int i;
 			int j;
 			for (i = left - 1, j = right - 1;;) {
@@ -229,16 +253,30 @@ public class SortUtil {
 
 				swapReferences(array, i, j);
 			}
-
+			// Restore pivot
 			swapReferences(array, i, right - 1);
 
 			quicksort(array, left, i - 1);
 			quicksort(array, i + 1, right);
 		}
 	}
-
-	public static void setPivotChoice(int choice) {
-		pivotChoice = choice;
+	
+	/**
+	 * Helper method that swaps two elements with given indexes in an ArrayList
+	 * 
+	 * @param <T>
+	 * 			Generic object that implements Comparable
+	 * @param array
+	 * 			Input ArrayList containing elements to be swapped
+	 * @param index1
+	 * 			Index of the first element to be swapped
+	 * @param index2
+	 * 			Index of the second element to be swapped
+	 */
+	private static <T extends Comparable<? super T>> void swapReferences(ArrayList<T> array, int index1, int index2) {
+		T temp = array.get(index1);
+		array.set(index1, array.get(index2));
+		array.set(index2, temp);
 	}
 
 	/**

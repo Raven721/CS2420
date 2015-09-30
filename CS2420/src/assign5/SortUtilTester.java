@@ -194,6 +194,56 @@ public class SortUtilTester {
 		 SortUtil.mergesort(unsortedList);
 		 assertEquals(sortedList, unsortedList);
 	 }
+	 
+	 @Test
+	 public void testMergeSortWithValidCharacterList() {
+		 ArrayList<Character> unsortedList = new ArrayList<Character>();
+		 ArrayList<Character> sortedList = new ArrayList<Character>();
+		 
+		 unsortedList.add('f');
+		 unsortedList.add('e');
+		 unsortedList.add('d');
+		 unsortedList.add('c');
+		 unsortedList.add('b');
+		 unsortedList.add('a');
+		 
+		 sortedList.add('a');
+		 sortedList.add('b');
+		 sortedList.add('c');
+		 sortedList.add('d');
+		 sortedList.add('e');
+		 sortedList.add('f');
+	
+		 SortUtil.setThreshold(5);
+	
+		 SortUtil.mergesort(unsortedList);
+		 assertEquals(sortedList, unsortedList);
+	 }
+	 
+	 @Test
+	 public void testMergeSortWithValidStringList() {
+		 ArrayList<String> unsortedList = new ArrayList<String>();
+		 ArrayList<String> sortedList = new ArrayList<String>();
+		 
+		 unsortedList.add("facade");
+		 unsortedList.add("epsilon");
+		 unsortedList.add("delta");
+		 unsortedList.add("cantelope");
+		 unsortedList.add("beta");
+		 unsortedList.add("alpha");
+		 
+		 sortedList.add("alpha");
+		 sortedList.add("beta");
+		 sortedList.add("cantelope");
+		 sortedList.add("delta");
+		 sortedList.add("epsilon");
+		 sortedList.add("facade");
+	
+		 SortUtil.setThreshold(5);
+	
+		 SortUtil.mergesort(unsortedList);
+		 assertEquals(sortedList, unsortedList);
+	 }
 
 	//////// quicksort(ArrayList<T> array) ////////
 	@Test
@@ -201,7 +251,22 @@ public class SortUtilTester {
 		ArrayList<Integer> unsortedList = SortUtil.generatePermutedOrder(10);
 		ArrayList<Integer> sortedList = SortUtil.generateSortedOrder(10);
 
+		// Test with pivot choice 0
 		SortUtil.setPivotChoice(0);
+
+		SortUtil.quicksort(unsortedList);
+		assertEquals(sortedList, unsortedList);
+		
+		// Test with pivot choice 1
+		unsortedList = SortUtil.generatePermutedOrder(10);
+		SortUtil.setPivotChoice(1);
+
+		SortUtil.quicksort(unsortedList);
+		assertEquals(sortedList, unsortedList);
+		
+		// Test with pivot choice 2
+		unsortedList = SortUtil.generatePermutedOrder(10);
+		SortUtil.setPivotChoice(2);
 
 		SortUtil.quicksort(unsortedList);
 		assertEquals(sortedList, unsortedList);
@@ -211,23 +276,108 @@ public class SortUtilTester {
 	public void testQuickSortWithValidSortedList() {
 		ArrayList<Integer> unsortedList = SortUtil.generateSortedOrder(10);
 		ArrayList<Integer> sortedList = SortUtil.generateSortedOrder(10);
-
+		
+		// Test with pivot choice 0
 		SortUtil.setPivotChoice(0);
 
 		SortUtil.quicksort(unsortedList);
 		assertEquals(sortedList, unsortedList);
+		
+		// Test with pivot choice 1
+		unsortedList = SortUtil.generateSortedOrder(10);
+		SortUtil.setPivotChoice(1);
 
+		SortUtil.quicksort(unsortedList);
+		assertEquals(sortedList, unsortedList);
+		
+		// Test with pivot choice 2
+		unsortedList = SortUtil.generateSortedOrder(10);
+		SortUtil.setPivotChoice(2);
+
+		SortUtil.quicksort(unsortedList);
+		assertEquals(sortedList, unsortedList);
 	}
 	
 	@Test
 	public void testQuickSortWithValidReverseSortedList() {
 		ArrayList<Integer> unsortedList = SortUtil.generateReverseSortedOrder(10);
 		ArrayList<Integer> sortedList = SortUtil.generateSortedOrder(10);
-
+		
+		// Test with pivot choice 0
 		SortUtil.setPivotChoice(0);
 
 		SortUtil.quicksort(unsortedList);
 		assertEquals(sortedList, unsortedList);
+		
+		// Test with pivot choice 1
+		unsortedList = SortUtil.generateReverseSortedOrder(10);
+		SortUtil.setPivotChoice(1);
 
+		SortUtil.quicksort(unsortedList);
+		assertEquals(sortedList, unsortedList);
+		
+		// Test with pivot choice 2
+		unsortedList = SortUtil.generateReverseSortedOrder(10);
+		SortUtil.setPivotChoice(2);
+
+		SortUtil.quicksort(unsortedList);
+		assertEquals(sortedList, unsortedList);
+	}
+	
+	@Test
+	public void testQuickSortWithValidCharacterList() {
+		 ArrayList<Character> unsortedList = new ArrayList<Character>();
+		 ArrayList<Character> sortedList = new ArrayList<Character>();
+		 
+		 unsortedList.add('f');
+		 unsortedList.add('e');
+		 unsortedList.add('d');
+		 unsortedList.add('c');
+		 unsortedList.add('b');
+		 unsortedList.add('a');
+		 
+		 sortedList.add('a');
+		 sortedList.add('b');
+		 sortedList.add('c');
+		 sortedList.add('d');
+		 sortedList.add('e');
+		 sortedList.add('f');
+	
+		 SortUtil.quicksort(unsortedList);
+		 assertEquals(sortedList, unsortedList);
+	 }
+	
+	 @Test
+	 public void testQuickSortWithValidStringList() {
+		 ArrayList<String> unsortedList = new ArrayList<String>();
+		 ArrayList<String> sortedList = new ArrayList<String>();
+		 
+		 unsortedList.add("facade");
+		 unsortedList.add("epsilon");
+		 unsortedList.add("delta");
+		 unsortedList.add("cantelope");
+		 unsortedList.add("beta");
+		 unsortedList.add("alpha");
+		 
+		 sortedList.add("alpha");
+		 sortedList.add("beta");
+		 sortedList.add("cantelope");
+		 sortedList.add("delta");
+		 sortedList.add("epsilon");
+		 sortedList.add("facade");
+	
+		 SortUtil.quicksort(unsortedList);
+		 assertEquals(sortedList, unsortedList);
+	 }
+	 
+	//////// setPivotChoice(int choice) ////////
+	@Test
+	public void testPivotChoiceWithInvalidInput() {
+		// Exception should be thrown if the input is not between 0 and 2
+		exception.expect(IllegalArgumentException.class);
+		SortUtil.setPivotChoice(-1);
+		
+		exception.expect(IllegalArgumentException.class);
+		SortUtil.setPivotChoice(3);
 	}
 }
