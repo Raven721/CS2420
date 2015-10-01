@@ -41,15 +41,18 @@ public class TimingAnalysis {
 		// Run timing analysis on mergesort(ArrayList<T> array)
 		timeWorstCaseMergeSort();
 
-		// Run timing analysis on quicksort(ArrayList<T> array) with best case, under each pivot strategy
+		// Run timing analysis on quicksort(ArrayList<T> array) with best case,
+		// under each pivot strategy
 		timeBestCaseQuickSort(0);
 		timeBestCaseQuickSort(1);
 		timeBestCaseQuickSort(2);
-		// Run timing analysis on quicksort(ArrayList<T> array) with best average, under each pivot strategy
+		// Run timing analysis on quicksort(ArrayList<T> array) with best
+		// average, under each pivot strategy
 		timeAverageCaseQuickSort(0);
 		timeAverageCaseQuickSort(1);
 		timeAverageCaseQuickSort(2);
-		// Run timing analysis on quicksort(ArrayList<T> array) with best worst, under each pivot strategy
+		// Run timing analysis on quicksort(ArrayList<T> array) with best worst,
+		// under each pivot strategy
 		timeWorstCaseQuickSort(0);
 		timeWorstCaseQuickSort(1);
 		timeWorstCaseQuickSort(2);
@@ -61,7 +64,7 @@ public class TimingAnalysis {
 	 */
 	private static void timeMergeSortThresholdExperiment() {
 		long startTime, midptTime, stopTime;
-		long timesToLoop = 150;
+		long timesToLoop = 15;
 
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
@@ -73,9 +76,9 @@ public class TimingAnalysis {
 		System.out.println(
 				"------------------------------------------------------------------------------------------------");
 
-		for (int k = 5; k >= 1; k--) {
+		for (int k = 1; k <= 5; k++) {
 			System.out.println("\t\t\t---------- InsertionSort Threshold: " + k + " -------------\n");
-			for (int N = 100000; N <= 1000000; N += 100000) {
+			for (int N = 100000; N <= 2000000; N += 100000) {
 				ArrayList<Integer> sortedList = SortUtil.generatePermutedOrder(N);
 
 				// Set the threshold, print the threshold
@@ -112,14 +115,17 @@ public class TimingAnalysis {
 				// time the mergesort routine
 				startTime = System.nanoTime();
 				for (int i = 0; i < timesToLoop; i++) {
+					sortedList = SortUtil.generatePermutedOrder(N);
 					SortUtil.mergesort(sortedList);
 				}
 				midptTime = System.nanoTime();
 
 				// time the empty loop
 				for (int i = 0; i < timesToLoop; i++) {
+					// time resorting the list
+					sortedList = SortUtil.generatePermutedOrder(N);
 				}
-
+				
 				stopTime = System.nanoTime();
 
 				// compute the average time
@@ -139,7 +145,7 @@ public class TimingAnalysis {
 	 */
 	private static void timeQuickSortThresholdExperiment() {
 		long startTime, midptTime, stopTime;
-		long timesToLoop = 100;
+		long timesToLoop = 15;
 
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
@@ -153,7 +159,7 @@ public class TimingAnalysis {
 
 		for (int k = 0; k <= 2; k++) {
 			System.out.println("\t\t\t---------- Pivot Strategy: " + k + " -------------\n");
-			for (int N = 100000; N <= 1000000; N += 100000) {
+			for (int N = 100000; N <= 2000000; N += 100000) {
 				ArrayList<Integer> sortedList = SortUtil.generatePermutedOrder(N);
 				SortUtil.setInsertionSortThreshold(N / 20);
 
@@ -178,12 +184,14 @@ public class TimingAnalysis {
 				// time the mergesort routine
 				startTime = System.nanoTime();
 				for (int i = 0; i < timesToLoop; i++) {
+					sortedList = SortUtil.generatePermutedOrder(N);
 					SortUtil.quicksort(sortedList);
 				}
 				midptTime = System.nanoTime();
 
-				// time the empty loop
+				// time the empty loop and the resorting or array
 				for (int i = 0; i < timesToLoop; i++) {
+					sortedList = SortUtil.generatePermutedOrder(N);
 				}
 
 				stopTime = System.nanoTime();
@@ -233,12 +241,14 @@ public class TimingAnalysis {
 			// time the mergesort routine
 			startTime = System.nanoTime();
 			for (int i = 0; i < timesToLoop; i++) {
+				sortedList = SortUtil.generateSortedOrder(N);
 				SortUtil.mergesort(sortedList);
 			}
 			midptTime = System.nanoTime();
 
-			// time the empty loop
+			// time the empty loop and sorting array
 			for (int i = 0; i < timesToLoop; i++) {
+				sortedList = SortUtil.generateSortedOrder(N);
 			}
 
 			stopTime = System.nanoTime();
@@ -290,12 +300,14 @@ public class TimingAnalysis {
 			// time the mergesort routine
 			startTime = System.nanoTime();
 			for (int i = 0; i < timesToLoop; i++) {
+				sortedList = SortUtil.generatePermutedOrder(N);
 				SortUtil.mergesort(sortedList);
 			}
 			midptTime = System.nanoTime();
 
-			// time the empty loop
+			// time the empty loop and generating array
 			for (int i = 0; i < timesToLoop; i++) {
+				sortedList = SortUtil.generatePermutedOrder(N);
 			}
 
 			stopTime = System.nanoTime();
@@ -347,12 +359,14 @@ public class TimingAnalysis {
 			// time the mergesort routine
 			startTime = System.nanoTime();
 			for (int i = 0; i < timesToLoop; i++) {
+				reverseSortedList = SortUtil.generateReverseSortedOrder(N);
 				SortUtil.mergesort(reverseSortedList);
 			}
 			midptTime = System.nanoTime();
 
-			// time the empty loop
+			// time the empty loop and generating sorted array
 			for (int i = 0; i < timesToLoop; i++) {
+				reverseSortedList = SortUtil.generateReverseSortedOrder(N);
 			}
 
 			stopTime = System.nanoTime();
@@ -406,12 +420,14 @@ public class TimingAnalysis {
 			// time the quicksort routine
 			startTime = System.nanoTime();
 			for (int i = 0; i < timesToLoop; i++) {
+				sortedList = SortUtil.generateSortedOrder(N);
 				SortUtil.quicksort(sortedList);
 			}
 			midptTime = System.nanoTime();
 
-			// time the empty loop
+			// time the empty loop and generating sorted array
 			for (int i = 0; i < timesToLoop; i++) {
+				sortedList = SortUtil.generateSortedOrder(N);
 			}
 
 			stopTime = System.nanoTime();
@@ -452,7 +468,7 @@ public class TimingAnalysis {
 
 			SortUtil.setInsertionSortThreshold(N / 20);
 			SortUtil.setPivotStrategy(pivotStrategy);
-			
+
 			ArrayList<Integer> sortedList = SortUtil.generatePermutedOrder(N);
 
 			System.out.print(N + "\t");
@@ -465,12 +481,14 @@ public class TimingAnalysis {
 			// time the quicksort routine
 			startTime = System.nanoTime();
 			for (int i = 0; i < timesToLoop; i++) {
+				sortedList = SortUtil.generatePermutedOrder(N);
 				SortUtil.quicksort(sortedList);
 			}
 			midptTime = System.nanoTime();
 
-			// time the empty loop
+			// time the empty loop and generating sorted array
 			for (int i = 0; i < timesToLoop; i++) {
+				sortedList = SortUtil.generatePermutedOrder(N);
 			}
 
 			stopTime = System.nanoTime();
@@ -512,7 +530,7 @@ public class TimingAnalysis {
 			// Set the static fields
 			SortUtil.setInsertionSortThreshold(N / 20);
 			SortUtil.setPivotStrategy(pivotStrategy);
-			
+
 			ArrayList<Integer> reverseSortedList = SortUtil.generateReverseSortedOrder(N);
 
 			System.out.print(N + "\t");
@@ -525,12 +543,14 @@ public class TimingAnalysis {
 			// time the quicksort routine
 			startTime = System.nanoTime();
 			for (int i = 0; i < timesToLoop; i++) {
+				reverseSortedList = SortUtil.generateReverseSortedOrder(N);
 				SortUtil.quicksort(reverseSortedList);
 			}
 			midptTime = System.nanoTime();
 
-			// time the empty loop
+			// time the empty loop and generating sorted array
 			for (int i = 0; i < timesToLoop; i++) {
+				reverseSortedList = SortUtil.generateReverseSortedOrder(N);
 			}
 
 			stopTime = System.nanoTime();

@@ -28,22 +28,23 @@ public class SortUtil {
 	public static void setInsertionSortThreshold(int size) {
 		insertionSortThreshold = size;
 	}
-	
+
 	/**
-	 * Method for setting the pivot strategy to be used with the quicksort algorithm
+	 * Method for setting the pivot strategy to be used with the quicksort
+	 * algorithm
 	 * 
 	 * Input must range between 0 to 2
 	 * 
-	 * 		pivotStrategy = 0: Choose the middle element as the pivot
-	 * 		pivotStrategy = 1: Choose the first element as the pivot
-	 * 		pivotStrategy = 2: Choose the median of the left, middle and right elements
+	 * pivotStrategy = 0: Choose the middle element as the pivot pivotStrategy =
+	 * 1: Choose the first element as the pivot pivotStrategy = 2: Choose the
+	 * median of the left, middle and right elements
 	 * 
 	 * @param strategy
-	 * 				The selector for the pivot point
+	 *            The selector for the pivot point
 	 */
 	public static void setPivotStrategy(int strategy) {
 		// Ensure that the input is within the range of 0 to 2
-		if(strategy <= 2 && strategy >= 0)
+		if (strategy <= 2 && strategy >= 0)
 			pivotStrategy = strategy;
 		else
 			throw new IllegalArgumentException("Pivot strategy selection must be either 0, 1 or 2.");
@@ -76,7 +77,6 @@ public class SortUtil {
 
 		@SuppressWarnings("unchecked")
 		T[] tempArray = (T[]) new Comparable[array.size()];
-		
 
 		// mergesort(Array to sort, subArray, leftEnd, rightEnd)
 		mergesort(array, tempArray, 0, array.size() - 1);
@@ -99,9 +99,10 @@ public class SortUtil {
 	private static <T extends Comparable<? super T>> void mergesort(ArrayList<T> array, T[] tempArray, int leftEnd,
 			int rightEnd) {
 
-		if (leftEnd + insertionSortThreshold > rightEnd) {
+		if (rightEnd - leftEnd < insertionSortThreshold) {
 			insertionSort(array, leftEnd, rightEnd);
-		} else {
+			return;
+		} else if (leftEnd < rightEnd){
 			int center = (leftEnd + rightEnd) / 2;
 			mergesort(array, tempArray, leftEnd, center);
 			mergesort(array, tempArray, center + 1, rightEnd);
@@ -127,19 +128,19 @@ public class SortUtil {
 	 */
 	private static <T extends Comparable<? super T>> void mergeSubArrays(ArrayList<T> array, T[] tempArray, int leftPos,
 			int rightPos, int rightEnd) {
-		
+
 		int leftEnd = rightPos - 1;
 		int tempPos = leftPos;
 		int numElements = rightEnd - leftPos + 1;
 
 		// Main loop
-		while (leftPos <= leftEnd && rightPos <= rightEnd) { 
+		while (leftPos <= leftEnd && rightPos <= rightEnd) {
 			if (array.get(leftPos).compareTo(array.get(rightPos)) <= 0)
 				tempArray[tempPos++] = array.get(leftPos++);
 			else
 				tempArray[tempPos++] = array.get(rightPos++);
 		}
-		
+
 		// Write while loop for left sub-array
 		while (leftPos <= leftEnd)
 			tempArray[tempPos++] = array.get(leftPos++);
@@ -175,19 +176,20 @@ public class SortUtil {
 			int j = i;
 
 			// Compare and swap elements
-			for (; j > leftEnd && current.compareTo(array.get(j - 1)) < 0; j--)
+			for (; j > leftEnd && current.compareTo(array.get(j - 1)) <= 0; j--)
 				array.set(j, array.get(j - 1));
 
 			array.set(j, current);
 		}
 	}
-	
+
 	/**
-	 * Performs a quicksort on an ArrayList of a given type with multiple pivot strategies
+	 * Performs a quicksort on an ArrayList of a given type with multiple pivot
+	 * strategies
 	 * 
-	 *  	pivotStrategy = 0: Choose the middle element as the pivot
-	 * 		pivotStrategy = 1: Choose the first element as the pivot
-	 * 		pivotStrategy = 2: Choose the median of the left, middle and right elements
+	 * pivotStrategy = 0: Choose the middle element as the pivot pivotStrategy =
+	 * 1: Choose the first element as the pivot pivotStrategy = 2: Choose the
+	 * median of the left, middle and right elements
 	 * 
 	 * @param <T>
 	 *            Generic object that implements Comparable
@@ -199,50 +201,51 @@ public class SortUtil {
 	}
 
 	/**
-	 * A recursive helper method that performs a quicksort on an ArrayList of a given type
-	 * This method contains three selectable strategies for performing the quicksort:
+	 * A recursive helper method that performs a quicksort on an ArrayList of a
+	 * given type This method contains three selectable strategies for
+	 * performing the quicksort:
 	 * 
-	 * 		pivotStrategy = 0: Choose the middle element as the pivot
-	 * 		pivotStrategy = 1: Choose the first element as the pivot
-	 * 		pivotStrategy = 2: Choose the median of the left, middle and right elements
+	 * pivotStrategy = 0: Choose the middle element as the pivot pivotStrategy =
+	 * 1: Choose the first element as the pivot pivotStrategy = 2: Choose the
+	 * median of the left, middle and right elements
 	 * 
 	 * @param <T>
-	 *          Generic object that implements Comparable
+	 *            Generic object that implements Comparable
 	 * @param array
-	 * 			Input ArrayList to be sorted  
+	 *            Input ArrayList to be sorted
 	 * @param left
-	 * 			Index of the left-most item in the sort
+	 *            Index of the left-most item in the sort
 	 * @param right
-	 * 			Index of the right-most item in the sort
+	 *            Index of the right-most item in the sort
 	 */
 	private static <T extends Comparable<? super T>> void quicksort(ArrayList<T> array, int left, int right) {
 		// Cutoff to perform an insertion sort
-		if (left + insertionSortThreshold > right) {
+		if (right - left < insertionSortThreshold) {
 			insertionSort(array, left, right);
 		} else {
 			int middle = left + (right - left) / 2;
 			T pivot;
-			
+
 			// Choose the middle element as the pivot
 			if (pivotStrategy == 0) {
 				if (array.get(right).compareTo(array.get(middle)) < 0) {
 					swapReferences(array, middle, right);
 				}
-				
+
 				// Swap the pivot point to the end
 				swapReferences(array, middle, right - 1);
-				
-			// Choose the first element as the pivot
+
+				// Choose the first element as the pivot
 			} else if (pivotStrategy == 1) {
 				int quarter = left + (right - left) / 4;
 				if (array.get(right).compareTo(array.get(quarter)) < 0) {
 					swapReferences(array, quarter, right);
 				}
-				
+
 				// Swap the pivot point to the end
 				swapReferences(array, quarter, right - 1);
-				
-			// Choose the median of the left, middle and right
+
+				// Choose the median of the left, middle and right
 			} else if (pivotStrategy == 2) {
 				if (array.get(middle).compareTo(array.get(left)) < 0) {
 					swapReferences(array, left, middle);
@@ -257,10 +260,10 @@ public class SortUtil {
 				// Swap the pivot point to the end
 				swapReferences(array, middle, right - 1);
 			}
-			
+
 			// Set the pivot
 			pivot = array.get(right - 1);
-			
+
 			// Begin partitioning
 			int i;
 			int j;
@@ -275,7 +278,7 @@ public class SortUtil {
 
 				swapReferences(array, i, j);
 			}
-			
+
 			// Restore the pivot
 			swapReferences(array, i, right - 1);
 
@@ -283,18 +286,18 @@ public class SortUtil {
 			quicksort(array, i + 1, right);
 		}
 	}
-	
+
 	/**
 	 * Helper method that swaps two elements with given indexes in an ArrayList
 	 * 
 	 * @param <T>
-	 * 			Generic object that implements Comparable
+	 *            Generic object that implements Comparable
 	 * @param array
-	 * 			Input ArrayList containing elements to be swapped
+	 *            Input ArrayList containing elements to be swapped
 	 * @param index1
-	 * 			Index of the first element to be swapped
+	 *            Index of the first element to be swapped
 	 * @param index2
-	 * 			Index of the second element to be swapped
+	 *            Index of the second element to be swapped
 	 */
 	private static <T extends Comparable<? super T>> void swapReferences(ArrayList<T> array, int index1, int index2) {
 		T temp = array.get(index1);
