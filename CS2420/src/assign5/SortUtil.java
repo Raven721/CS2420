@@ -237,7 +237,7 @@ public class SortUtil {
 
 				// Choose the first element as the pivot
 			} else if (pivotStrategy == 1) {
-				int quarter = left + (right - left) / 4;
+				int quarter = left;
 				if (array.get(right).compareTo(array.get(quarter)) < 0) {
 					swapReferences(array, quarter, right);
 				}

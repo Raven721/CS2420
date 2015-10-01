@@ -88,21 +88,21 @@ public class TimingAnalysis {
 					actualThreshold = 1;
 					System.out.print("(1)\t");
 				} else if (k == 2) {
-					SortUtil.setInsertionSortThreshold(N / 2);
-					actualThreshold = N / 2;
-					System.out.print("(N / 2)\t");
+					SortUtil.setInsertionSortThreshold(3);
+					actualThreshold = 3;
+					System.out.print("(3)\t");
 				} else if (k == 3) {
-					SortUtil.setInsertionSortThreshold(N / 4);
-					actualThreshold = N / 4;
-					System.out.print("(N / 4)\t");
+					SortUtil.setInsertionSortThreshold(15);
+					actualThreshold = 15;
+					System.out.print("(15)\t");
 				} else if (k == 4) {
-					SortUtil.setInsertionSortThreshold(N / 10);
-					actualThreshold = N / 10;
-					System.out.print("(N / 10)\t");
+					SortUtil.setInsertionSortThreshold(50);
+					actualThreshold = 50;
+					System.out.print("(50)\t");
 				} else if (k == 5) {
-					SortUtil.setInsertionSortThreshold(N / 20);
-					actualThreshold = N / 20;
-					System.out.print("(N / 20)\t");
+					SortUtil.setInsertionSortThreshold(N / 1000);
+					actualThreshold = N / 1000;
+					System.out.print("(N / 500)\t");
 				}
 
 				System.out.print(N + "\t");
@@ -145,7 +145,7 @@ public class TimingAnalysis {
 	 */
 	private static void timeQuickSortThresholdExperiment() {
 		long startTime, midptTime, stopTime;
-		long timesToLoop = 15;
+		long timesToLoop = 35;
 
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
@@ -157,11 +157,11 @@ public class TimingAnalysis {
 		System.out.println(
 				"------------------------------------------------------------------------------------------------");
 
-		for (int k = 0; k <= 2; k++) {
+		for (int k = 1; k <= 2; k++) {
 			System.out.println("\t\t\t---------- Pivot Strategy: " + k + " -------------\n");
 			for (int N = 100000; N <= 2000000; N += 100000) {
 				ArrayList<Integer> sortedList = SortUtil.generatePermutedOrder(N);
-				SortUtil.setInsertionSortThreshold(N / 20);
+				SortUtil.setInsertionSortThreshold(1);
 
 				// Set the pivot, print the pivot
 				if (k == 0) {
@@ -214,7 +214,7 @@ public class TimingAnalysis {
 	 */
 	private static void timeBestCaseMergeSort() {
 		long startTime, midptTime, stopTime;
-		long timesToLoop = 200;
+		long timesToLoop = 150;
 
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
@@ -228,7 +228,7 @@ public class TimingAnalysis {
 
 		for (int N = 100000; N <= 2000000; N += 100000) {
 
-			SortUtil.setInsertionSortThreshold(N / 20);
+			SortUtil.setInsertionSortThreshold(15);
 			ArrayList<Integer> sortedList = SortUtil.generateSortedOrder(N);
 
 			System.out.print(N + "\t");
@@ -273,7 +273,7 @@ public class TimingAnalysis {
 	 */
 	private static void timeAverageCaseMergeSort() {
 		long startTime, midptTime, stopTime;
-		long timesToLoop = 200;
+		long timesToLoop = 150;
 
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
@@ -287,7 +287,7 @@ public class TimingAnalysis {
 
 		for (int N = 100000; N <= 2000000; N += 100000) {
 
-			SortUtil.setInsertionSortThreshold(N / 20);
+			SortUtil.setInsertionSortThreshold(15);
 			ArrayList<Integer> sortedList = SortUtil.generatePermutedOrder(N);
 
 			System.out.print(N + "\t");
@@ -332,7 +332,7 @@ public class TimingAnalysis {
 	 */
 	private static void timeWorstCaseMergeSort() {
 		long startTime, midptTime, stopTime;
-		long timesToLoop = 200;
+		long timesToLoop = 150;
 
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
@@ -346,7 +346,7 @@ public class TimingAnalysis {
 
 		for (int N = 100000; N <= 2000000; N += 100000) {
 
-			SortUtil.setInsertionSortThreshold(N / 20);
+			SortUtil.setInsertionSortThreshold(15);
 			ArrayList<Integer> reverseSortedList = SortUtil.generateReverseSortedOrder(N);
 
 			System.out.print(N + "\t");
@@ -391,7 +391,7 @@ public class TimingAnalysis {
 	 */
 	private static void timeBestCaseQuickSort(int pivotStrategy) {
 		long startTime, midptTime, stopTime;
-		long timesToLoop = 200;
+		long timesToLoop = 150;
 
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
@@ -406,7 +406,7 @@ public class TimingAnalysis {
 		for (int N = 100000; N <= 2000000; N += 100000) {
 
 			// Set the static fields
-			SortUtil.setInsertionSortThreshold(N / 20);
+			SortUtil.setInsertionSortThreshold(1);
 			SortUtil.setPivotStrategy(pivotStrategy);
 			ArrayList<Integer> sortedList = SortUtil.generateSortedOrder(N);
 
@@ -452,7 +452,7 @@ public class TimingAnalysis {
 	 */
 	private static void timeAverageCaseQuickSort(int pivotStrategy) {
 		long startTime, midptTime, stopTime;
-		long timesToLoop = 200;
+		long timesToLoop = 75;
 
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
@@ -466,7 +466,7 @@ public class TimingAnalysis {
 
 		for (int N = 100000; N <= 2000000; N += 100000) {
 
-			SortUtil.setInsertionSortThreshold(N / 20);
+			SortUtil.setInsertionSortThreshold(1);
 			SortUtil.setPivotStrategy(pivotStrategy);
 
 			ArrayList<Integer> sortedList = SortUtil.generatePermutedOrder(N);
@@ -513,7 +513,7 @@ public class TimingAnalysis {
 	 */
 	private static void timeWorstCaseQuickSort(int pivotStrategy) {
 		long startTime, midptTime, stopTime;
-		long timesToLoop = 200;
+		long timesToLoop = 75;
 
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
@@ -528,7 +528,7 @@ public class TimingAnalysis {
 		for (int N = 100000; N <= 2000000; N += 100000) {
 
 			// Set the static fields
-			SortUtil.setInsertionSortThreshold(N / 20);
+			SortUtil.setInsertionSortThreshold(1);
 			SortUtil.setPivotStrategy(pivotStrategy);
 
 			ArrayList<Integer> reverseSortedList = SortUtil.generateReverseSortedOrder(N);
