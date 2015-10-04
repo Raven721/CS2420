@@ -155,16 +155,19 @@
             <classpath refid="CS2420.classpath"/>
         </java>
     </target>
+              	
     <target name="TimingAnalysis">
         <java classname="assign3.TimingAnalysis" failonerror="true" fork="yes">
             <classpath refid="CS2420.classpath"/>
         </java>
     </target>
+              	
     <target name="TimingExperiment08">
         <java classname="assign3.TimingExperiment08" failonerror="true" fork="yes">
             <classpath refid="CS2420.classpath"/>
         </java>
     </target>
+        	
     <target name="MyLinkedListTester">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
@@ -173,6 +176,7 @@
             <classpath refid="CS2420.classpath"/>
         </junit>
     </target>
+              	
     <target name="junitreport">
         <junitreport todir="${junit.output.dir}">
             <fileset dir="${junit.output.dir}">
