@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <project name="java-junit-template-project" default="test" basedir="CS2420">
-	<property name="main.build.dir" value="src/assign6" />
+	<property name="main.build.dir" value="build" />
 	<property name="main.src.dir" value="src/assign6" />
-	<property name="test.build.dir" value="src/assign6" />
+	<property name="test.build.dir" value="build" />
 	<property name="test.src.dir" value="src/assign6" />
 
 	<path id="classpath.base" />
