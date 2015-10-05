@@ -3,7 +3,7 @@
     <resolvers>
         <ibiblio name="central" m2compatible="true"/>
         <filesystem name="local">
-            <artifact pattern="${ivy.settings.dir}/CS2420/lib/[artifact]-[revision].[ext]"/>
+            <artifact pattern="${ivy.settings.dir}/CS2420/lib/[artifact].[ext]"/>
         </filesystem>
     </resolvers>
     <modules>
