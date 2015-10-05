@@ -38,7 +38,7 @@
 	<property name="test.src.dir" location="CS2420/src/assign6" />
 	<property name="build.dir" location="CS2420/build" />
 	<property name="classes.dir" location="${build.dir}/classes" />
-	<property name="test.classes.dir" location="${build.dir}/test-classes" />
+	<property name="test.classes.dir" location="${build.dir}/classes" />
 	<property name="ivy.reports.dir" location="${build.dir}/ivy-reports" />
 	<property name="test.reports.dir" location="${build.dir}/test-reports" />
 
