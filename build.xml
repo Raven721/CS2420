@@ -1,4 +1,4 @@
-<project name="demo" default="build" xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="UnitTesting" default="build" xmlns:ivy="antlib:org.apache.ivy.ant">
 
     <!--
     ================
