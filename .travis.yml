@@ -1,3 +1,4 @@
 language: java
-install: ant init
+before_install: ant init-ivy
+install: ant resolve
 script: ant test
