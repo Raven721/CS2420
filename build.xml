@@ -97,7 +97,7 @@
     ============
     -->
 	<target name="test" depends="compile-tests">
-		<junit printsummary="yes" haltonfailure="no">
+		<junit printsummary="yes" haltonfailure="no" showoutput="true">
 			<classpath>
 				<path refid="test.path" />
 				<pathelement path="${classes.dir}" />
