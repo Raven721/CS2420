@@ -8,8 +8,8 @@
 	<path id="classpath.base" />
 
 	<path id="classpath.test">
-		<pathelement location="CS2420/lib/junit.jar" />
-		<pathelement location="CS2420/lib/org.hamcrest.core_1.3.0.v201303031735.jar" />
+		<pathelement location="../CS2420/lib/junit.jar" />
+		<pathelement location="../../CS2420/lib/org.hamcrest.core_1.3.0.v201303031735.jar" />
 		<pathelement location="${main.build.dir}" />
 		<path refid="classpath.base" />
 	</path>
@@ -19,6 +19,8 @@
 	<target name="compile">
 		<mkdir dir="${main.build.dir}" />
 		<javac srcdir="${main.src.dir}" destdir="${main.build.dir}" includeantruntime="false" classpathref="CS2420/lib/junit.jar">
+			<echo message="The following classpath is associated with junit.class.path " />
+			<echo message="${echo.test.src.dir}" />
 			<classpath refid="classpath.base" />
 		</javac>
 	</target>
