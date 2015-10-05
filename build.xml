@@ -1,147 +1,57 @@
-<project name="UnitTesting" default="build" xmlns:ivy="antlib:org.apache.ivy.ant">
+<?xml version="1.0"?>
+<project name="java-junit-template-project" default="test" basedir="CS2420">
+	<property name="main.build.dir" value="src/assign6" />
+	<property name="main.src.dir" value="src/assign6" />
+	<property name="test.build.dir" value="src/assign6" />
+	<property name="test.src.dir" value="src/assign6" />
 
-	<property name="ivy.install.version" value="2.1.0-rc2" />
-	<condition property="ivy.home" value="${env.IVY_HOME}">
-		<isset property="env.IVY_HOME" />
-	</condition>
-	<property name="ivy.home" value="${user.home}/.ant" />
-	<property name="ivy.jar.dir" value="${ivy.home}/lib" />
-	<property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar" />
+	<path id="classpath.base" />
 
-	<target name="download-ivy" unless="offline">
-
-		<mkdir dir="${ivy.jar.dir}" />
-		<!-- download Ivy from web site so that it can be used even without -
-	    - any special installation -->
-		<get src="http://repo2.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar" dest="${ivy.jar.file}" usetimestamp="true" />
-	</target>
-
-	<target name="init-ivy" depends="download-ivy">
-		<!-- try to load ivy here from ivy home, in case the user has not -
-	  - already dropped it into ant's lib dir (note that the latter copy -
-	  - will always take precedence). We will not fail as long as local -
-	  - lib dir exists (it may be empty) and ivy is in at least one of -
-	  - ant's lib dir or the local lib dir. -->
-		<path id="ivy.lib.path">
-			<fileset dir="${ivy.jar.dir}" includes="*.jar" />
-
-		</path>
-		<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path" />
-	</target>
-
-	<!--
-    ================
-    Build properties
-    ================
-    -->
-	<property name="src.dir" location="CS2420/src/assign6" />
-	<property name="test.src.dir" location="CS2420/src/assign6" />
-	<property name="build.dir" location="CS2420/build" />
-	<property name="classes.dir" location="${build.dir}/classes" />
-	<property name="test.classes.dir" location="${build.dir}/classes" />
-	<property name="ivy.reports.dir" location="${build.dir}/ivy-reports" />
-	<property name="test.reports.dir" location="${build.dir}/test-reports" />
-
-	<!--
-    ================
-    ClassPath for Junit.jar
-    ================
-    -->
-
-	<path id="dep.path">
-		<pathelement location="CS2420/CS2420/lib/junit.jar" />
-		<pathelement location="CS2420/CS2420/lib/org.hamcrest.core_1.3.0.v201303031735.jar" />
+	<path id="classpath.test">
+		<pathelement location="lib/junit.jar" />
+		<pathelement location="lib/hamcrest-core-1.3.jar" />
+		<pathelement location="${main.build.dir}" />
+		<path refid="classpath.base" />
 	</path>
 
-	<!--
-    ===========
-    Build setup
-    ===========
-    -->
-	<target name="init">
-		<ivy:resolve />
+	<target name="test" depends="run, clean" />
 
-		<ivy:report todir='${ivy.reports.dir}' graph='false' xml='false' />
-
-		<ivy:cachepath pathid="compile.path" conf="compile" />
-		<ivy:cachepath pathid="runtime.path" conf="runtime" />
-		<ivy:cachepath pathid="test.path" conf="test" />
-
-		<mkdir dir="${classes.dir}" />
-		<mkdir dir="${test.classes.dir}" />
-		<mkdir dir="${test.reports.dir}" />
-	</target>
-
-	<!--
-    ===============
-    Compile targets
-    ===============
-    -->
-	<target name="compile" depends="init">
-
-		<javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false" debug="true" classpath="CS2420/lib/junit.jar" />
-	</target>
-
-	<target name="compile-tests" depends="compile">
-		<javac srcdir="${test.src.dir}" destdir="${test.classes.dir}" includeantruntime="false" debug="true" classpath="CS2420/lib/junit.jar">
-			<classpath>
-				<path refid="test.path" />
-				<pathelement path="${classes.dir}" />
-			</classpath>
+	<target name="compile">
+		<mkdir dir="${main.build.dir}" />
+		<javac srcdir="${main.src.dir}" destdir="${main.build.dir}" includeantruntime="false">
+			<classpath refid="classpath.base" />
 		</javac>
 	</target>
 
-	<!--
-    ============
-    Test targets
-    ============
-    -->
-	<target name="test" depends="compile-tests">
-		<junit printsummary="yes" haltonfailure="no" showoutput="true">
-			<classpath>
-				<path refid="test.path" />
-				<pathelement path="${classes.dir}" />
-				<pathelement path="${test.classes.dir}" />
+	<target name="build" depends="compile">
+		<mkdir dir="${test.build.dir}" />
+		<javac srcdir="${test.src.dir}" destdir="${test.build.dir}" includeantruntime="false">
+			<classpath refid="classpath.test" />
+		</javac>
+		<echo message="Build done" />
+	</target>
 
+	<!-- Test and build all files  -->
+	<!-- To run this: use "ant" (default) or "ant run" -->
+	<target name="run" depends="build">
+		<junit printsummary="on" haltonfailure="yes">
+			<classpath>
+				<path refid="classpath.test" />
+				<pathelement location="${test.build.dir}" />
 			</classpath>
-			<formatter type="plain" usefile="false" />
-			<!-- <formatter type="xml" /> -->
-			<batchtest fork="yes" todir="${test.reports.dir}">
-				<fileset dir="${test.src.dir}">
-					<include name="**/*Test*.java" />
-					<exclude name="**/AllTests.java" />
-				</fileset>
+			<formatter type="brief" usefile="false" />
+			<batchtest>
+				<fileset dir="${test.src.dir}" includes="**/*Test*.java" />
 			</batchtest>
 		</junit>
 	</target>
 
-	<!--
-    =====================
-    Build and run targets
-    =====================
-    -->
-	<target name="build" depends="test" />
-
-	<target name="run" depends="build">
-		<java classname="assign6.MyLinkedList">
-			<classpath>
-				<path refid="runtime.path" />
-				<pathelement location="${classes.dir}" />
-			</classpath>
-		</java>
-	</target>
-
-	<!--
-    =============
-    Clean targets
-    =============
-    -->
+	<!-- delete all class files -->
+	<!-- To run this: use "ant clean" -->
 	<target name="clean">
-		<delete dir="${build.dir}" />
+		<delete>
+			<fileset dir="${basedir}" includes="**/*.class" />
+		</delete>
+		<echo message="clean done" />
 	</target>
-
-	<target name="clean-all" depends="clean">
-		<ivy:cleancache />
-	</target>
-
 </project>
