@@ -104,7 +104,8 @@
 				<pathelement path="${test.classes.dir}" />
 
 			</classpath>
-			<formatter type="xml" />
+			<formatter type="plain" usefile="false" />
+			<!-- <formatter type="xml" /> -->
 			<batchtest fork="yes" todir="${test.reports.dir}">
 				<fileset dir="${test.src.dir}">
 					<include name="**/*Test*.java" />
