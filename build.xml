@@ -41,7 +41,7 @@
 			</classpath>
 			<formatter type="brief" usefile="false" />
 			<batchtest>
-				<fileset dir="${test.build.dir}/assign6" includes="**/*Test*.class" />
+				<fileset dir="${test.build.dir}" includes="/assign6/**/*Test*.class" />
 			</batchtest>
 		</junit>
 		<fail message="test failed" if="test.failure" />
