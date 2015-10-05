@@ -42,7 +42,7 @@
 			<formatter type="brief" usefile="false" />
 			<batchtest>
 				<echoproperties/>
-				<fileset dir="${test.src.dir}" includes="**/MyLinkedListTester.java" echoproperties="true"/>
+				<fileset dir="${test.src.dir}/assign6" includes="**/MyLinkedListTester.java" echoproperties="true"/>
 				<echoproperties/>
 			</batchtest>
 		</junit>
