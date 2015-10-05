@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project name="MyLinkedListTester Test" default="build" basedir="CS2420">
 	<property name="main.build.dir" value="build/main" />
-	<property name="main.src.dir" value="src" />
+	<property name="main.src.dir" value="src/assign6" />
 	<property name="test.build.dir" value="build/main" />
-	<property name="test.src.dir" value="src" />
+	<property name="test.src.dir" value="src/assign6" />
 
 	<path id="classpath.base" />
 
