@@ -41,7 +41,19 @@
 	<property name="test.classes.dir" location="${build.dir}/test-classes" />
 	<property name="ivy.reports.dir" location="${build.dir}/ivy-reports" />
 	<property name="test.reports.dir" location="${build.dir}/test-reports" />
-
+	
+	<!--
+    ================
+    ClassPath for Junit.jar
+    ================
+    -->
+	
+	<path id="class.path"> 
+		<pathelement location="../project/classes"/> 
+			<pathelement location="CS2420/lib/Junit.jar"/> 
+			<pathelement location="CS2420/lib/org.hamcrest.core_1.3.0.v201303031735.jar"/> 
+	</path>
+	
 	<!--
     ===========
     Build setup
@@ -68,21 +80,14 @@
     -->
 	<target name="compile" depends="init">
 
-		<!-- Make sure these two libraries are included -->
-		<classpath location="CS2420/lib/junit-4.11.jar" />
-		<classpath location="CS2420/lib/org.hamcrest.core_1.3.0.v201303031735.jar" />
+		
 
 		<javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false" debug="true" classpathref="compile.path" />
 	</target>
 
 	<target name="compile-tests" depends="compile">
-		<javac srcdir="${test.src.dir}" destdir="${test.classes.dir}" includeantruntime="false" debug="true">
+		<javac srcdir="${test.src.dir}" destdir="${test.classes.dir}" includeantruntime="false" debug="true" classpathref="class.path">
 			<classpath>
-
-				<!-- Make sure these two libraries are included -->
-				<classpath location="CS2420/lib/junit.jar" />
-				<classpath location="CS2420/lib/org.hamcrest.core_1.3.0.v201303031735.jar" />
-
 				<path refid="test.path" />
 				<pathelement path="${classes.dir}" />
 			</classpath>
