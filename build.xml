@@ -90,6 +90,10 @@
 				<path refid="test.path" />
 				<pathelement path="${classes.dir}" />
 				<pathelement path="${test.classes.dir}" />
+
+				<!-- Make sure these two libraries are included -->
+				<classpath location="CS2420/lib/junit-4.11.jar" />
+				<classpath location="CS2420/lib/hamcrest-core-1.3.jar" />
 			</classpath>
 			<formatter type="xml" />
 			<batchtest fork="yes" todir="${test.reports.dir}">
@@ -109,7 +113,7 @@
 	<target name="build" depends="test" />
 
 	<target name="run" depends="build">
-		<java classname="org.demo.App">
+		<java classname="assign6.MyLinkedList">
 			<classpath>
 				<path refid="runtime.path" />
 				<pathelement location="${classes.dir}" />
