@@ -79,7 +79,7 @@
     -->
 	<target name="compile" depends="init">
 
-		<javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false" debug="true" classpath="CS2420/lib" />
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false" debug="true" classpath="CS2420/lib/junit.jar" />
 	</target>
 
 	<target name="compile-tests" depends="compile">
