@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <project name="java-junit-template-project" default="test" basedir=".">
 	<property name="main.build.dir" value="build/main" />
-	<property name="main.src.dir" value="CS2420/src/assign6" />
+	<property name="main.src.dir" value="CS220/src/assign6" />
 	<property name="test.build.dir" value="build/test" />
-	<property name="test.src.dir" value="CS2420/src/assign6" />
+	<property name="test.src.dir" value="CS20/src/assign6" />
 
 	<path id="classpath.base" />
 
@@ -39,9 +39,7 @@
 				<path refid="classpath.test" />
 				<pathelement location="${test.build.dir}" />
 			</classpath>
-			<formatter type="brief" usefile="false" />
-			<echo message="The following classpath is associated with junit.class.path " />
-			<echo message="${echo.test.src.dir}" />
+			<formatter type="plain" usefile="false" />
 			<batchtest>
 				<fileset dir="${test.src.dir}" includes="**/*Tester.java" />
 			</batchtest>
