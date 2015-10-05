@@ -7,7 +7,7 @@
 	<property name="source" value="1.7" />
 
 	<path id="JUnit 4.libraryclasspath">
-		<pathelement location="lib/junit.jar" />
+		<pathelement location="lib/org.junit_4.12.0.v201504281640/junit.jar" />
 		<pathelement location="lib/org.hamcrest.core_1.3.0.v201303031735.jar" />
 	</path>
 	<path id="CS2420.classpath">
@@ -21,6 +21,9 @@
 			<fileset dir="src">
 				<exclude name="**/*.launch" />
 				<exclude name="**/*.java" />
+			</fileset>
+			<fileset dir="org">
+				<include name="**/*.jar" />
 			</fileset>
 		</copy>
 	</target>
@@ -39,7 +42,7 @@
 			<classpath refid="CS2420.classpath" />
 		</javac>
 	</target>
-	
+
 	<target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects" />
 	<target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
 		<copy todir="${ant.library.dir}">
@@ -50,7 +53,7 @@
 			<fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar" />
 		</unzip>
 	</target>
-	
+
 	<target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
 		<property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter" />
 		<antcall target="build" />
