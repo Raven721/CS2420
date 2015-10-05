@@ -11,7 +11,7 @@
 		<pathelement location="lib/org.hamcrest.core_1.3.0.v201303031735.jar" />
 	</path>
 	<path id="CS2420.classpath">
-		<pathelement location="bin" />
+		<pathelement location="lib" />
 		<path refid="JUnit 4.libraryclasspath" />
 	</path>
 
@@ -60,8 +60,6 @@
 	</target>
 
 	<target name="MyLinkedListTester">
-		<classpath location="lib/junit.jar" />
-		<classpath location="lib/org.hamcrest.core_1.3.0.v201303031735.jar" />
 		<mkdir dir="${junit.output.dir}" />
 		<junit fork="yes" printsummary="withOutAndErr">
 			<formatter type="xml" />
