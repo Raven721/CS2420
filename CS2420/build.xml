@@ -42,6 +42,7 @@
 			<formatter type="brief" usefile="false" />
 			<batchtest>
 				<echoproperties/>
+				<echo message="My build-path is ${toString:test.src.dir}" />
 				<fileset dir="${test.src.dir}/assign6" includes="**/MyLinkedListTester.java" echoproperties="true"/>
 				<echoproperties/>
 			</batchtest>
