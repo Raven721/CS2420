@@ -79,11 +79,11 @@
     -->
 	<target name="compile" depends="init">
 
-		<javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false" debug="true" classpath="CS2420/lib/junit.jar" />
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false" debug="true" classpath="CS2420/lib/" />
 	</target>
 
 	<target name="compile-tests" depends="compile">
-		<javac srcdir="${test.src.dir}" destdir="${test.classes.dir}" includeantruntime="false" debug="true" classpathref="dep.path">
+		<javac srcdir="${test.src.dir}" destdir="${test.classes.dir}" includeantruntime="false" debug="true" classpath="CS2420/lib/">
 			<classpath>
 				<path refid="test.path" />
 				<pathelement path="${classes.dir}" />
@@ -102,10 +102,6 @@
 				<path refid="test.path" />
 				<pathelement path="${classes.dir}" />
 				<pathelement path="${test.classes.dir}" />
-
-				<!-- Make sure these two libraries are included -->
-				<classpath location="CS2420/lib/junit.jar" />
-				<classpath location="CS2420/lib/hamcrest-core-1.3.jar" />
 
 			</classpath>
 			<formatter type="xml" />
