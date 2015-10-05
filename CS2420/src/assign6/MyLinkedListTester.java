@@ -17,7 +17,7 @@ public class MyLinkedListTester {
 
 	@Test
 	public void testTest() {
-		assertEquals(1, 1);
+		fail("not yet implemented");
 		System.out.println("Test: Not yet implemented");
 		//fail("Not yet implemented");
 	}

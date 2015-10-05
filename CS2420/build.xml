@@ -25,7 +25,7 @@
 		<echo message="|-- compile classpath" />
 		<echo message="|   |" />
 		<echo message="|   |-- ${echo.path.compile}" />
-		
+
 		<javac srcdir="${main.src.dir}" destdir="${main.build.dir}" includeantruntime="false" classpath="lib/junit.jar">
 			<classpath refid="classpath.base" />
 		</javac>
@@ -42,14 +42,14 @@
 	<!-- Test and build all files  -->
 	<!-- To run this: use "ant" (default) or "ant run" -->
 	<target name="run" depends="build">
-		<junit printsummary="on" haltonfailure="yes">
+		<junit printsummary="yes" haltonfailure="yes" showoutput="true" outputtoformatters="true">
 			<classpath>
 				<path refid="classpath.test" />
 				<pathelement location="${test.build.dir}" />
 			</classpath>
-			<formatter type="plain" usefile="false" />
+			<formatter type="xml" usefile="false" />
 			<batchtest>
-				<fileset dir="${test.src.dir}" includes="assign6/MyLinkedListTester.java" />
+				<fileset dir="${test.src.dir}" includes="assign6/**/*Test*.java" />
 			</batchtest>
 		</junit>
 	</target>
