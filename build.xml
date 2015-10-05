@@ -60,6 +60,8 @@
 	</target>
 
 	<target name="MyLinkedListTester">
+		<classpath location="lib/junit.jar" />
+		<classpath location="lib/org.hamcrest.core_1.3.0.v201303031735.jar" />
 		<mkdir dir="${junit.output.dir}" />
 		<junit fork="yes" printsummary="withOutAndErr">
 			<formatter type="xml" />
