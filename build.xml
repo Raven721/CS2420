@@ -34,7 +34,7 @@
 	<!-- Test and build all files  -->
 	<!-- To run this: use "ant" (default) or "ant run" -->
 	<target name="run" depends="build">
-		<junit printsummary="on" haltonfailure="yes">
+		<junit printsummary="on" haltonfailure="yes" showoutput="true">
 			<classpath>
 				<path refid="classpath.test" />
 				<pathelement location="${test.build.dir}" />
@@ -44,6 +44,7 @@
 				<fileset dir="${test.src.dir}" includes="assign6/MyLinkedListTester.java" />
 			</batchtest>
 		</junit>
+		<fail message="test failed" if="test.failure" />
 	</target>
 
 	<!-- delete all class files -->
