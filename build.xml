@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 <project name="java-junit-template-project" default="test" basedir=".">
 	<property name="main.build.dir" value="build/main" />
+	<property name="jar.dir" value="build/jar" />
 	<property name="main.src.dir" value="CS2420/src/assign6" />
+
 	<property name="test.build.dir" value="build/test" />
 	<property name="test.src.dir" value="CS2420/src/assign6" />
 
@@ -16,11 +18,15 @@
 
 	<target name="test" depends="run, clean" />
 
+	<!--
+		Compile source files
+	-->
 	<target name="compile">
 		<mkdir dir="${main.build.dir}" />
 		<javac srcdir="${main.src.dir}" destdir="${main.build.dir}" includeantruntime="false" classpath="CS2420/lib/junit.jar">
 			<classpath refid="classpath.base" />
 		</javac>
+
 	</target>
 
 	<target name="build" depends="compile">
@@ -31,9 +37,25 @@
 		<echo message="Build done" />
 	</target>
 
+	<!--
+		Build .jar files
+	-->
+	<target name="jar" depends="compile">
+		<mkdir dir="${jar.dir}" />
+		<jar destfile="${jar.dir}/$TimingAnalysis.jar" basedir="${main.build.dir}">
+			<manifest>
+				<attribute name="Main-Class" value="${jar.dir}/TimingAnalysis.jar" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="runTimingAnalysis">
+		<java jar="${jar.dir}/TimingAnalysis.jar" fork="true" />
+	</target>
+
 	<!-- Test and build all files  -->
 	<!-- To run this: use "ant" (default) or "ant run" -->
-	<target name="run" depends="build">
+	<target name="runUnitTests" depends="build">
 		<junit printsummary="yes" haltonfailure="no" showoutput="true" outputtoformatters="true">
 			<classpath>
 				<path refid="classpath.test" />
