@@ -1,188 +1,76 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- WARNING: Eclipse auto-generated file.
-              Any modifications will be overwritten.
-              To include a user specific buildfile here, simply create one in the same
-              directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. --><project basedir="CS2420" default="build" name="CS2420">
-    <property environment="env"/>
-    <property name="junit.output.dir" value="junit"/>
-    <property name="debuglevel" value="source,lines,vars"/>
-    <property name="target" value="1.8"/>
-    <property name="source" value="1.8"/>
-    <path id="JUnit 4.libraryclasspath">
-        <pathelement location="../../../.p2/pool/plugins/org.junit_4.12.0.v201504281640/junit.jar"/>
-        <pathelement location="../../../.p2/pool/plugins/org.hamcrest.core_1.3.0.v201303031735.jar"/>
-    </path>
-    <path id="CS2420.classpath">
-        <pathelement location="bin"/>
-        <path refid="JUnit 4.libraryclasspath"/>
-    </path>
-    <target name="init">
-        <mkdir dir="bin"/>
-        <copy includeemptydirs="false" todir="bin">
-            <fileset dir="src">
-                <exclude name="**/*.launch"/>
-                <exclude name="**/*.java"/>
-            </fileset>
-        </copy>
-    </target>
-    <target name="clean">
-        <delete dir="bin"/>
-    </target>
-    <target depends="clean" name="cleanall"/>
-    <target depends="build-subprojects,build-project" name="build"/>
-    <target name="build-subprojects"/>
-    <target depends="init" name="build-project">
-        <echo message="${ant.project.name}: ${ant.file}"/>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
-            <src path="src"/>
-            <classpath refid="CS2420.classpath"/>
-        </javac>
-    </target>
-    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
-    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
-        <copy todir="${ant.library.dir}">
-            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
-        </copy>
-        <unzip dest="${ant.library.dir}">
-            <patternset includes="jdtCompilerAdapter.jar"/>
-            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
-        </unzip>
-    </target>
-    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
-        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
-        <antcall target="build"/>
-    </target>
-    <target name="AnagramUtilTester">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="assign4.AnagramUtilTester" todir="${junit.output.dir}"/>
-            <classpath refid="CS2420.classpath"/>
-        </junit>
-    </target>
-    <target name="AnagramUtilTester.testGetLargestAnagramGroupUsingSortWithInvalidInput">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="assign4.AnagramUtilTester" todir="${junit.output.dir}"/>
-            <classpath refid="CS2420.classpath"/>
-        </junit>
-    </target>
-    <target name="AnagramUtilTester.testGetLargestAnagramGroupWithInvalidFileInput">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="assign4.AnagramUtilTester" todir="${junit.output.dir}"/>
-            <classpath refid="CS2420.classpath"/>
-        </junit>
-    </target>
-    <target name="LibraryGeneric">
-        <java classname="assign2.LibraryGeneric" failonerror="true" fork="yes">
-            <classpath refid="CS2420.classpath"/>
-        </java>
-    </target>
-    <target name="LibraryGenericTester">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="assign2.LibraryGenericTester" todir="${junit.output.dir}"/>
-            <classpath refid="CS2420.classpath"/>
-        </junit>
-    </target>
-    <target name="LibraryTester">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="assign2.LibraryTester" todir="${junit.output.dir}"/>
-            <classpath refid="CS2420.classpath"/>
-        </junit>
-    </target>
-    <target name="LibraryTimer">
-        <java classname="assign2.LibraryTimer" failonerror="true" fork="yes">
-            <classpath refid="CS2420.classpath"/>
-        </java>
-    </target>
-    <target name="MathLibraryTester">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="assign1.MathLibraryTester" todir="${junit.output.dir}"/>
-            <classpath refid="CS2420.classpath"/>
-        </junit>
-    </target>
-    <target name="MyPriorityQueueIterator">
-        <java classname="assign3.MyPriorityQueueIterator" failonerror="true" fork="yes">
-            <classpath refid="CS2420.classpath"/>
-        </java>
-    </target>
-    <target name="MyPriorityQueueTester">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="assign3.MyPriorityQueueTester" todir="${junit.output.dir}"/>
-            <classpath refid="CS2420.classpath"/>
-        </junit>
-    </target>
-    <target name="MyPriorityQueueTiming">
-        <java classname="assign3.MyPriorityQueueTiming" failonerror="true" fork="yes">
-            <classpath refid="CS2420.classpath"/>
-        </java>
-    </target>
-    <target name="SortUtilTester">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="assign5.SortUtilTester" todir="${junit.output.dir}"/>
-            <classpath refid="CS2420.classpath"/>
-        </junit>
-    </target>
-    <target name="SortUtilTester.testQuickSortWithValidUnsortedList">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="assign5.SortUtilTester" todir="${junit.output.dir}"/>
-            <classpath refid="CS2420.classpath"/>
-        </junit>
-    </target>
-    <target name="TimingAnalysis (1)">
-        <java classname="assign4.TimingAnalysis" failonerror="true" fork="yes">
-            <classpath refid="CS2420.classpath"/>
-        </java>
-    </target>
-    <target name="TimingAnalysis (2)">
-        <java classname="assign5.TimingAnalysis" failonerror="true" fork="yes">
-            <classpath refid="CS2420.classpath"/>
-        </java>
-    </target>
-              	
-    <target name="TimingAnalysis">
-        <java classname="assign3.TimingAnalysis" failonerror="true" fork="yes">
-            <classpath refid="CS2420.classpath"/>
-        </java>
-    </target>
-              	
-    <target name="TimingExperiment08">
-        <java classname="assign3.TimingExperiment08" failonerror="true" fork="yes">
-            <classpath refid="CS2420.classpath"/>
-        </java>
-    </target>
-        	
-    <target name="MyLinkedListTester">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="assign6.MyLinkedListTester" todir="${junit.output.dir}"/>
-            <classpath refid="CS2420.classpath"/>
-        </junit>
-    </target>
-              	
-    <target name="junitreport">
-        <junitreport todir="${junit.output.dir}">
-            <fileset dir="${junit.output.dir}">
-                <include name="TEST-*.xml"/>
-            </fileset>
-            <report format="frames" todir="${junit.output.dir}"/>
-        </junitreport>
-    </target>
+<project basedir="CS2420" default="build" name="CS2420">
+	<property environment="env" />
+	<property name="junit.output.dir" value="junit" />
+	<property name="debuglevel" value="source,lines,vars" />
+	<property name="target" value="1.7" />
+	<property name="source" value="1.7" />
+
+	<path id="JUnit 4.libraryclasspath">
+		<pathelement location="../../../.p2/pool/plugins/org.junit_4.12.0.v201504281640/junit.jar" />
+		<pathelement location="../../../.p2/pool/plugins/org.hamcrest.core_1.3.0.v201303031735.jar" />
+	</path>
+	<path id="CS2420.classpath">
+		<pathelement location="bin" />
+		<path refid="JUnit 4.libraryclasspath" />
+	</path>
+
+	<target name="init">
+		<mkdir dir="bin" />
+		<copy includeemptydirs="false" todir="bin">
+			<fileset dir="src">
+				<exclude name="**/*.launch" />
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="clean">
+		<delete dir="bin" />
+	</target>
+
+	<target depends="clean" name="cleanall" />
+	<target depends="build-subprojects,build-project" name="build" />
+	<target name="build-subprojects" />
+	<target depends="init" name="build-project">
+		<echo message="${ant.project.name}: ${ant.file}" />
+		<javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+			<src path="src" />
+			<classpath refid="CS2420.classpath" />
+		</javac>
+	</target>
+	
+	<target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects" />
+	<target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+		<copy todir="${ant.library.dir}">
+			<fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar" />
+		</copy>
+		<unzip dest="${ant.library.dir}">
+			<patternset includes="jdtCompilerAdapter.jar" />
+			<fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar" />
+		</unzip>
+	</target>
+	
+	<target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+		<property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter" />
+		<antcall target="build" />
+	</target>
+
+	<target name="MyLinkedListTester">
+		<mkdir dir="${junit.output.dir}" />
+		<junit fork="yes" printsummary="withOutAndErr">
+			<formatter type="xml" />
+			<test name="assign6.MyLinkedListTester" todir="${junit.output.dir}" />
+			<classpath refid="CS2420.classpath" />
+		</junit>
+	</target>
+
+	<target name="junitreport">
+		<junitreport todir="${junit.output.dir}">
+			<fileset dir="${junit.output.dir}">
+				<include name="TEST-*.xml" />
+			</fileset>
+			<report format="frames" todir="${junit.output.dir}" />
+		</junitreport>
+	</target>
 </project>
