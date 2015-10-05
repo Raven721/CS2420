@@ -38,6 +38,9 @@
 			<classpath>
 				<path refid="classpath.test" />
 				<pathelement location="${test.build.dir}" />
+				<fileset dir="lib">
+					<include name="**/junit.jar" />
+				</fileset>
 			</classpath>
 			<formatter type="brief" usefile="false" />
 			<batchtest>
