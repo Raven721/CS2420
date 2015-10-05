@@ -13,6 +13,9 @@
 	<path id="CS2420.classpath">
 		<pathelement location="lib" />
 		<path refid="JUnit 4.libraryclasspath" />
+		<fileset dir="${lib}">
+			<include name="**/*.jar" />
+		</fileset>
 	</path>
 
 	<target name="init">
@@ -21,9 +24,6 @@
 			<fileset dir="src">
 				<exclude name="**/*.launch" />
 				<exclude name="**/*.java" />
-			</fileset>
-			<fileset dir="org">
-				<include name="**/*.jar" />
 			</fileset>
 		</copy>
 	</target>
