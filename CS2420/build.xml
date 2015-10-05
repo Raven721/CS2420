@@ -47,7 +47,7 @@
 				<path refid="classpath.test" />
 				<pathelement location="${test.build.dir}" />
 			</classpath>
-			<formatter type="brief" usefile="false" />
+			<formatter type="plain" usefile="false" />
 			<batchtest>
 				<fileset dir="${test.build.dir}" includes="assign6/**/*Test*.class" />
 			</batchtest>

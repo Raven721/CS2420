@@ -8,24 +8,16 @@
 	<path id="classpath.base" />
 
 	<path id="classpath.test">
-		<pathelement location="lib/junit.jar" />
-		<pathelement location="lib/org.hamcrest.core_1.3.0.v201303031735.jar" />
+		<pathelement location="CS2420/lib/junit.jar" />
+		<pathelement location="CS2420/lib/org.hamcrest.core_1.3.0.v201303031735.jar" />
 		<pathelement location="${main.build.dir}" />
 		<path refid="classpath.base" />
 	</path>
 
 	<target name="test" depends="run, clean" />
 
-	<!-- get the source compile classpath in a printable form -->
-	<pathconvert pathsep="${line.separator}|   |-- " property="echo.path.compile" refid="classpath.test">
-	</pathconvert>
-
 	<target name="compile">
 		<mkdir dir="${main.build.dir}" />
-		<echo message="|-- compile classpath" />
-		<echo message="|   |" />
-		<echo message="|   |-- ${echo.path.compile}" />
-
 		<javac srcdir="${main.src.dir}" destdir="${main.build.dir}" includeantruntime="false" classpath="CS2420/lib/junit.jar">
 			<classpath refid="classpath.base" />
 		</javac>
@@ -33,7 +25,7 @@
 
 	<target name="build" depends="compile">
 		<mkdir dir="${test.build.dir}" />
-		<javac srcdir="${test.src.dir}" destdir="${test.build.dir}" includeantruntime="false" classpath="/CS2420/lib/junit.jar">
+		<javac srcdir="${test.src.dir}" destdir="${test.build.dir}" includeantruntime="false" classpath="CS2420/lib/junit.jar">
 			<classpath refid="classpath.test" />
 		</javac>
 		<echo message="Build done" />
@@ -47,7 +39,7 @@
 				<path refid="classpath.test" />
 				<pathelement location="${test.build.dir}" />
 			</classpath>
-			<formatter type="brief" usefile="false" />
+			<formatter type="plain" usefile="false" />
 			<batchtest>
 				<fileset dir="${test.build.dir}" includes="assign6/**/*Test*.class" />
 			</batchtest>
