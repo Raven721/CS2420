@@ -1,2 +1,2 @@
 language: java
-script: ant MyLinkedListTester
+script: ant build
