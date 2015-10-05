@@ -49,7 +49,7 @@
     -->
 
 	<path id="dep.path">
-		<pathelement location="CS2420/lib/Junit.jar" />
+		<pathelement location="CS2420/lib/junit.jar" />
 		<pathelement location="CS2420/lib/org.hamcrest.core_1.3.0.v201303031735.jar" />
 	</path>
 
