@@ -16,14 +16,14 @@ import org.junit.Test;
 public class MyLinkedListTester {
 
 	@Test
-	public void test() {
+	public void testTest() {
 		assertEquals(1, 1);
 		System.out.println("Test: Not yet implemented");
 		//fail("Not yet implemented");
 	}
 	
 	@Test
-	public void AllTheMethods() {
+	public void AllTheMethodsTest() {
 		assertEquals(1, 1);
 		System.out.println("AllTheMethods: Not yet implemented");
 		//fail("None of the methods are implemented yet");
