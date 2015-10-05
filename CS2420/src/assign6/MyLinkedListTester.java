@@ -15,16 +15,9 @@ import org.junit.Test;
  */
 public class MyLinkedListTester {
 
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	@After
-	public void tearDown() throws Exception {
-	}
-
 	@Test
 	public void test() {
+		assertEquals(1, 1);
 		System.out.println("Test: Not yet implemented");
 		//fail("Not yet implemented");
 	}
