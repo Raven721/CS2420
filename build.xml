@@ -2,8 +2,8 @@
 <project name="MyLinkedListTester Test" default="build" basedir="CS2420">
 	<property name="main.build.dir" value="build/main" />
 	<property name="main.src.dir" value="src" />
-	<property name="test.build.dir" value="build/test" />
-	<property name="test.src.dir" value="test" />
+	<property name="test.build.dir" value="build/main" />
+	<property name="test.src.dir" value="src" />
 
 	<path id="classpath.base" />
 
@@ -41,7 +41,7 @@
 			</classpath>
 			<formatter type="brief" usefile="false" />
 			<batchtest>
-				<fileset dir="${main.src.dir}" includes="**/*Test*.java" />
+				<fileset dir="${test.src.dir}" includes="**/*Test*.java" />
 			</batchtest>
 		</junit>
 	</target>
