@@ -39,9 +39,9 @@
 				<path refid="classpath.test" />
 				<pathelement location="${test.build.dir}" />
 			</classpath>
-			<formatter type="plain" usefile="false" />
+			<formatter type="brief" usefile="false" />
 			<batchtest>
-				<fileset dir="${test.src.dir}" includes="assign6/MyLinkedListTester.java" />
+				<fileset dir="${test.build.dir}" includes="assign6/**/*Test*.class" />
 			</batchtest>
 		</junit>
 		<fail message="test failed" if="test.failure" />
