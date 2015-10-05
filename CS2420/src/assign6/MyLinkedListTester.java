@@ -24,6 +24,7 @@ public class MyLinkedListTester {
 	
 	@Test
 	public void AllTheMethods() {
+		assertEquals(1, 1);
 		System.out.println("AllTheMethods: Not yet implemented");
 		//fail("None of the methods are implemented yet");
 	}
