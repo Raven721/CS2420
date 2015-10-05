@@ -36,7 +36,7 @@
 	<target name="run" depends="build">
 		<junit printsummary="on" haltonfailure="yes" showoutput="true">
 			<classpath>
-				<path refid="classpath.test" />
+				<path refid="classpath.test"  />
 				<pathelement location="${test.build.dir}" />
 			</classpath>
 			<formatter type="brief" usefile="false" />
