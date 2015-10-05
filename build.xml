@@ -1,140 +1,104 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project name="MyLinkedListTester Test" default="build" basedir=".">
-	<property name="main.build.dir" value="build/main" />
-	<property name="main.src.dir" value="CS2420/src/assign6" />
-	<property name="test.build.dir" value="build/main" />
-	<property name="test.src.dir" value="CS2420/src/assign6" />
+<project name="demo" default="build" xmlns:ivy="antlib:org.apache.ivy.ant">
 
-	<path id="classpath.base" />
+    <!--
+    ================
+    Build properties
+    ================
+    -->
+    <property name="src.dir" location="src/assign6"/>
+    <property name="test.src.dir" location="src/assign6"/>
+    <property name="build.dir" location="build"/>
+    <property name="classes.dir" location="${build.dir}/classes"/>
+    <property name="test.classes.dir" location="${build.dir}/test-classes"/>
+    <property name="ivy.reports.dir"  location="${build.dir}/ivy-reports"/>
+    <property name="test.reports.dir"  location="${build.dir}/test-reports"/>
 
-	<path id="classpath.test">
-		<pathelement location="CS2420/lib/junit.jar" />
-		<pathelement location="CS2420/lib/org.hamcrest.core_1.3.0.v201303031735.jar" />
-		<pathelement location="${main.build.dir}" />
-		<path refid="classpath.base" />
-	</path>
+    <!--
+    ===========
+    Build setup
+    ===========
+    -->
+    <target name="init">
+        <ivy:resolve/>
 
-	<target name="test" depends="run, clean" />
+        <ivy:report todir='${ivy.reports.dir}' graph='false' xml='false'/>
 
-	<target name="compile">
-		<mkdir dir="${main.build.dir}" />
-		<javac srcdir="${main.src.dir}" destdir="${main.build.dir}" includeantruntime="false">
-			<classpath refid="classpath.base" />
-		</javac>
-	</target>
+        <ivy:cachepath pathid="compile.path" conf="compile"/>
+        <ivy:cachepath pathid="runtime.path" conf="runtime"/>
+        <ivy:cachepath pathid="test.path"    conf="test"/>
 
-	<target name="build" depends="compile">
-		<mkdir dir="${test.build.dir}" />
-		<javac srcdir="${test.src.dir}" destdir="${test.build.dir}" includeantruntime="false">
-			<classpath refid="classpath.test" />
-		</javac>
-		<echo message="Build done" />
-	</target>
+        <mkdir dir="${classes.dir}"/>
+        <mkdir dir="${test.classes.dir}"/>
+        <mkdir dir="${test.reports.dir}"/>
+    </target>
 
-	<!-- Test and build all files  -->
-	<!-- To run this: use "ant" (default) or "ant run" -->
-	<target name="run" depends="build">
-		<junit printsummary="on" haltonfailure="yes">
-			<classpath>
-				<path refid="classpath.test" />
-				<pathelement location="${test.build.dir}" />
-				<fileset dir="lib">
-					<include name="**/junit.jar" />
-				</fileset>
-			</classpath>
-			<formatter type="brief" usefile="false" />
-			<batchtest>
-				<fileset dir="${test.src.dir}" includes="**/*Test*.java" />
-			</batchtest>
-		</junit>
-	</target>
+    <!--
+    ===============
+    Compile targets
+    ===============
+    -->
+    <target name="compile" depends="init">
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false" debug="true" classpathref="compile.path"/>
+    </target>
 
-	<!-- delete all class files -->
-	<!-- To run this: use "ant clean" -->
-	<target name="clean">
-		<delete>
-			<fileset dir="${basedir}" includes="**/*.class" />
-		</delete>
-		<echo message="clean done" />
-	</target>
+    <target name="compile-tests" depends="compile">
+        <javac srcdir="${test.src.dir}" destdir="${test.classes.dir}" includeantruntime="false" debug="true">
+            <classpath>
+                <path refid="test.path"/>
+                <pathelement path="${classes.dir}"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <!--
+    ============
+    Test targets
+    ============
+    -->
+    <target name="test" depends="compile-tests">
+        <junit printsummary="yes" haltonfailure="yes">
+            <classpath>
+                <path refid="test.path"/>
+                <pathelement path="${classes.dir}"/>
+                <pathelement path="${test.classes.dir}"/>
+            </classpath>
+            <formatter type="xml"/>
+            <batchtest fork="yes" todir="${test.reports.dir}">
+                <fileset dir="${test.src.dir}">
+                    <include name="**/*Test*.java"/>
+                    <exclude name="**/AllTests.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+    <!--
+    =====================
+    Build and run targets
+    =====================
+    -->
+    <target name="build" depends="test"/>
+
+    <target name="run" depends="build">
+        <java classname="org.demo.App">
+            <classpath>
+                <path refid="runtime.path"/>
+                <pathelement location="${classes.dir}"/>
+            </classpath>
+        </java>
+    </target>
+
+    <!--
+    =============
+    Clean targets
+    =============
+    -->
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="clean-all" depends="clean">
+        <ivy:cleancache/>
+    </target>
+
 </project>
-<!--
-<project basedir="CS2420" default="build" name="CS2420">
-	<property environment="env" />
-	<property name="junit.output.dir" value="junit" />
-	<property name="debuglevel" value="source,lines,vars" />
-	<property name="target" value="1.7" />
-	<property name="source" value="1.7" />
-
-	<path id="JUnit 4.libraryclasspath">
-		<pathelement location="lib/org.junit_4.12.0.v201504281640/junit.jar" />
-		<pathelement location="lib/org.hamcrest.core_1.3.0.v201303031735.jar" />
-	</path>
-	<path id="CS2420.classpath">
-		<pathelement location="lib" />
-		<path refid="JUnit 4.libraryclasspath" />
-		<fileset dir="lib">
-			<include name="**/*.jar" />
-		</fileset>
-	</path>
-
-	<target name="init">
-		<mkdir dir="bin" />
-		<copy includeemptydirs="false" todir="bin">
-			<fileset dir="src">
-				<exclude name="**/*.launch" />
-				<exclude name="**/*.java" />
-			</fileset>
-		</copy>
-	</target>
-
-	<target name="clean">
-		<delete dir="bin" />
-	</target>
-
-	<target depends="clean" name="cleanall" />
-	<target depends="build-subprojects,build-project" name="build" />
-	<target name="build-subprojects" />
-	<target depends="init" name="build-project">
-		<echo message="${ant.project.name}: ${ant.file}" />
-		<javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
-			<src path="src" />
-			<classpath refid="CS2420.classpath" />
-		</javac>
-	</target>
-
-	<target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects" />
-	<target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
-		<copy todir="${ant.library.dir}">
-			<fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar" />
-		</copy>
-		<unzip dest="${ant.library.dir}">
-			<patternset includes="jdtCompilerAdapter.jar" />
-			<fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar" />
-		</unzip>
-	</target>
-
-	<target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
-		<property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter" />
-		<antcall target="build" />
-	</target>
-
-	<target name="MyLinkedListTester">
-		<mkdir dir="${junit.output.dir}" />
-		<junit fork="yes" printsummary="withOutAndErr">
-			<formatter type="xml" />
-			<test name="assign6.MyLinkedListTester" todir="${junit.output.dir}" />
-			<classpath refid="CS2420.classpath" />
-		</junit>
-	</target>
-
-	<target name="junitreport">
-		<junitreport todir="${junit.output.dir}">
-			<fileset dir="${junit.output.dir}">
-				<include name="TEST-*.xml" />
-			</fileset>
-			<report format="frames" todir="${junit.output.dir}" />
-		</junitreport>
-	</target>
-</project>
--->
