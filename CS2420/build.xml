@@ -34,7 +34,7 @@
 	<!-- Test and build all files  -->
 	<!-- To run this: use "ant" (default) or "ant run" -->
 	<target name="run" depends="build">
-		<junit printsummary="on" haltonfailure="yes">
+		<junit printsummary="on" haltonfailure="no">
 			<classpath>
 				<path refid="classpath.test" />
 				<pathelement location="${test.build.dir}" />
