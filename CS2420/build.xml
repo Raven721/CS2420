@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 <project name="java-junit-template-project" default="test" basedir=".">
 	<property name="main.build.dir" value="build/main" />
+	<property name="jar.dir" value="build/jar" />
 	<property name="main.src.dir" value="src/assign6" />
+
 	<property name="test.build.dir" value="build/test" />
 	<property name="test.src.dir" value="src/assign6" />
 
@@ -14,7 +16,7 @@
 		<path refid="classpath.base" />
 	</path>
 
-	<target name="test" depends="run, clean" />
+	<target name="test" depends="runTimingAnalysis, runUnitTests, clean" />
 
 	<!-- get the source compile classpath in a printable form -->
 	<pathconvert pathsep="${line.separator}|   |-- " property="echo.path.compile" refid="classpath.test">
@@ -39,9 +41,21 @@
 		<echo message="Build done" />
 	</target>
 
+	<!--
+		Build .jar files
+	-->
+	<target name="jar" depends="compile">
+		<mkdir dir="${jar.dir}" />
+		<jar destfile="${jar.dir}/TimingAnalysis.jar" basedir="${main.build.dir}">
+			<manifest>
+				<attribute name="Main-Class" value="assign6.TimingAnalysis" />
+			</manifest>
+		</jar>
+	</target>
+
 	<!-- Test and build all files  -->
 	<!-- To run this: use "ant" (default) or "ant run" -->
-	<target name="run" depends="build">
+	<target name="runUnitTests" depends="build">
 		<junit printsummary="yes" haltonfailure="yes" showoutput="true" outputtoformatters="true">
 			<classpath>
 				<path refid="classpath.test" />
@@ -52,6 +66,10 @@
 				<fileset dir="${test.build.dir}" includes="assign6/**/*Test*.class" />
 			</batchtest>
 		</junit>
+	</target>
+
+	<target name="runTimingAnalysis" depends="jar">
+		<java jar="${jar.dir}/TimingAnalysis.jar" fork="true" />
 	</target>
 
 	<!-- delete all class files -->

@@ -42,14 +42,14 @@
 	-->
 	<target name="jar" depends="compile">
 		<mkdir dir="${jar.dir}" />
-		<jar destfile="${jar.dir}/$TimingAnalysis.jar" basedir="${main.build.dir}">
+		<jar destfile="${jar.dir}/TimingAnalysis.jar" basedir="${main.build.dir}">
 			<manifest>
-				<attribute name="Main-Class" value="${jar.dir}/TimingAnalysis.jar" />
+				<attribute name="Main-Class" value="assign6.TimingAnalysis" />
 			</manifest>
 		</jar>
 	</target>
 
-	<target name="runTimingAnalysis">
+	<target name="runTimingAnalysis" depends="jar">
 		<java jar="${jar.dir}/TimingAnalysis.jar" fork="true" />
 	</target>
 
