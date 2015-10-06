@@ -42,29 +42,33 @@
 	-->
 	<target name="jar" depends="compile">
 		<mkdir dir="${jar.dir}" />
+		<echo message="|--------------Building TimingAnalysis.jar------------|" />
+		<echo message="|-----------------------------------------------------|" />
 		<jar destfile="${jar.dir}/TimingAnalysis.jar" basedir="${main.build.dir}">
 			<manifest>
 				<attribute name="Main-Class" value="assign6.TimingAnalysis" />
 			</manifest>
 		</jar>
+		<echo message="|-----------------------------------------------------|" />
+		<echo message="|----------TimingAnalysis Built Successfully----------|" />
 	</target>
 
 	<!--
 		Execute TimingAnalysis.jar
 	-->
 	<target name="runTimingAnalysis" depends="jar">
-		<echo message="|-- 		Executing TimingAnalysis 		 --|" />
-		<echo message="|--                                       --|" />
+		<echo message="|--------------Executing TimingAnalysis---------------|" />
+		<echo message="|-----------------------------------------------------|" />
 		<java jar="${jar.dir}/TimingAnalysis.jar" fork="true" />
-		<echo message="|--                                       --|" />
-		<echo message="|-- 		TimingAnalysis  Executed		 --|" />
+		<echo message="|-----------------------------------------------------|" />
+		<echo message="|-------------TimingAnalysis  Complete----------------|" />
 	</target>
 
 	<!-- Test and build all files  -->
 	<!-- To run this: use "ant" (default) or "ant run" -->
 	<target name="runUnitTests" depends="build">
-		<echo message="|--   		Executing Unit Tests   		--|" />
-		<echo message="|--                                      --|" />
+		<echo message="|-----------------Executing Unit Tests----------------|" />
+		<echo message="|-----------------------------------------------------|" />
 		<junit printsummary="yes" haltonfailure="no" showoutput="true" outputtoformatters="true">
 			<classpath>
 				<path refid="classpath.test" />
@@ -75,8 +79,8 @@
 				<fileset dir="${test.build.dir}" includes="assign6/**/*Test*.class" />
 			</batchtest>
 		</junit>
-		<echo message="|--                                      --|" />
-		<echo message="|--  		Unit Testing Complete	    --|" />
+		<echo message="|-----------------------------------------------------|" />
+		<echo message="|----------------Unit Testing Complete----------------|" />
 	</target>
 
 	<!-- delete all class files -->
