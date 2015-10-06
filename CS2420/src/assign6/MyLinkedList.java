@@ -289,10 +289,10 @@ public class MyLinkedList<E> implements List<E> {
 	 */
 	@Override
 	public int indexOf(E element) {
-		Node currentNode = tail.prev;
+		Node currentNode = head.next;
 		
 		// Traverse through the linked list, starting at the oldest node to the most recent node
-		for(int i = 0; i < size; i--) {
+		for(int i = 0; i < size; i++) {
 			if(currentNode.item.equals(element)) {
 				return i;
 			}

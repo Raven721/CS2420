@@ -2,7 +2,6 @@ package assign6;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -27,26 +26,6 @@ public class MyLinkedListTester {
 	public void setUp() throws Exception {
 		intList = new MyLinkedList<Integer>();
 		stringList = new MyLinkedList<String>();
-	}
-
-	@After
-	public void tearDown() throws Exception {
-	}
-	
-	////////////    int size()   ////////////
-	@Test
-	public void testSize() {
-		intList.add(0, 1234);
-		intList.addFirst(1);
-		intList.addFirst(1);
-				
-		assertEquals(3, intList.size());
-		
-		intList.removeFirst();
-		assertEquals(2, intList.size());
-		
-		intList.removeFirst();
-		assertEquals(1, intList.size());
 	}
 	
 	///////////   add(int index, E element)    ////////////
@@ -85,9 +64,176 @@ public class MyLinkedListTester {
 		intList.add(3, 1234);
 	}
 	
+	////////////   indexOf(E element)  ///////////
+	@Test
+	public void testIndexOfWithEmptyList() {
+		// Should return a -1 since the item being searched for does not exist in the list
+		assertEquals(-1, intList.indexOf(1));
+		assertEquals(-1, stringList.indexOf("Won't be found"));
+	}
+	
+	@Test
+	public void testIndexOfWithNonEmptyListNotFound() {
+		// Should return a -1 since the item being searched for does not exist in the list
+		stringList.addFirst("Fourth Newest Item");
+		stringList.addFirst("Third Newest Item");
+		stringList.addFirst("Second Newest Item");
+		stringList.addFirst("Newest Item");
+		stringList.addFirst("Fourth Newest Item");
+		stringList.addFirst("Third Newest Item");
+		stringList.addFirst("Second Newest Item");
+		stringList.addFirst("Newest Item");
+		
+		intList.addFirst(10);
+		intList.addFirst(20);
+		intList.addFirst(30);
+		intList.addFirst(40);
+		intList.addFirst(10);
+		intList.addFirst(20);
+		intList.addFirst(30);
+		intList.addFirst(40);
+		
+		assertEquals(-1, intList.indexOf(123));
+		assertEquals(-1, stringList.indexOf("Won't be found"));
+	}
+	
+	@Test
+	public void testIndexOfItem() {
+		// Should return the index of the recurring item toward at the beginning(left) of the list
+		stringList.addFirst("Fourth Newest Item");
+		stringList.addFirst("Third Newest Item");
+		stringList.addFirst("Second Newest Item");
+		stringList.addFirst("Newest Item");
+		stringList.addFirst("Fourth Newest Item");
+		stringList.addFirst("Third Newest Item");
+		stringList.addFirst("Second Newest Item");
+		stringList.addFirst("Newest Item");
+		
+		intList.addFirst(10);
+		intList.addFirst(20);
+		intList.addFirst(30);
+		intList.addFirst(40);
+		intList.addFirst(10);
+		intList.addFirst(20);
+		intList.addFirst(30);
+		intList.addFirst(40);
+		
+		assertEquals(0, intList.indexOf(40));
+		assertEquals(0, stringList.indexOf("Newest Item"));
+	}
+	
+	////////////   lastIndexOf(E element)  ///////////
+	@Test
+	public void testLastIndexOfWithEmptyList() {
+		// Should return a -1 since the item being searched for does not exist in the list
+		assertEquals(-1, intList.lastIndexOf(1));
+		assertEquals(-1, stringList.lastIndexOf("Won't be found"));
+	}
+	
+	@Test
+	public void testLastIndexOfWithNonEmptyListNotFound() {
+		// Should return a -1 since the item being searched for does not exist in the list
+		stringList.addFirst("Fourth Newest Item");
+		stringList.addFirst("Third Newest Item");
+		stringList.addFirst("Second Newest Item");
+		stringList.addFirst("Newest Item");
+		stringList.addFirst("Fourth Newest Item");
+		stringList.addFirst("Third Newest Item");
+		stringList.addFirst("Second Newest Item");
+		stringList.addFirst("Newest Item");
+		
+		intList.addFirst(10);
+		intList.addFirst(20);
+		intList.addFirst(30);
+		intList.addFirst(40);
+		intList.addFirst(10);
+		intList.addFirst(20);
+		intList.addFirst(30);
+		intList.addFirst(40);
+		
+		assertEquals(-1, intList.lastIndexOf(400));
+		assertEquals(-1, stringList.lastIndexOf("Won't be found"));
+	}
+	
+	@Test
+	public void testLastIndexOfItem() {
+		// Should return the index of the recurring item toward at the end(right) of the list
+		stringList.addFirst("Fourth Newest Item");
+		stringList.addFirst("Third Newest Item");
+		stringList.addFirst("Second Newest Item");
+		stringList.addFirst("Newest Item");
+		stringList.addFirst("Fourth Newest Item");
+		stringList.addFirst("Third Newest Item");
+		stringList.addFirst("Second Newest Item");
+		stringList.addFirst("Newest Item");
+		
+		intList.addFirst(10);
+		intList.addFirst(20);
+		intList.addFirst(30);
+		intList.addFirst(40);
+		intList.addFirst(10);
+		intList.addFirst(20);
+		intList.addFirst(30);
+		intList.addFirst(40);
+		
+		assertEquals(4, intList.lastIndexOf(40));
+		assertEquals(4, stringList.lastIndexOf("Newest Item"));
+	}
+	
+	////////////    int size()   ////////////
+	@Test
+	public void testSizeWithEmptyList() {
+		// An empty list should have a size of 0
+		assertEquals(0, intList.size());
+		assertEquals(0, stringList.size());
+	}
+	
+	@Test
+	public void testSizeWithNonEmptyList() {
+		// A list with four elements should return 4
+		stringList.addFirst("Fourth Newest Item");
+		stringList.addFirst("Third Newest Item");
+		stringList.addFirst("Second Newest Item");
+		stringList.addFirst("Newest Item");
+		
+		intList.addFirst(12);
+		intList.addFirst(12);
+		intList.addFirst(12);
+		intList.addFirst(12);
+		
+		assertEquals(4, intList.size());
+		assertEquals(4, stringList.size());
+	}
+	
+	////////////// isEmpty   //////////////
+	@Test
+	public void testIsEmptyWithEmptyList() {
+		// Should return true if the list is empty
+		assertTrue(intList.isEmpty());
+		assertTrue(stringList.isEmpty());
+	}
+	
+	@Test
+	public void testIsEmptyWithNonEmptyList() {
+		// Should return false if the list is not empty
+		stringList.addFirst("Fourth Newest Item");
+		stringList.addFirst("Third Newest Item");
+		stringList.addFirst("Second Newest Item");
+		stringList.addFirst("Newest Item");
+		
+		intList.addFirst(12);
+		intList.addFirst(12);
+		intList.addFirst(12);
+		intList.addFirst(12);
+		
+		assertFalse(intList.isEmpty());
+		assertFalse(stringList.isEmpty());
+	}
+	
 	/////////////  clear()  //////////////
 	@Test
 	public void testClearWithNonEmptyList() {
+		// Clearing the list should report a length of zero
 		intList.addFirst(12);
 		intList.addFirst(12);
 		intList.addFirst(12);
@@ -100,13 +246,14 @@ public class MyLinkedListTester {
 	
 	@Test
 	public void testClearWithEmptyList() {
+		// Clearing the list should report a length of zero
 		intList.clear();
 		assertEquals(0, intList.toArray().length);
 	}
 	
 	///////////// toArray() //////////////
 	@Test
-	public void testToArrayWithNonEmpty() {
+	public void testToArrayWithNonEmptyLength() {
 		intList.addFirst(12);
 		intList.addFirst(12);
 		intList.addFirst(12);
@@ -116,7 +263,39 @@ public class MyLinkedListTester {
 	}
 	
 	@Test
-	public void testToArrayWithEmptyList() {
+	public void testToArrayWithEmptyListLength() {
 		assertEquals(0, intList.toArray().length);
+	}
+	
+	@Test
+	public void testToArrayOrderWithValidIntegerInput() {
+		// The most recently added element should be the first element in the array
+		intList.addFirst(10);
+		intList.addFirst(20);
+		intList.addFirst(30);
+		intList.addFirst(40);
+		
+		Object[] objArr = intList.toArray();
+		
+		assertEquals(40, objArr[0]);
+		assertEquals(30, objArr[1]);
+		assertEquals(20, objArr[2]);
+		assertEquals(10, objArr[3]);
+	}
+	
+	@Test
+	public void testToArrayOrderWithValidStringInput() {
+		// The most recently added element should be the first element in the array
+		stringList.addFirst("Fourth Newest Item");
+		stringList.addFirst("Third Newest Item");
+		stringList.addFirst("Second Newest Item");
+		stringList.addFirst("Newest Item");
+		
+		Object[] objArr = stringList.toArray();
+		
+		assertEquals("Newest Item", objArr[0]);
+		assertEquals("Second Newest Item", objArr[1]);
+		assertEquals("Third Newest Item", objArr[2]);
+		assertEquals("Fourth Newest Item", objArr[3]);
 	}
 }
