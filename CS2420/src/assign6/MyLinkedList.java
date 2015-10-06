@@ -79,7 +79,6 @@ public class MyLinkedList<E> implements List<E> {
 		
 		// Increase the size of the LinkedList after adding the specified element
 		size++;
-		
 	}
 
 	/**
@@ -103,10 +102,11 @@ public class MyLinkedList<E> implements List<E> {
 	 */
 	@Override
 	public void add(int index, E element) throws IndexOutOfBoundsException {
-		if(index < 0 || index >= size) {
+		if(index < 0 || index > size) {
 			throw new IndexOutOfBoundsException("Index is out of bounds");
 		}
 		
+
 		Node currentNode = getNode(index);
 		Node temp = new Node(element, currentNode.prev, currentNode);
 		currentNode.prev.next = temp;
@@ -157,7 +157,7 @@ public class MyLinkedList<E> implements List<E> {
 	 */
 	@Override
 	public E get(int index) throws IndexOutOfBoundsException {
-		if(index < 0 || index >= size) {
+		if(index < 0 || index > size) {
 			throw new IndexOutOfBoundsException("Index is out of bounds");
 		}
 		
@@ -232,7 +232,7 @@ public class MyLinkedList<E> implements List<E> {
 	 */
 	@Override
 	public E remove(int index) throws IndexOutOfBoundsException {
-		if(index < 0 || index >= size) {
+		if(index < 0 || index > size) {
 			throw new IndexOutOfBoundsException("The specified index is out of bounds");
 		}
 		
