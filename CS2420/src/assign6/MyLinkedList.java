@@ -106,6 +106,14 @@ public class MyLinkedList<E> implements List<E> {
 			throw new IndexOutOfBoundsException("Index is out of bounds");
 		}
 		
+		if(index == 0) {
+			this.addFirst(element);
+			return;
+		} else if(index == this.size()) {
+			this.addLast(element);
+			return;
+		}
+		
 		Node currentNode = getNode(index);
 			
 		Node newNode = new Node(element, currentNode.prev, currentNode);
@@ -266,7 +274,7 @@ public class MyLinkedList<E> implements List<E> {
 		
 		// Traverse through the linked list up to the specified index
 		for(int i = 0; i <= index; i++) {
-			
+			currentNode = currentNode.next;
 		}
 		
 		return currentNode;
