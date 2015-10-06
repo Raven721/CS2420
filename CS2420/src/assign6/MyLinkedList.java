@@ -106,11 +106,15 @@ public class MyLinkedList<E> implements List<E> {
 			throw new IndexOutOfBoundsException("Index is out of bounds");
 		}
 		
-
 		Node currentNode = getNode(index);
-		Node temp = new Node(element, currentNode.prev, currentNode);
-		currentNode.prev.next = temp;
-		currentNode.prev = temp;
+			
+		Node newNode = new Node(element, currentNode.prev, currentNode);
+		
+		// Insert the new node into the LinkedList
+		newNode.prev = currentNode;
+		newNode.next = currentNode.next;
+		newNode.prev.next = newNode;
+		newNode.next.prev = newNode;
 		
 		// Increase the size of the LinkedList after adding the specified element
 		size++;
