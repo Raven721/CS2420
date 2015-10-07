@@ -16,7 +16,7 @@ import java.util.Random;
  * the growth rate of the running times.
  * 
  * If T(N) / F(N) converges to 0, then F(N) is an overestimate of the growth
- * rate of the running times.
+ * rate of the running times. 
  * 
  * If T(N) / F(N) converges to infinity, then F(N) is an underestimate of the
  * growth rate of the running times.
@@ -37,16 +37,16 @@ public class TimingAnalysis {
 		timeAddFirstArrayList(1000, 1000, 20000, 1000);
 		
 		// Run timing analysis on MyLinkedList's get(int index) method
-		timeGetLinkedList(100, 1000, 20000, 1000);
+		timeGetLinkedList(5000, 1000, 20000, 1000);
 		
 		// Run timing analysis on ArrayList's get(int index) method
-		timeGetArrayList(100, 1000, 20000, 1000);
+		timeGetArrayList(5000, 1000, 20000, 1000);
 		
 		// Run timing analysis on MyLinkedList's get(int index) method
-		timeRemoveLinkedList(500, 1000, 20000, 1000);
+		timeRemoveLinkedList(100, 1000, 20000, 1000);
 		
 		// Run timing analysis on ArrayList's get(int index) method
-		timeRemoveArrayList(500, 1000, 20000, 1000);
+		timeRemoveArrayList(1500, 1000, 20000, 1000);
 	}
 	
 	/**
@@ -54,7 +54,6 @@ public class TimingAnalysis {
 	 */
 	private static void timeAddFirstLinkedList(int timesToLoop, int nStart, int nStop, int nStep) {
 		long startTime, midptTime, stopTime;
-		MyLinkedList<String> list = new MyLinkedList<String>();
 
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
@@ -67,6 +66,7 @@ public class TimingAnalysis {
 		for (int N = nStart; N <= nStop; N += nStep) { 
 
 			String[] wordList = generateStringArray(N);
+			MyLinkedList<String> list = new MyLinkedList<String>();
 			
 			System.out.print(N + "\t");
 
@@ -162,7 +162,6 @@ public class TimingAnalysis {
 	 */
 	private static void timeGetLinkedList(int timesToLoop, int nStart, int nStop, int nStep) {
 		long startTime, midptTime, stopTime;
-		MyLinkedList<String> list = new MyLinkedList<String>();
 
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
@@ -176,10 +175,7 @@ public class TimingAnalysis {
 		for (int N = nStart; N <= nStop; N += nStep) { 
 
 			String[] wordList = generateStringArray(N);
-			
-			for(int i = 0; i < wordList.length; i++) {
-				list.add(i, wordList[i]);
-			}
+			MyLinkedList<String> list = generateLinkedList(wordList);
 			
 			System.out.print(N + "\t");
 
@@ -191,8 +187,7 @@ public class TimingAnalysis {
 			// time the routine areAnagrams
 			startTime = System.nanoTime();
 			for (int i = 0; i < timesToLoop; i++) {
-				for(int j = 0; j < N; j++)
-					list.get(j);
+				list.get(N/2);
 			}
 			midptTime = System.nanoTime();
 
@@ -220,7 +215,7 @@ public class TimingAnalysis {
 	 */
 	private static void timeGetArrayList(int timesToLoop, int nStart, int nStop, int nStep) {
 		long startTime, midptTime, stopTime;
-		ArrayList<String> list = new ArrayList<String>();
+		
 
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
@@ -233,10 +228,7 @@ public class TimingAnalysis {
 		for (int N = nStart; N <= nStop; N += nStep) { 
 
 			String[] wordList = generateStringArray(N);
-			
-			for(int i = 0; i < wordList.length; i++) {
-				list.add(i, wordList[i]);
-			}
+			ArrayList<String> list = generateArrayList(wordList);
 			
 			System.out.print(N + "\t");
 
