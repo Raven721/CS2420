@@ -1,7 +1,7 @@
 --------------------  Timing Analysis: void addFirst(E element)  -------------------------------
 			    timesToLoop: 1000 | Should be O(1)
 
-N		T(N)  	|	T(N)/logN	T(N)/NlogN	T(N)/N		T(N)/N^2	T(N)/N^3
+N	T(N)  	|	T(N)/logN	T(N)/NlogN	T(N)/N		T(N)/N^2	T(N)/N^3
 ------------------------------------------------------------------------------------------------
 1000	-6263E0	|	-6285E-1	-6285E-4	-6263E-3	-6263E-6	-6263E-9
 2000	2000E-2	|	1824E-3		9119E-7		1000E-5		5000E-9		-3390E-11
@@ -28,7 +28,7 @@ N		T(N)  	|	T(N)/logN	T(N)/NlogN	T(N)/N		T(N)/N^2	T(N)/N^3
 			    timesToLoop: 1000 | Should be O(N)
 	 This is the worst case since the array must be resized and shifted on each insert.
 
-N		T(N)  	|	T(N)/logN	T(N)/NlogN	T(N)/N		T(N)/N^2	T(N)/N^3
+N	T(N)  	|	T(N)/logN	T(N)/NlogN	T(N)/N		T(N)/N^2	T(N)/N^3
 ------------------------------------------------------------------------------------------------
 1000	9000E-1	|	9031E-2		9031E-5		9000E-4		9000E-7		9000E-10
 2000	3630E-1	|	3310E-2		1655E-5		1815E-4		9075E-8		-6153E-10
@@ -55,7 +55,7 @@ N		T(N)  	|	T(N)/logN	T(N)/NlogN	T(N)/N		T(N)/N^2	T(N)/N^3
 			    timesToLoop: 5000 | Should be O(N)
 	 This get method must cycle through the entire LinkedList to get to the right index.
 
-N		T(N)  	|	T(N)/logN	T(N)/NlogN	T(N)/N		T(N)/N^2	T(N)/N^3
+N	T(N)  	|	T(N)/logN	T(N)/NlogN	T(N)/N		T(N)/N^2	T(N)/N^3
 ------------------------------------------------------------------------------------------------
 1000	1876E0	|	1882E-1		1882E-4		1876E-3		1876E-6		1876E-9
 2000	1705E0	|	1555E-1		7774E-5		8525E-4		4262E-7		-2890E-9
@@ -81,7 +81,7 @@ N		T(N)  	|	T(N)/logN	T(N)/NlogN	T(N)/N		T(N)/N^2	T(N)/N^3
 --------------------  Timing Analysis: timeGetArrayList(int index)  ----------------------------
 			    timesToLoop: 5000 | Should be O(1)
 
-N		T(N)  	|	T(N)/logN	T(N)/NlogN	T(N)/N		T(N)/N^2	T(N)/N^3
+N	T(N)  	|	T(N)/logN	T(N)/NlogN	T(N)/N		T(N)/N^2	T(N)/N^3
 ------------------------------------------------------------------------------------------------
 1000	2327E0	|	2335E-1		2335E-4		2327E-3		2327E-6		2327E-9
 2000	6000E-3	|	5472E-4		2736E-7		3000E-6		1500E-9		-1017E-11
@@ -108,7 +108,7 @@ N		T(N)  	|	T(N)/logN	T(N)/NlogN	T(N)/N		T(N)/N^2	T(N)/N^3
 			    timesToLoop: 100 | Should be O(N)
 	 This remove method must traverse through the LinkedList to get to the right index.
 
-N		T(N)  	|	T(N)/logN	T(N)/NlogN	T(N)/N		T(N)/N^2	T(N)/N^3
+N	T(N)  	|	T(N)/logN	T(N)/NlogN	T(N)/N		T(N)/N^2	T(N)/N^3
 ------------------------------------------------------------------------------------------------
 1000	1251E1	|	1255E0		1255E-3		1251E-2		1251E-5		1251E-8
 2000	1385E1	|	1263E0		6313E-4		6923E-3		3462E-6		-2347E-8
@@ -134,7 +134,7 @@ N		T(N)  	|	T(N)/logN	T(N)/NlogN	T(N)/N		T(N)/N^2	T(N)/N^3
 ----------------------  Timing Analysis: timeRemoveArrayList(int index) ------------------------
 			    timesToLoop: 1500 | Should be O(N)
 
-N		T(N)  	|	T(N)/logN	T(N)/NlogN	T(N)/N		T(N)/N^2	T(N)/N^3
+N	T(N)  	|	T(N)/logN	T(N)/NlogN	T(N)/N		T(N)/N^2	T(N)/N^3
 ------------------------------------------------------------------------------------------------
 1000	-8719E0	|	-8749E-1	-8749E-4		-8719E-3		-8719E-6		-8719E-9
 2000	7130E-1	|	6502E-2		3251E-5		3565E-4		1782E-7		-1209E-9
