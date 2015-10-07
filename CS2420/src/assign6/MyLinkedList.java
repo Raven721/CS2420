@@ -103,7 +103,7 @@ public class MyLinkedList<E> implements List<E> {
 	@Override
 	public void add(int index, E element) throws IndexOutOfBoundsException {
 		if(index < 0 || index > size) {
-			throw new IndexOutOfBoundsException("Index is out of bounds");
+			throw new IndexOutOfBoundsException("The specified index: " + index + " is out of bounds");
 		}
 		
 		if(index == 0) {
@@ -170,7 +170,7 @@ public class MyLinkedList<E> implements List<E> {
 	@Override
 	public E get(int index) throws IndexOutOfBoundsException {
 		if(index < 0 || index > size) {
-			throw new IndexOutOfBoundsException("Index is out of bounds");
+			throw new IndexOutOfBoundsException("The specified index: " + index + " is out of bounds");
 		}
 		
 		return getNode(index).item;
@@ -244,8 +244,8 @@ public class MyLinkedList<E> implements List<E> {
 	 */
 	@Override
 	public E remove(int index) throws IndexOutOfBoundsException {
-		if(index < 0 || index >= size) {
-			throw new IndexOutOfBoundsException("The specified index is out of bounds");
+		if(index < 0 || index > size) {
+			throw new IndexOutOfBoundsException("The specified index: " + index + " is out of bounds");
 		}
 		
 		
@@ -268,7 +268,7 @@ public class MyLinkedList<E> implements List<E> {
 	 */
 	private MyLinkedList<E>.Node getNode(int index) throws IndexOutOfBoundsException {
 		if(index < 0 || index > size) {
-			throw new IndexOutOfBoundsException("The specified index is out of bounds");
+			throw new IndexOutOfBoundsException("The specified index: " + index + " is out of bounds");
 		}
 		
 		Node currentNode = head;

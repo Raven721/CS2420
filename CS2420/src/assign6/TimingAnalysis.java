@@ -29,33 +29,31 @@ import java.util.Random;
 public class TimingAnalysis {
 
 	public static void main(String[] args) {
-		System.out.println("Hello World test meow what");
 		
 		// Run timing analysis on MyLinkedList's addFirst(E element)
-		timeAddFirstLinkedList();
+		timeAddFirstLinkedList(100, 100, 1000, 100);
 		
 		// Run timing analysis on ArrayList's addFirst(E element)
-		timeAddFirstArrayList();
+		timeAddFirstArrayList(100, 100, 1000, 100);
 		
 		// Run timing analysis on MyLinkedList's get(int index) method
-		timeGetLinkedList();
+		timeGetLinkedList(100, 100, 1000, 100);
 		
 		// Run timing analysis on ArrayList's get(int index) method
-		timeGetArrayList();
+		timeGetArrayList(100, 100, 1000, 100);
 		
 		// Run timing analysis on MyLinkedList's get(int index) method
-		timeRemoveLinkedList();
+		timeRemoveLinkedList(6, 100, 1000, 100);
 		
 		// Run timing analysis on ArrayList's get(int index) method
-		timeRemoveArrayList();
+		//timeRemoveArrayList(1, 10, 1000, 10);
 	}
 	
 	/**
 	 * Runs a timing analysis on the MyLinkedList's add(int index, e element) method with an increasing problem size
 	 */
-	private static void timeAddFirstLinkedList() {
+	private static void timeAddFirstLinkedList(int timesToLoop, int nStart, int nStop, int nStep) {
 		long startTime, midptTime, stopTime;
-		long timesToLoop = 150; 
 		MyLinkedList<String> list = new MyLinkedList<String>();
 
 		// try computing T(N)/F(N), see if it converges
@@ -66,7 +64,7 @@ public class TimingAnalysis {
 		System.out.println("\nN\tT(N)  \t|\tT(N)/logN\tT(N)/NlogN\tT(N)/N\t\tT(N)/N^2\tT(N)/N^3");
 		System.out.println("------------------------------------------------------------------------------------------------");
 
-		for (int N = 1000; N <= 20000; N += 1000) { 
+		for (int N = nStart; N <= nStop; N += nStep) { 
 
 			String[] wordList = generateStringArray(N);
 			
@@ -107,21 +105,20 @@ public class TimingAnalysis {
 	/**
 	 * Runs a timing analysis on Java's ArrayList add method with an increasing problem size
 	 */
-	private static void timeAddFirstArrayList() {
+	private static void timeAddFirstArrayList(int timesToLoop, int nStart, int nStop, int nStep) {
 		long startTime, midptTime, stopTime;
-		long timesToLoop = 150; 
 		ArrayList<String> list = new ArrayList<String>();
 
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
 
-		System.out.println("--------------------  Timing Analysis: void addArrayList(0, item)  -------------------------------");
+		System.out.println("--------------------  Timing Analysis: void addFirstArrayList(0, item)  ------------------------");
 		System.out.println("\t\t\t    timesToLoop: " + timesToLoop + " | Should be O(N)");
-		System.out.println("\t\t\t This is the worst case since the array must be resized and shifted on each insert.");
+		System.out.println("\t This is the worst case since the array must be resized and shifted on each insert.");
 		System.out.println("\nN\tT(N)  \t|\tT(N)/logN\tT(N)/NlogN\tT(N)/N\t\tT(N)/N^2\tT(N)/N^3");
 		System.out.println("------------------------------------------------------------------------------------------------");
 
-		for (int N = 1000; N <= 20000; N += 1000) { 
+		for (int N = nStart; N <= nStop; N += nStep) { 
 
 			String[] wordList = generateStringArray(N);
 			
@@ -162,9 +159,8 @@ public class TimingAnalysis {
 	/**
 	 * Runs a timing analysis on MyLinkedList's get(int index) method with an increasing problem size
 	 */
-	private static void timeGetLinkedList() {
+	private static void timeGetLinkedList(int timesToLoop, int nStart, int nStop, int nStep) {
 		long startTime, midptTime, stopTime;
-		long timesToLoop = 150; 
 		MyLinkedList<String> list = new MyLinkedList<String>();
 
 		// try computing T(N)/F(N), see if it converges
@@ -172,11 +168,11 @@ public class TimingAnalysis {
 
 		System.out.println("--------------------  Timing Analysis: void timeGetLinkedList(int index) -----------------------");
 		System.out.println("\t\t\t    timesToLoop: " + timesToLoop + " | Should be O(N)");
-		System.out.println("\t\t\t This get method must cycle through the entire LinkedList to get to the right index.");
+		System.out.println("\t This get method must cycle through the entire LinkedList to get to the right index.");
 		System.out.println("\nN\tT(N)  \t|\tT(N)/logN\tT(N)/NlogN\tT(N)/N\t\tT(N)/N^2\tT(N)/N^3");
 		System.out.println("------------------------------------------------------------------------------------------------");
 
-		for (int N = 1000; N <= 20000; N += 1000) { 
+		for (int N = nStart; N <= nStop; N += nStep) { 
 
 			String[] wordList = generateStringArray(N);
 			
@@ -221,9 +217,8 @@ public class TimingAnalysis {
 	/**
 	 * Runs a timing analysis on the Java's ArrayList get(int index) method with an increasing problem size
 	 */
-	private static void timeGetArrayList() {
+	private static void timeGetArrayList(int timesToLoop, int nStart, int nStop, int nStep) {
 		long startTime, midptTime, stopTime;
-		long timesToLoop = 150; 
 		ArrayList<String> list = new ArrayList<String>();
 
 		// try computing T(N)/F(N), see if it converges
@@ -234,7 +229,7 @@ public class TimingAnalysis {
 		System.out.println("\nN\tT(N)  \t|\tT(N)/logN\tT(N)/NlogN\tT(N)/N\t\tT(N)/N^2\tT(N)/N^3");
 		System.out.println("------------------------------------------------------------------------------------------------");
 
-		for (int N = 1000; N <= 20000; N += 1000) { 
+		for (int N = nStart; N <= nStop; N += nStep) { 
 
 			String[] wordList = generateStringArray(N);
 			
@@ -279,27 +274,30 @@ public class TimingAnalysis {
 	/**
 	 * Runs a timing analysis on MyLinkedList's remove(int index) method with an increasing problem size
 	 */
-	private static void timeRemoveLinkedList() {
+	private static void timeRemoveLinkedList(int timesToLoop, int nStart, int nStop, int nStep) {
 		long startTime, midptTime, stopTime;
-		long timesToLoop = 150; 
 		MyLinkedList<String> list = new MyLinkedList<String>();
 
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
 
-		System.out.println("--------------------  Timing Analysis: void timeGetLinkedList(int index) -----------------------");
+		System.out.println("----------------------  Timing Analysis: timeRemoveLinkedList(int index) -----------------------");
 		System.out.println("\t\t\t    timesToLoop: " + timesToLoop + " | Should be O(N)");
-		System.out.println("\t\t\t This remove method must cycle through the entire LinkedList to get to the right index.");
+		System.out.println("\t\t This remove method must cycle through the entire LinkedList to get to the right index.");
 		System.out.println("\nN\tT(N)  \t|\tT(N)/logN\tT(N)/NlogN\tT(N)/N\t\tT(N)/N^2\tT(N)/N^3");
 		System.out.println("------------------------------------------------------------------------------------------------");
 
-		for (int N = 1000; N <= 20000; N += 1000) { 
+		for (int N = nStart; N <= nStop; N += nStep) { 
 
-			String[] wordList = generateStringArray(N);
+			String[] wordList = generateStringArray(N);		
 			
 			for(int i = 0; i < wordList.length; i++) {
 				list.add(i, wordList[i]);
 			}
+			
+			@SuppressWarnings("rawtypes")
+			MyLinkedList[] listArr = {generateLinkedList(wordList), generateLinkedList(wordList), generateLinkedList(wordList)
+					, generateLinkedList(wordList), generateLinkedList(wordList), generateLinkedList(wordList), generateLinkedList(wordList)};
 			
 			System.out.print(N + "\t");
 
@@ -308,16 +306,19 @@ public class TimingAnalysis {
 			while (System.nanoTime() - startTime < 1000000000)
 				;
 						
-			// time the routine areAnagrams
+			// time the routine 
 			startTime = System.nanoTime();
 			for (int i = 0; i < timesToLoop; i++) {
-				for(int j = 0; j < N; j++)
-					list.remove(j);
+				for(int j = N - 1; j >= 0; j--){
+					listArr[i].remove(j);
+				}
 			}
 			midptTime = System.nanoTime();
 
 			// time the empty loops
 			for (int i = 0; i < timesToLoop; i++) {
+				for(int j = 0; j < N; j++){
+				}
 			}
 
 			stopTime = System.nanoTime();
@@ -338,20 +339,19 @@ public class TimingAnalysis {
 	/**
 	 * Runs a timing analysis on ArrayList's remove(int index) method with an increasing problem size
 	 */
-	private static void timeRemoveArrayList() {
-		long startTime, midptTime, stopTime;
-		long timesToLoop = 150; 
+	private static void timeRemoveArrayList(int timesToLoop, int nStart, int nStop, int nStep) {
+		long startTime, midptTime, stopTime; 
 		ArrayList<String> list = new ArrayList<String>();
 
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
 
-		System.out.println("--------------------  Timing Analysis: void timeGetLinkedList(int index) -----------------------");
+		System.out.println("----------------------  Timing Analysis: timeRemoveArrayList(int index) ------------------------");
 		System.out.println("\t\t\t    timesToLoop: " + timesToLoop + " | Should be O(1)");
 		System.out.println("\nN\tT(N)  \t|\tT(N)/logN\tT(N)/NlogN\tT(N)/N\t\tT(N)/N^2\tT(N)/N^3");
 		System.out.println("------------------------------------------------------------------------------------------------");
 
-		for (int N = 1000; N <= 20000; N += 1000) { 
+		for (int N = nStart; N <= nStop; N += nStep) { 
 
 			String[] wordList = generateStringArray(N);
 			
@@ -415,7 +415,7 @@ public class TimingAnalysis {
 			arr[i] = "";
 			
 			// Length of word to generate
-			randLength = rn.nextInt(6 - 4 + 1) + 4;
+			randLength = 5;
 			for (int j = 0; j < randLength; j++) {
 				randNum = (rn.nextInt(122 - 97 + 1) + 97);
 				c = (char) randNum;	
@@ -424,5 +424,21 @@ public class TimingAnalysis {
 		}
 
 		return arr;
+	}
+	
+	/**
+	 * Generic method for populating a LinkedList from an array of items
+	 * @param itemList Array of items to be added to the LinkedList 
+	 * @return the populated LinkedList
+	 */
+	private static MyLinkedList<String> generateLinkedList(String[] itemList) {
+		
+		MyLinkedList<String> list = new MyLinkedList<String>();
+		
+		for(int i = 0; i < itemList.length; i++) {
+			list.add(i, itemList[i]);
+		}
+		
+		return list;
 	}
 }
