@@ -30,17 +30,17 @@ public class TimingAnalysis {
 
 	public static void main(String[] args) {
 		
-//		// Run timing analysis on MyLinkedList's addFirst(E element)
-//		timeAddFirstLinkedList(100, 100, 1000, 100);
-//		
-//		// Run timing analysis on ArrayList's addFirst(E element)
-//		timeAddFirstArrayList(100, 100, 1000, 100);
-//		
-//		// Run timing analysis on MyLinkedList's get(int index) method
-//		timeGetLinkedList(100, 100, 1000, 100);
-//		
-//		// Run timing analysis on ArrayList's get(int index) method
-//		timeGetArrayList(100, 100, 1000, 100);
+		// Run timing analysis on MyLinkedList's addFirst(E element)
+		timeAddFirstLinkedList(1000, 1000, 20000, 1000);
+		
+		// Run timing analysis on ArrayList's addFirst(E element)
+		timeAddFirstArrayList(1000, 1000, 20000, 1000);
+		
+		// Run timing analysis on MyLinkedList's get(int index) method
+		timeGetLinkedList(100, 1000, 20000, 1000);
+		
+		// Run timing analysis on ArrayList's get(int index) method
+		timeGetArrayList(100, 1000, 20000, 1000);
 		
 		// Run timing analysis on MyLinkedList's get(int index) method
 		timeRemoveLinkedList(500, 1000, 20000, 1000);
@@ -78,8 +78,7 @@ public class TimingAnalysis {
 			// time the routine
 			startTime = System.nanoTime();
 			for (int i = 0; i < timesToLoop; i++) {
-				for(int j = 0; j < N; j++)
-					list.addFirst(wordList[j]);
+				list.addFirst(wordList[N/2]);
 			}
 			midptTime = System.nanoTime();
 
@@ -135,8 +134,7 @@ public class TimingAnalysis {
 			// time the routine areAnagrams
 			startTime = System.nanoTime();
 			for (int i = 0; i < timesToLoop; i++) {
-				for(int j = 0; j < N; j++)
-					list.add(0, wordList[j]);
+				list.add(0, wordList[N/2]);
 			}
 			midptTime = System.nanoTime();
 
