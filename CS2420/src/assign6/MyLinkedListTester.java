@@ -1,5 +1,6 @@
 package assign6;
 
+import java.util.NoSuchElementException;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
@@ -30,38 +31,294 @@ public class MyLinkedListTester {
 	
 	///////////   add(int index, E element)    ////////////
 	@Test
-	public void testAddWithValidInput() {
-		intList.add(0, 5);
-		intList.add(1, 5);
-		intList.add(2, 5);
-		intList.add(3, 5);
-		intList.add(4, 5);
-		intList.add(5, 5);
-		intList.add(4, 5);
-		intList.add(3, 5);
-		intList.add(2, 5);
-		intList.add(1, 5);
-		intList.add(0, 5);
+	public void testAddWithValidIntegerInput() {
+		intList.add(0, 1);
+		intList.add(1, 2);
+		intList.add(2, 3);
+		intList.add(3, 4);
 		
-		// Exception should be thrown if the input index is < 0 or greater than the size of the LinkedList
-		exception.expect(IndexOutOfBoundsException.class);
-		intList.add(-1, 1234);
+		// Check that the added items are in the correct places in the list
+		assertEquals((Integer)1, intList.get(0));
+		assertEquals((Integer)2, intList.get(1));
+		assertEquals((Integer)3, intList.get(2));
+		assertEquals((Integer)4, intList.get(3));
 		
-		exception.expect(IndexOutOfBoundsException.class);
-		intList.add(3, 1234);
+		// Check the length of the linked list
+		assertEquals(4, intList.size());
+		
+		// Insert an item into an occupied position
+		intList.add(0, 10);
+		
+		// Check that the length of the linked list has incremented
+		assertEquals(5, intList.size());
+		
+		// Check the new positions of the items
+		assertEquals((Integer)10, intList.get(0));
+		assertEquals((Integer)1, intList.get(1));
+		assertEquals((Integer)2, intList.get(2));
+		assertEquals((Integer)3, intList.get(3));
+		assertEquals((Integer)4, intList.get(4));
 	}
 	
 	@Test
-	public void testAddWithInvalidInput() {
-		intList.addFirst(1);
-		intList.addFirst(1);
+	public void testAddWithValidStringInput() {
+		stringList.add(0, "1");
+		stringList.add(1, "2");
+		stringList.add(2, "3");
+		stringList.add(3, "4");
 		
+		// Check that the added items are in the correct places in the list
+		assertEquals("1", stringList.get(0));
+		assertEquals("2", stringList.get(1));
+		assertEquals("3", stringList.get(2));
+		assertEquals("4", stringList.get(3));
+		
+		// Check the length of the linked list
+		assertEquals(4, stringList.size());
+		
+		// Insert an item into an occupied position
+		stringList.add(0, "10");
+		
+		// Check that the length of the linked list has incremented
+		assertEquals(5, stringList.size());
+		
+		// Check the new positions of the items
+		assertEquals("10", stringList.get(0));
+		assertEquals("1", stringList.get(1));
+		assertEquals("2", stringList.get(2));
+		assertEquals("3", stringList.get(3));
+		assertEquals("4", stringList.get(4));
+	}
+	
+	@Test
+	public void testAddWithInvalidIndex() {
 		// Exception should be thrown if the input index is < 0 or greater than the size of the LinkedList
 		exception.expect(IndexOutOfBoundsException.class);
 		intList.add(-1, 1234);
 		
 		exception.expect(IndexOutOfBoundsException.class);
-		intList.add(3, 1234);
+		intList.add(400, 1234);
+		
+		exception.expect(IndexOutOfBoundsException.class);
+		stringList.add(-1, "1234");
+		
+		exception.expect(IndexOutOfBoundsException.class);
+		stringList.add(400, "1234");
+	}
+	
+	/////////////  getFirst()   ///////////
+	@Test
+	public void testGetFirstWithEmptyList() {
+		// Exception should be thrown if the input index is < 0 or greater than the size of the LinkedList
+		exception.expect(NoSuchElementException.class);
+		intList.getFirst();
+		
+		exception.expect(NoSuchElementException.class);
+		stringList.getFirst();
+	}
+	
+	@Test
+	public void testGetFirstWithNonEmptyList() {
+		// Check each element at each index to verify that the correct elements are being returned
+		stringList.addFirst("Fourth Newest Item");
+		stringList.addFirst("Third Newest Item");
+		stringList.addFirst("Second Newest Item");
+		stringList.addFirst("Newest Item");
+		
+		intList.addFirst(10);
+		intList.addFirst(20);
+		intList.addFirst(30);
+		intList.addFirst(40);
+		
+		assertEquals((Integer)40, intList.getFirst());
+		assertEquals("Newest Item", stringList.getFirst());
+	}
+	
+	/////////////  getLast()   ///////////
+	@Test
+	public void testGetLastWithEmptyList() {
+		// Exception should be thrown if the input index is < 0 or greater than the size of the LinkedList
+		exception.expect(NoSuchElementException.class);
+		intList.getLast();
+		
+		exception.expect(NoSuchElementException.class);
+		stringList.getLast();
+	}
+	
+	@Test
+	public void testGetLastWithNonEmptyList() {
+		// Check each element at each index to veryify that the correct elements are being returned
+		stringList.addFirst("Fourth Newest Item");
+		stringList.addFirst("Third Newest Item");
+		stringList.addFirst("Second Newest Item");
+		stringList.addFirst("Newest Item");
+		
+		intList.addFirst(10);
+		intList.addFirst(20);
+		intList.addFirst(30);
+		intList.addFirst(40);
+		
+		assertEquals((Integer)10, intList.getLast());
+		assertEquals("Fourth Newest Item", stringList.getLast());
+	}
+	
+	/////////////  get(int index)   ///////////
+	@Test
+	public void testGetWithEmptyList() {
+		// Exception should be thrown if the input index is < 0 or greater than the size of the LinkedList
+		exception.expect(IndexOutOfBoundsException.class);
+		intList.get(-1);
+		
+		exception.expect(IndexOutOfBoundsException.class);
+		stringList.get(12);
+	}
+	
+	@Test
+	public void testGetWithNonEmptyList() {
+		// Check each element at each index to veryify that the correct elements are being returned
+		stringList.addFirst("Fourth Newest Item");
+		stringList.addFirst("Third Newest Item");
+		stringList.addFirst("Second Newest Item");
+		stringList.addFirst("Newest Item");
+		
+		intList.addFirst(10);
+		intList.addFirst(20);
+		intList.addFirst(30);
+		intList.addFirst(40);
+		
+		assertEquals((Integer)40, intList.get(0));
+		assertEquals("Newest Item", stringList.get(0));
+		assertEquals((Integer)10, intList.get(3));
+		assertEquals("Fourth Newest Item", stringList.get(3));
+		assertEquals((Integer)30, intList.get(1));
+		assertEquals("Second Newest Item", stringList.get(1));
+		assertEquals((Integer)20, intList.get(2));
+		assertEquals("Third Newest Item", stringList.get(2));
+	}
+	
+	/////////////   removeFirst()   ///////////
+	@Test
+	public void testRemoveFirstWithEmptyList() {
+		// Exception should be thrown removeLast attempts to operate on an empty list
+		exception.expect(NoSuchElementException.class);
+		intList.removeFirst();
+		
+		exception.expect(NoSuchElementException.class);
+		stringList.removeFirst();
+	}
+	
+	@Test
+	public void testRemoveFirstWithNonEmptyList() {
+		stringList.addFirst("Fourth Newest Item");
+		stringList.addFirst("Third Newest Item");
+		stringList.addFirst("Second Newest Item");
+		stringList.addFirst("Newest Item");
+		
+		intList.addFirst(10);
+		intList.addFirst(20);
+		intList.addFirst(30);
+		intList.addFirst(40);
+		
+		// Check the size of the lists
+		assertEquals(4, intList.size());
+		assertEquals(4, stringList.size());
+		
+		// Remove the first element in these lists
+		assertEquals((Integer)40, intList.removeFirst());
+		assertEquals("Newest Item", stringList.removeFirst());
+		
+		// Check the first element has adjusted
+		assertEquals((Integer)30, intList.getFirst());
+		assertEquals("Second Newest Item", stringList.getFirst());
+		
+		// Check that the size of the lists have adjusted
+		assertEquals(3, intList.size());
+		assertEquals(3, stringList.size());
+	}
+	
+	/////////////   removeLast()   ///////////
+	@Test
+	public void testRemoveLastWithEmptyList() {
+		// Exception should be thrown removeLast attempts to operate on an empty list
+		exception.expect(NoSuchElementException.class);
+		intList.removeLast();
+		
+		exception.expect(NoSuchElementException.class);
+		stringList.removeLast();
+	}
+	
+	@Test
+	public void testRemoveLastWithNonEmptyList() {
+		stringList.addFirst("Fourth Newest Item");
+		stringList.addFirst("Third Newest Item");
+		stringList.addFirst("Second Newest Item");
+		stringList.addFirst("Newest Item");
+		
+		intList.addFirst(10);
+		intList.addFirst(20);
+		intList.addFirst(30);
+		intList.addFirst(40);
+		
+		// Check the size of the lists
+		assertEquals(4, intList.size());
+		assertEquals(4, stringList.size());
+		
+		// Remove the last element in these lists
+		assertEquals((Integer)10, intList.removeLast());
+		assertEquals("Fourth Newest Item", stringList.removeLast());
+		
+		// Check the last element has adjusted
+		assertEquals((Integer)20, intList.getLast());
+		assertEquals("Third Newest Item", stringList.getLast());
+		
+		// Check that the size of the lists have adjusted
+		assertEquals(3, intList.size());
+		assertEquals(3, stringList.size());
+	}
+	
+	/////////////   remove(int index)   ///////////
+	@Test
+	public void testRemoveOutOfBounds() {
+		// Exception should be thrown if the input index is < 0 or greater than the size of the LinkedList
+		exception.expect(IndexOutOfBoundsException.class);
+		intList.remove(-1);
+		
+		exception.expect(IndexOutOfBoundsException.class);
+		stringList.remove(12);
+	}
+	
+	@Test
+	public void testRemoveValidItem() {
+		// Size should decrement after removing item
+		stringList.addFirst("Fourth Newest Item");
+		stringList.addFirst("Third Newest Item");
+		stringList.addFirst("Second Newest Item");
+		stringList.addFirst("Newest Item");
+		
+		intList.addFirst(10);
+		intList.addFirst(20);
+		intList.addFirst(30);
+		intList.addFirst(40);
+		
+		// Check the size of the list
+		assertEquals(4, intList.size());
+		assertEquals(4, stringList.size());
+		
+		// Remove the first item in the lists
+		assertEquals((Integer)40, intList.remove(0));
+		assertEquals("Newest Item", stringList.remove(0));
+		
+		// Re-check the size
+		assertEquals(3, intList.size());
+		assertEquals(3, stringList.size());
+		
+		// Verify the beginning of the list has adjusted correctly
+		assertEquals((Integer)30, intList.getFirst());
+		assertEquals("Second Newest Item", stringList.getFirst());
+		
+		// Verify the end of the list is still correct
+		assertEquals((Integer)10, intList.getLast());
+		assertEquals("Fourth Newest Item", stringList.getLast());
 	}
 	
 	////////////   indexOf(E element)  ///////////

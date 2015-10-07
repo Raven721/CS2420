@@ -141,7 +141,7 @@ public class MyLinkedList<E> implements List<E> {
 			throw new NoSuchElementException("The LinkedList contains no elements");
 		}
 		
-		return get(0);
+		return head.next.item;
 	}
 
 	/**
@@ -157,7 +157,7 @@ public class MyLinkedList<E> implements List<E> {
 			throw new NoSuchElementException("The LinkedList contains no elements");
 		}
 	
-		return get(size);
+		return tail.prev.item;
 	}
 
 	/**
@@ -173,7 +173,7 @@ public class MyLinkedList<E> implements List<E> {
 			throw new IndexOutOfBoundsException("Index is out of bounds");
 		}
 		
-		return get(index);
+		return getNode(index).item;
 	}
 
 	/**
@@ -244,9 +244,10 @@ public class MyLinkedList<E> implements List<E> {
 	 */
 	@Override
 	public E remove(int index) throws IndexOutOfBoundsException {
-		if(index < 0 || index > size) {
+		if(index < 0 || index >= size) {
 			throw new IndexOutOfBoundsException("The specified index is out of bounds");
 		}
+		
 		
 		Node temp = getNode(index);
 		temp.prev.next = temp.next;
@@ -369,7 +370,7 @@ public class MyLinkedList<E> implements List<E> {
 	 * (from first to last element).
 	 * O(N) for a doubly-linked list.
 	 * 
-	 * @Return An array of the node data in the linked list, in order from head to tail
+	 * @return An array of the node data in the linked list, in order from head to tail
 	 */
 	@Override
 	public Object[] toArray() {
