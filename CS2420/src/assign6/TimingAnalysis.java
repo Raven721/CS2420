@@ -40,7 +40,7 @@ public class TimingAnalysis {
 	 */
 	private static void timeAddFirst() {
 		long startTime, midptTime, stopTime;
-		long timesToLoop = 100; 
+		long timesToLoop = 150; 
 		MyLinkedList<String> list = new MyLinkedList<String>();
 
 		// try computing T(N)/F(N), see if it converges
@@ -51,7 +51,7 @@ public class TimingAnalysis {
 		System.out.println("\nN\tT(N)  \t|\tT(N)/logN\tT(N)/NlogN\tT(N)/N\t\tT(N)/N^2\tT(N)/N^3");
 		System.out.println("------------------------------------------------------------------------------------------------");
 
-		for (int N = 10000; N <= 200000; N += 10000) { 
+		for (int N = 1000; N <= 20000; N += 1000) { 
 
 			String[] wordList = generateStringArray(N);
 			
