@@ -29,6 +29,52 @@ public class MyLinkedListTester {
 		stringList = new MyLinkedList<String>();
 	}
 	
+	///////////   addFirst(E o)   ////////////
+	@Test
+	public void testAddFirstWithEmptyList() {
+		// Verify that the initial size of the list is 0
+		assertEquals(0, intList.size());
+		
+		// Add item to list
+		intList.addFirst(1);
+		
+		// Check that the list size has incremented
+		assertEquals(1, intList.size());
+		assertEquals((Integer)1, intList.get(0));
+		
+		// Add another item to the list
+		intList.addFirst(2);
+		
+		// Check that the list size has incremented
+		assertEquals(2, intList.size());
+		
+		// Check that the first item in the list is also the last item to be added
+		assertEquals((Integer)2, intList.get(0));
+	}
+	
+	///////////   addLast(E o)   ////////////
+	@Test
+	public void testAddLastWithEmptyList() {
+		// Verify that the initial size of the list is 0
+		assertEquals(0, intList.size());
+		
+		// Add item to list
+		intList.addLast(1);
+		
+		// Check that the list size has incremented
+		assertEquals(1, intList.size());
+		assertEquals((Integer)1, intList.get(0));
+		
+		// Add another item to the list
+		intList.addLast(2);
+		
+		// Check that the list size has incremented
+		assertEquals(2, intList.size());
+		
+		// Check that the last item in the list is also the last item to be added
+		assertEquals((Integer)2, intList.get(1));
+	}
+	
 	///////////   add(int index, E element)    ////////////
 	@Test
 	public void testAddWithValidIntegerInput() {
