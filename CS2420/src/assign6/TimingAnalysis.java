@@ -43,10 +43,10 @@ public class TimingAnalysis {
 		timeGetArrayList(100, 100, 1000, 100);
 		
 		// Run timing analysis on MyLinkedList's get(int index) method
-		timeRemoveLinkedList(6, 100, 1000, 100);
+		timeRemoveLinkedList(5, 1000, 10000, 1000);
 		
 		// Run timing analysis on ArrayList's get(int index) method
-		//timeRemoveArrayList(1, 10, 1000, 10);
+		timeRemoveArrayList(5, 100, 1000, 100);
 	}
 	
 	/**
@@ -75,7 +75,7 @@ public class TimingAnalysis {
 			while (System.nanoTime() - startTime < 1000000000)
 				;
 						
-			// time the routine areAnagrams
+			// time the routine
 			startTime = System.nanoTime();
 			for (int i = 0; i < timesToLoop; i++) {
 				for(int j = 0; j < N; j++)
@@ -85,6 +85,9 @@ public class TimingAnalysis {
 
 			// time the empty loops
 			for (int i = 0; i < timesToLoop; i++) {
+				for(int j = 0; j < N; j++){
+					
+				}
 			}
 
 			stopTime = System.nanoTime();
@@ -283,7 +286,7 @@ public class TimingAnalysis {
 
 		System.out.println("----------------------  Timing Analysis: timeRemoveLinkedList(int index) -----------------------");
 		System.out.println("\t\t\t    timesToLoop: " + timesToLoop + " | Should be O(N)");
-		System.out.println("\t\t This remove method must cycle through the entire LinkedList to get to the right index.");
+		System.out.println("\t This remove method must cycle through the entire LinkedList to get to the right index.");
 		System.out.println("\nN\tT(N)  \t|\tT(N)/logN\tT(N)/NlogN\tT(N)/N\t\tT(N)/N^2\tT(N)/N^3");
 		System.out.println("------------------------------------------------------------------------------------------------");
 
@@ -297,7 +300,7 @@ public class TimingAnalysis {
 			
 			@SuppressWarnings("rawtypes")
 			MyLinkedList[] listArr = {generateLinkedList(wordList), generateLinkedList(wordList), generateLinkedList(wordList)
-					, generateLinkedList(wordList), generateLinkedList(wordList), generateLinkedList(wordList), generateLinkedList(wordList)};
+					, generateLinkedList(wordList), generateLinkedList(wordList)};
 			
 			System.out.print(N + "\t");
 
@@ -359,6 +362,10 @@ public class TimingAnalysis {
 				list.add(i, wordList[i]);
 			}
 			
+			@SuppressWarnings("rawtypes")
+			ArrayList[] listArr = {generateArrayList(wordList), generateArrayList(wordList), generateArrayList(wordList), 
+					generateArrayList(wordList), generateArrayList(wordList), };
+			
 			System.out.print(N + "\t");
 
 			// let things stabilize
@@ -366,16 +373,19 @@ public class TimingAnalysis {
 			while (System.nanoTime() - startTime < 1000000000)
 				;
 						
-			// time the routine areAnagrams
+			// time the routine 
 			startTime = System.nanoTime();
 			for (int i = 0; i < timesToLoop; i++) {
-				for(int j = 0; j < N; j++)
-					list.remove(j);
+				for(int j = N - 1; j >= 0; j--){
+					listArr[i].remove(j);
+				}
 			}
 			midptTime = System.nanoTime();
 
 			// time the empty loops
 			for (int i = 0; i < timesToLoop; i++) {
+				for(int j = 0; j < N; j++){
+				}
 			}
 
 			stopTime = System.nanoTime();
@@ -434,6 +444,22 @@ public class TimingAnalysis {
 	private static MyLinkedList<String> generateLinkedList(String[] itemList) {
 		
 		MyLinkedList<String> list = new MyLinkedList<String>();
+		
+		for(int i = 0; i < itemList.length; i++) {
+			list.add(i, itemList[i]);
+		}
+		
+		return list;
+	}
+	
+	/**
+	 * Generic method for populating a LinkedList from an array of items
+	 * @param itemList Array of items to be added to the LinkedList 
+	 * @return the populated LinkedList
+	 */
+	private static ArrayList<String> generateArrayList(String[] itemList) {
+		
+		ArrayList<String> list = new ArrayList<String>();
 		
 		for(int i = 0; i < itemList.length; i++) {
 			list.add(i, itemList[i]);
