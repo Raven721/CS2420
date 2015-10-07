@@ -30,23 +30,23 @@ public class TimingAnalysis {
 
 	public static void main(String[] args) {
 		
-		// Run timing analysis on MyLinkedList's addFirst(E element)
-		timeAddFirstLinkedList(100, 100, 1000, 100);
-		
-		// Run timing analysis on ArrayList's addFirst(E element)
-		timeAddFirstArrayList(100, 100, 1000, 100);
+//		// Run timing analysis on MyLinkedList's addFirst(E element)
+//		timeAddFirstLinkedList(100, 100, 1000, 100);
+//		
+//		// Run timing analysis on ArrayList's addFirst(E element)
+//		timeAddFirstArrayList(100, 100, 1000, 100);
+//		
+//		// Run timing analysis on MyLinkedList's get(int index) method
+//		timeGetLinkedList(100, 100, 1000, 100);
+//		
+//		// Run timing analysis on ArrayList's get(int index) method
+//		timeGetArrayList(100, 100, 1000, 100);
 		
 		// Run timing analysis on MyLinkedList's get(int index) method
-		timeGetLinkedList(100, 100, 1000, 100);
+		timeRemoveLinkedList(500, 1000, 20000, 1000);
 		
 		// Run timing analysis on ArrayList's get(int index) method
-		timeGetArrayList(100, 100, 1000, 100);
-		
-		// Run timing analysis on MyLinkedList's get(int index) method
-		timeRemoveLinkedList(5, 1000, 10000, 1000);
-		
-		// Run timing analysis on ArrayList's get(int index) method
-		timeRemoveArrayList(5, 100, 1000, 100);
+		timeRemoveArrayList(500, 1000, 20000, 1000);
 	}
 	
 	/**
@@ -279,28 +279,28 @@ public class TimingAnalysis {
 	 */
 	private static void timeRemoveLinkedList(int timesToLoop, int nStart, int nStop, int nStep) {
 		long startTime, midptTime, stopTime;
-		MyLinkedList<String> list = new MyLinkedList<String>();
 
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
 
 		System.out.println("----------------------  Timing Analysis: timeRemoveLinkedList(int index) -----------------------");
 		System.out.println("\t\t\t    timesToLoop: " + timesToLoop + " | Should be O(N)");
-		System.out.println("\t This remove method must cycle through the entire LinkedList to get to the right index.");
+		System.out.println("\t This remove method must traverse through the LinkedList to get to the right index.");
 		System.out.println("\nN\tT(N)  \t|\tT(N)/logN\tT(N)/NlogN\tT(N)/N\t\tT(N)/N^2\tT(N)/N^3");
 		System.out.println("------------------------------------------------------------------------------------------------");
 
 		for (int N = nStart; N <= nStop; N += nStep) { 
 
-			String[] wordList = generateStringArray(N);		
+			// Generate a random list of words
+			String[] wordList = generateStringArray(N);	
 			
-			for(int i = 0; i < wordList.length; i++) {
-				list.add(i, wordList[i]);
-			}
+			// Create an ArrayList of LinkedLists
+			ArrayList<MyLinkedList<String>> listArr = new ArrayList<MyLinkedList<String>>();
 			
-			@SuppressWarnings("rawtypes")
-			MyLinkedList[] listArr = {generateLinkedList(wordList), generateLinkedList(wordList), generateLinkedList(wordList)
-					, generateLinkedList(wordList), generateLinkedList(wordList)};
+			// Populate the ArrayList with LinkedLists
+			for(int i = 0; i < timesToLoop; i++) {
+				listArr.add(generateLinkedList(wordList));
+			}	
 			
 			System.out.print(N + "\t");
 
@@ -312,16 +312,13 @@ public class TimingAnalysis {
 			// time the routine 
 			startTime = System.nanoTime();
 			for (int i = 0; i < timesToLoop; i++) {
-				for(int j = N - 1; j >= 0; j--){
-					listArr[i].remove(j);
-				}
+				listArr.get(i).remove(N/2);
 			}
 			midptTime = System.nanoTime();
 
 			// time the empty loops
 			for (int i = 0; i < timesToLoop; i++) {
-				for(int j = 0; j < N; j++){
-				}
+				
 			}
 
 			stopTime = System.nanoTime();
@@ -344,13 +341,12 @@ public class TimingAnalysis {
 	 */
 	private static void timeRemoveArrayList(int timesToLoop, int nStart, int nStop, int nStep) {
 		long startTime, midptTime, stopTime; 
-		ArrayList<String> list = new ArrayList<String>();
 
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
 
 		System.out.println("----------------------  Timing Analysis: timeRemoveArrayList(int index) ------------------------");
-		System.out.println("\t\t\t    timesToLoop: " + timesToLoop + " | Should be O(1)");
+		System.out.println("\t\t\t    timesToLoop: " + timesToLoop + " | Should be O(N)");
 		System.out.println("\nN\tT(N)  \t|\tT(N)/logN\tT(N)/NlogN\tT(N)/N\t\tT(N)/N^2\tT(N)/N^3");
 		System.out.println("------------------------------------------------------------------------------------------------");
 
@@ -358,13 +354,11 @@ public class TimingAnalysis {
 
 			String[] wordList = generateStringArray(N);
 			
-			for(int i = 0; i < wordList.length; i++) {
-				list.add(i, wordList[i]);
-			}
-			
-			@SuppressWarnings("rawtypes")
-			ArrayList[] listArr = {generateArrayList(wordList), generateArrayList(wordList), generateArrayList(wordList), 
-					generateArrayList(wordList), generateArrayList(wordList), };
+			// Create an ArrayList of ArrayLists, where each list is a copy of the generated string list of strings
+			ArrayList<ArrayList<String>> listArr = new ArrayList<ArrayList<String>>();
+			for(int i = 0; i < timesToLoop; i++) {
+				listArr.add(generateArrayList(wordList));
+			}	
 			
 			System.out.print(N + "\t");
 
@@ -376,9 +370,7 @@ public class TimingAnalysis {
 			// time the routine 
 			startTime = System.nanoTime();
 			for (int i = 0; i < timesToLoop; i++) {
-				for(int j = N - 1; j >= 0; j--){
-					listArr[i].remove(j);
-				}
+				listArr.get(i).remove(N/2);
 			}
 			midptTime = System.nanoTime();
 
@@ -405,7 +397,7 @@ public class TimingAnalysis {
 	
 	/**
 	 * Returns a string array of a specified size, filled with randomly
-	 * generated strings ranging from 4 to 6 characters in length. 
+	 * generated strings of length 5. 
 	 * Characters range from a to z
 	 * 
 	 * @param size
@@ -416,7 +408,7 @@ public class TimingAnalysis {
 		String[] arr = new String[size];
 		Random rn = new Random();
 		int randNum;
-		int randLength;
+		int length = 5;
 		char c;
 
 		// Number of words to generate
@@ -425,8 +417,7 @@ public class TimingAnalysis {
 			arr[i] = "";
 			
 			// Length of word to generate
-			randLength = 5;
-			for (int j = 0; j < randLength; j++) {
+			for (int j = 0; j < length; j++) {
 				randNum = (rn.nextInt(122 - 97 + 1) + 97);
 				c = (char) randNum;	
 				arr[i] += c;
@@ -453,9 +444,9 @@ public class TimingAnalysis {
 	}
 	
 	/**
-	 * Generic method for populating a LinkedList from an array of items
-	 * @param itemList Array of items to be added to the LinkedList 
-	 * @return the populated LinkedList
+	 * Generic method for populating an ArrayList from an array of items
+	 * @param itemList Array of items to be added to the ArrayList 
+	 * @return the populated ArrayList
 	 */
 	private static ArrayList<String> generateArrayList(String[] itemList) {
 		

@@ -105,25 +105,13 @@ public class MyLinkedList<E> implements List<E> {
 		if(index < 0 || index > size) {
 			throw new IndexOutOfBoundsException("The specified index: " + index + " is out of bounds");
 		}
-		
-		if(index == 0) {
-			this.addFirst(element);
-			return;
-		} else if(index == this.size()) {
-			this.addLast(element);
-			return;
-		}
-		
+
 		Node currentNode = getNode(index);
 			
 		Node newNode = new Node(element, currentNode.prev, currentNode);
-		
-		// Insert the new node into the LinkedList
-		newNode.prev = currentNode;
-		newNode.next = currentNode.next;
-		newNode.prev.next = newNode;
-		newNode.next.prev = newNode;
-		
+		currentNode.prev.next = newNode;
+		currentNode.prev = newNode;
+
 		// Increase the size of the LinkedList after adding the specified element
 		size++;
 	}
@@ -138,7 +126,7 @@ public class MyLinkedList<E> implements List<E> {
 	@Override
 	public E getFirst() throws NoSuchElementException {
 		if(isEmpty()) {
-			throw new NoSuchElementException("The LinkedList contains no elements");
+			throw new NoSuchElementException("getFirst: The LinkedList contains no elements");
 		}
 		
 		return head.next.item;
@@ -154,7 +142,7 @@ public class MyLinkedList<E> implements List<E> {
 	@Override
 	public E getLast() throws NoSuchElementException {
 		if(isEmpty()) {
-			throw new NoSuchElementException("The LinkedList contains no elements");
+			throw new NoSuchElementException("getLast: The LinkedList contains no elements");
 		}
 	
 		return tail.prev.item;
@@ -169,8 +157,8 @@ public class MyLinkedList<E> implements List<E> {
 	 */
 	@Override
 	public E get(int index) throws IndexOutOfBoundsException {
-		if(index < 0 || index > size) {
-			throw new IndexOutOfBoundsException("The specified index: " + index + " is out of bounds");
+		if(index < 0 || index >= size) {
+			throw new IndexOutOfBoundsException("get(): The specified index: " + index + " is out of bounds");
 		}
 		
 		return getNode(index).item;
@@ -185,8 +173,12 @@ public class MyLinkedList<E> implements List<E> {
 	 */
 	@Override
 	public E getRandom() throws NoSuchElementException {
-		// Generates a random number between 0 and size
-		return getNode((new Random()).nextInt(size)).item;
+		if(isEmpty()) {
+			throw new NoSuchElementException("getRandom: The LinkedList contains no elements");
+		}
+		
+		// Generates a random index between 0 and size
+		return getNode((new Random()).nextInt(size - 1)).item;
 	}
 
 	/**
@@ -199,7 +191,7 @@ public class MyLinkedList<E> implements List<E> {
 	@Override
 	public E removeFirst() throws NoSuchElementException {
 		if(isEmpty()) {
-			throw new NoSuchElementException("The LinkedList contains no elements");
+			throw new NoSuchElementException("removeFirst: The LinkedList contains no elements");
 		}
 		
 		Node temp = head.next;
@@ -222,7 +214,7 @@ public class MyLinkedList<E> implements List<E> {
 	@Override
 	public E removeLast() throws NoSuchElementException {
 		if(isEmpty()) {
-			throw new NoSuchElementException("The LinkedList contains no elements");
+			throw new NoSuchElementException("removeLast: The LinkedList contains no elements");
 		}
 		
 		Node temp = tail.prev;
@@ -245,7 +237,7 @@ public class MyLinkedList<E> implements List<E> {
 	@Override
 	public E remove(int index) throws IndexOutOfBoundsException {
 		if(index < 0 || index > size) {
-			throw new IndexOutOfBoundsException("The specified index: " + index + " is out of bounds");
+			throw new IndexOutOfBoundsException("remove: The specified index: " + index + " is out of bounds");
 		}
 		
 		
@@ -266,16 +258,26 @@ public class MyLinkedList<E> implements List<E> {
 	 * 
 	 * @return The node at the specified index
 	 */
-	private MyLinkedList<E>.Node getNode(int index) throws IndexOutOfBoundsException {
+	private Node getNode(int index) throws IndexOutOfBoundsException {
 		if(index < 0 || index > size) {
-			throw new IndexOutOfBoundsException("The specified index: " + index + " is out of bounds");
+			throw new IndexOutOfBoundsException("getNode: The specified index: " + index + " is out of bounds");
 		}
 		
-		Node currentNode = head;
+		Node currentNode;
 		
-		// Traverse through the linked list up to the specified index
-		for(int i = 0; i <= index; i++) {
-			currentNode = currentNode.next;
+		// Determine whether to begin traversing through the list starting at the end or the beginning
+		if(index < size / 2) {
+			currentNode = head;
+			// Traverse through the linked list starting at the head
+			for(int i = 0; i <= index; i++) {
+				currentNode = currentNode.next;
+			}
+		} else {
+			currentNode = tail;
+			// Traverse through the linked list starting at the tail
+			for(int i = size - 1; i >= index; i--) {
+				currentNode = currentNode.prev;
+			}
 		}
 		
 		return currentNode;
