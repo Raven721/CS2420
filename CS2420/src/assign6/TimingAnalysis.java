@@ -7,19 +7,11 @@ import java.util.Random;
 /**
  * Timing Analysis for MyLinkedList class.
  * 
+ * Run this class to compare the time performance of MyLinkedList vs ArrayList's
+ * addFirst(element), get(index) and remove(index)
+ * 
  * This class uses formulas to compare and display the empirically observed
  * running time of a method/algorithm to the expected Big-O behavior.
- * 
- * Let T(N) be the running time observed, and let F(N) be the Big-O expected.
- * 
- * If T(N) / F(N) converges to a positive value, then F(N) correctly represents
- * the growth rate of the running times.
- * 
- * If T(N) / F(N) converges to 0, then F(N) is an overestimate of the growth
- * rate of the running times. 
- * 
- * If T(N) / F(N) converges to infinity, then F(N) is an underestimate of the
- * growth rate of the running times.
  * 
  * @author Tim Ellenberger, ellenber
  * @author Jay Mendez, jaym
@@ -40,17 +32,22 @@ public class TimingAnalysis {
 		timeGetLinkedList(5000, 1000, 20000, 1000);
 		
 		// Run timing analysis on ArrayList's get(int index) method
-		timeGetArrayList(5000, 1000, 20000, 1000);
+		timeGetArrayList(150, 1000, 20000, 1000);
 		
-		// Run timing analysis on MyLinkedList's get(int index) method
-		timeRemoveLinkedList(100, 1000, 20000, 1000);
+		// Run timing analysis on MyLinkedList's remove(int index) method
+		timeRemoveLinkedList(200, 1000, 20000, 1000);
 		
-		// Run timing analysis on ArrayList's get(int index) method
+		// Run timing analysis on ArrayList's remove(int index) method
 		timeRemoveArrayList(1500, 1000, 20000, 1000);
 	}
 	
 	/**
 	 * Runs a timing analysis on the MyLinkedList's add(int index, e element) method with an increasing problem size
+	 * 
+	 * @param timesToLoop The number of times to repeat the timing test for the same problem size
+	 * @param nStart The initial problem size
+	 * @param nStop The ending problem size
+	 * @param nStep The amount to increment the problem size after each iteration of the method
 	 */
 	private static void timeAddFirstLinkedList(int timesToLoop, int nStart, int nStop, int nStep) {
 		long startTime, midptTime, stopTime;
@@ -58,14 +55,17 @@ public class TimingAnalysis {
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
 
-		System.out.println("--------------------  Timing Analysis: void addFirst(E element)  -------------------------------");
+		System.out.println("--------------------  Timing Analysis: void addFirstLinkedList(E element)  ---------------------");
 		System.out.println("\t\t\t    timesToLoop: " + timesToLoop + " | Should be O(1)");
 		System.out.println("\nN\tT(N)  \t|\tT(N)/logN\tT(N)/NlogN\tT(N)/N\t\tT(N)/N^2\tT(N)/N^3");
 		System.out.println("------------------------------------------------------------------------------------------------");
 
 		for (int N = nStart; N <= nStop; N += nStep) { 
 
+			// Create a randomly generated array of words, of uniform length
 			String[] wordList = generateStringArray(N);
+			
+			// Create a LinkedList to add elements into
 			MyLinkedList<String> list = new MyLinkedList<String>();
 			
 			System.out.print(N + "\t");
@@ -84,9 +84,6 @@ public class TimingAnalysis {
 
 			// time the empty loops
 			for (int i = 0; i < timesToLoop; i++) {
-				for(int j = 0; j < N; j++){
-					
-				}
 			}
 
 			stopTime = System.nanoTime();
@@ -106,10 +103,14 @@ public class TimingAnalysis {
 	
 	/**
 	 * Runs a timing analysis on Java's ArrayList add method with an increasing problem size
+	 * 
+	 * @param timesToLoop The number of times to repeat the timing test for the same problem size
+	 * @param nStart The initial problem size
+	 * @param nStop The ending problem size
+	 * @param nStep The amount to increment the problem size after each iteration of the method
 	 */
 	private static void timeAddFirstArrayList(int timesToLoop, int nStart, int nStop, int nStep) {
 		long startTime, midptTime, stopTime;
-		ArrayList<String> list = new ArrayList<String>();
 
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
@@ -122,7 +123,11 @@ public class TimingAnalysis {
 
 		for (int N = nStart; N <= nStop; N += nStep) { 
 
+			// Create a randomly generated array of words, of uniform length
 			String[] wordList = generateStringArray(N);
+			
+			// Create an ArrayList to add elements into
+			ArrayList<String> list = generateArrayList(wordList);
 			
 			System.out.print(N + "\t");
 
@@ -159,6 +164,11 @@ public class TimingAnalysis {
 	
 	/**
 	 * Runs a timing analysis on MyLinkedList's get(int index) method with an increasing problem size
+	 * 
+	 * @param timesToLoop The number of times to repeat the timing test for the same problem size
+	 * @param nStart The initial problem size
+	 * @param nStop The ending problem size
+	 * @param nStep The amount to increment the problem size after each iteration of the method
 	 */
 	private static void timeGetLinkedList(int timesToLoop, int nStart, int nStop, int nStep) {
 		long startTime, midptTime, stopTime;
@@ -174,7 +184,10 @@ public class TimingAnalysis {
 
 		for (int N = nStart; N <= nStop; N += nStep) { 
 
+			// Create a randomly generated array of words, of uniform length
 			String[] wordList = generateStringArray(N);
+			
+			// Create a LinkedList containing wordList
 			MyLinkedList<String> list = generateLinkedList(wordList);
 			
 			System.out.print(N + "\t");
@@ -184,7 +197,7 @@ public class TimingAnalysis {
 			while (System.nanoTime() - startTime < 1000000000)
 				;
 						
-			// time the routine areAnagrams
+			// time the routine 
 			startTime = System.nanoTime();
 			for (int i = 0; i < timesToLoop; i++) {
 				list.get(N/2);
@@ -212,10 +225,14 @@ public class TimingAnalysis {
 	
 	/**
 	 * Runs a timing analysis on the Java's ArrayList get(int index) method with an increasing problem size
+	 * 
+	 * @param timesToLoop The number of times to repeat the timing test for the same problem size
+	 * @param nStart The initial problem size
+	 * @param nStop The ending problem size
+	 * @param nStep The amount to increment the problem size after each iteration of the method
 	 */
 	private static void timeGetArrayList(int timesToLoop, int nStart, int nStop, int nStep) {
 		long startTime, midptTime, stopTime;
-		
 
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
@@ -227,7 +244,10 @@ public class TimingAnalysis {
 
 		for (int N = nStart; N <= nStop; N += nStep) { 
 
+			// Create a randomly generated array of words, of uniform length
 			String[] wordList = generateStringArray(N);
+			
+			// Create an ArrayList containing wordList
 			ArrayList<String> list = generateArrayList(wordList);
 			
 			System.out.print(N + "\t");
@@ -237,15 +257,14 @@ public class TimingAnalysis {
 			while (System.nanoTime() - startTime < 1000000000)
 				;
 						
-			// time the routine areAnagrams
+			// time the routine 
 			startTime = System.nanoTime();
 			for (int i = 0; i < timesToLoop; i++) {
-				for(int j = 0; j < N; j++)
-					list.get(j);
+				list.get(N/2);
 			}
 			midptTime = System.nanoTime();
 
-			// time the empty loops
+			// time the empty loop
 			for (int i = 0; i < timesToLoop; i++) {
 			}
 
@@ -266,6 +285,11 @@ public class TimingAnalysis {
 	
 	/**
 	 * Runs a timing analysis on MyLinkedList's remove(int index) method with an increasing problem size
+	 * 
+	 * @param timesToLoop The number of times to repeat the timing test for the same problem size
+	 * @param nStart The initial problem size
+	 * @param nStop The ending problem size
+	 * @param nStep The amount to increment the problem size after each iteration of the method
 	 */
 	private static void timeRemoveLinkedList(int timesToLoop, int nStart, int nStop, int nStep) {
 		long startTime, midptTime, stopTime;
@@ -281,7 +305,7 @@ public class TimingAnalysis {
 
 		for (int N = nStart; N <= nStop; N += nStep) { 
 
-			// Generate a random list of words
+			// Create a randomly generated array of words, of uniform length
 			String[] wordList = generateStringArray(N);	
 			
 			// Create an ArrayList of LinkedLists
@@ -306,9 +330,8 @@ public class TimingAnalysis {
 			}
 			midptTime = System.nanoTime();
 
-			// time the empty loops
+			// time the empty loop
 			for (int i = 0; i < timesToLoop; i++) {
-				
 			}
 
 			stopTime = System.nanoTime();
@@ -328,6 +351,11 @@ public class TimingAnalysis {
 	
 	/**
 	 * Runs a timing analysis on ArrayList's remove(int index) method with an increasing problem size
+	 * 
+	 * @param timesToLoop The number of times to repeat the timing test for the same problem size
+	 * @param nStart The initial problem size
+	 * @param nStop The ending problem size
+	 * @param nStep The amount to increment the problem size after each iteration of the method
 	 */
 	private static void timeRemoveArrayList(int timesToLoop, int nStart, int nStop, int nStep) {
 		long startTime, midptTime, stopTime; 
@@ -342,10 +370,13 @@ public class TimingAnalysis {
 
 		for (int N = nStart; N <= nStop; N += nStep) { 
 
+			// Create a randomly generated array of words, of uniform length
 			String[] wordList = generateStringArray(N);
 			
-			// Create an ArrayList of ArrayLists, where each list is a copy of the generated string list of strings
+			// Create an ArrayList of ArrayLists
 			ArrayList<ArrayList<String>> listArr = new ArrayList<ArrayList<String>>();
+			
+			// Populate the ArrayList with ArrayLists, each containing wordList
 			for(int i = 0; i < timesToLoop; i++) {
 				listArr.add(generateArrayList(wordList));
 			}	
@@ -366,8 +397,6 @@ public class TimingAnalysis {
 
 			// time the empty loops
 			for (int i = 0; i < timesToLoop; i++) {
-				for(int j = 0; j < N; j++){
-				}
 			}
 
 			stopTime = System.nanoTime();
@@ -419,6 +448,7 @@ public class TimingAnalysis {
 	
 	/**
 	 * Generic method for populating a LinkedList from an array of items
+	 * 
 	 * @param itemList Array of items to be added to the LinkedList 
 	 * @return the populated LinkedList
 	 */
@@ -435,6 +465,7 @@ public class TimingAnalysis {
 	
 	/**
 	 * Generic method for populating an ArrayList from an array of items
+	 * 
 	 * @param itemList Array of items to be added to the ArrayList 
 	 * @return the populated ArrayList
 	 */

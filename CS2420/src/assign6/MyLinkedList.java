@@ -63,7 +63,7 @@ public class MyLinkedList<E> implements List<E> {
 		head.next = tail;
 		tail.prev = head;
 		
-		// Number of nodes in the linked list sans the head and tail
+		// Initial number of nodes in the linked list sans the head and tail
 		size = 0;
 	}
 	
@@ -71,7 +71,7 @@ public class MyLinkedList<E> implements List<E> {
 	 * Inserts the specified element at the beginning of the list.
 	 * O(1) for a doubly-linked list.
 	 */
-	//@Override
+	@Override
 	public void addFirst(E element) {
 		Node temp = new Node(element, head, head.next);
 		head.next.prev = temp;
