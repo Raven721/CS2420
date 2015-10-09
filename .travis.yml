@@ -1,3 +1,20 @@
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "XvoKgsjWRT2pnk7ubILXgix9fwxoUkEy/ibvnCqkm0hZS4GGrulKqgN+VRWnGWEo9intJsRIJ96rp36yBFmQ6+6L3K1KmVX45pfaxiIC29LkPdYd7DLINR2C9k+nOFw+jzHjV7bjuZaozx2nESOOvSXWbG2F8atI8ZQIxyw6aAYOjTosdj1+I9/kWHvxYIsFhVkmcS8S+TaVrMV0cs6rLCajakFfg8KSFy5X79Vwq+N00Z+ijRSobvQAKyxU00+mcEFz59g/1mwyiUPokeuGPaC2iwMG84WyPSXE0x0jryHnX3LX9BwV1ckrYOmm58WGYrYIzGE+xkevsMS4mPGh7cEf5AE+guDQQ3e3B7QQR+z9c6HpK1Cf6GehKRxq2xZY8wrHEdGJ8Yzaeq1Hgt9/VI6jjRH6PtThJYcU6zN9f3E2gYOXQ6TJTJ1Bss4DiLhaunIgtfUdPfuwtnG1I4ks7DfCotmRU3YC4EGGimFbPuTLBSSSLL1cN2kI1yl6+7VZ2nlhTYoxoUW1Z21AjYgY1Qh6rCR/XK8X7fNnpfXL0I+VqhIt5x3ObHqIgj5ZLLMLpnNM/F84kwvmXPqTs9a0m0+2mDfH5JIR6h+ZsDPHTgteuuLnyIFKitj6c0ZC59rTS1OS17Z6ntdD1Fxpk5hlLJfEPtpnmlZzeWrPkX4lJiI="
+
+addons:
+  coverity_scan:
+    project:
+      name: "tim-soft/CS2420"
+      description: "Intro to Algorithms and Data Structures"
+    notification_email: timellenberger@gmail.com
+    build_command_prepend: ""
+    build_command:   "ant test -logger org.apache.tools.ant.listener.AnsiColorLogger"
+    branch_pattern: coverity_scan
+
 language: java
 
 script: ant test -logger org.apache.tools.ant.listener.AnsiColorLogger
+
