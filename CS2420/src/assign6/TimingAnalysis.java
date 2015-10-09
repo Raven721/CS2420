@@ -136,7 +136,7 @@ public class TimingAnalysis {
 			while (System.nanoTime() - startTime < 1000000000)
 				;
 						
-			// time the routine areAnagrams
+			// time the routine 
 			startTime = System.nanoTime();
 			for (int i = 0; i < timesToLoop; i++) {
 				list.add(0, wordList[N/2]);
