@@ -57,7 +57,7 @@ public class TimingAnalysis {
 
 		System.out.println("--------------------  Timing Analysis: void addFirstLinkedList(E element)  ---------------------");
 		System.out.println("\t\t\t    timesToLoop: " + timesToLoop + " | Should be O(1)");
-		System.out.println("\nN\tT(N)\t|\tT(N)/logN\tT(N)/NlogN\tT(N)/N\t\tT(N)/N^2\tT(N)/N^3");
+		System.out.println("\nN\t\tT(N)\t|\tT(N)/logN\tT(N)/NlogN\tT(N)/N\t\tT(N)/N^2\tT(N)/N^3");
 		System.out.println("------------------------------------------------------------------------------------------------");
 
 		for (int N = nStart; N <= nStop; N += nStep) { 
