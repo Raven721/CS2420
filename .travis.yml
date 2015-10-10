@@ -13,7 +13,7 @@ addons:
       description: "Intro to Algorithms and Data Structures"
     notification_email: timellenberger@gmail.com
     build_command_prepend: "cov-configure --java"
-    build_command:   "ant test -logger org.apache.tools.ant.listener.AnsiColorLogger"
+    build_command:   "ant compile -logger org.apache.tools.ant.listener.AnsiColorLogger"
     branch_pattern: coverity_scan
 
 script: ant test -logger org.apache.tools.ant.listener.AnsiColorLogger
