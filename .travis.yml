@@ -1,3 +1,5 @@
+language: java
+
 env:
   global:
    # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
@@ -10,11 +12,9 @@ addons:
       name: "tim-soft/CS2420"
       description: "Intro to Algorithms and Data Structures"
     notification_email: timellenberger@gmail.com
-    build_command_prepend: ""
+    build_command_prepend: "cov-configure --java"
     build_command:   "ant test -logger org.apache.tools.ant.listener.AnsiColorLogger"
     branch_pattern: coverity_scan
-
-language: java
 
 script: ant test -logger org.apache.tools.ant.listener.AnsiColorLogger
 
