@@ -1,11 +1,11 @@
 # CS2420
+ Intro to Algorithms and Data Structures
 
-> Intro to Algorithms and Data Structures
-
-## Project Build Status
-
-Assignment 6 Timing Analysis and Unit Tests: 
-- [![Build Status](https://travis-ci.org/tim-soft/CS2420.svg?branch=master)](https://travis-ci.org/tim-soft/CS2420) [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
+## Project Build Status 
+### Assignment 6 Timing Analysis and Unit Tests
+Linux/Windows  | Coverity
+------------- | ------------- | 
+[![Build Status](https://travis-ci.org/tim-soft/CS2420.svg?branch=master)](https://travis-ci.org/tim-soft/CS2420) | [![Coverity status](https://scan.coverity.com/projects/6620/badge.svg?flat=1)](https://scan.coverity.com/projects/5367)
 
 ---
 
