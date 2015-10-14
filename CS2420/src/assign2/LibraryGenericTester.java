@@ -1,12 +1,9 @@
 package assign2;
 
 import static org.junit.Assert.*;
-
 import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 /**
  * Testing class for LibraryGeneric.

@@ -58,6 +58,7 @@ public class Library {
 	 * 
 	 * @param filename
 	 */
+	@SuppressWarnings("resource")
 	public void addAll(String filename) {
 		ArrayList<LibraryBook> toBeAdded = new ArrayList<LibraryBook>();
 

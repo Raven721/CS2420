@@ -59,6 +59,7 @@ public class LibraryGeneric<Type> {
 	 * 
 	 * @param filename
 	 */
+	@SuppressWarnings("resource")
 	public void addAll(String filename) {
 		ArrayList<LibraryBookGeneric<Type>> toBeAdded = new ArrayList<LibraryBookGeneric<Type>>();
 

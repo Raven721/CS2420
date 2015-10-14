@@ -38,6 +38,7 @@ public class MyPriorityQueueIterator<E> implements Iterator<E> {
 	 * 
 	 * Throws a NoSuchElementException if the queue is empty or if there is no additional elements in the queue
 	 */
+	@SuppressWarnings("unchecked")
 	public E next() {
 		if(!hasNext())
 			throw new NoSuchElementException();  

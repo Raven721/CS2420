@@ -42,6 +42,7 @@ public class MyPriorityQueue<E> implements PriorityQueue<E> {
 	 * 
 	 * @return the minimum element or null if the queue is empty
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public E findMin() {
 		if (isEmpty()) {
@@ -65,6 +66,7 @@ public class MyPriorityQueue<E> implements PriorityQueue<E> {
 		}
 
 		// Cache the minimum element so that it can be destroyed in the queue
+		@SuppressWarnings("unchecked")
 		E minimumElement = ((E) container.items[container.size - 1]);
 		container.items[container.size - 1] = null;
 		container.size--;
@@ -122,6 +124,7 @@ public class MyPriorityQueue<E> implements PriorityQueue<E> {
 	 * @param newItem
 	 * 				New item to be inserted into the priority queue
 	 */
+	@SuppressWarnings("unchecked")
 	private int findInsertionPoint(E newItem) {
 		int first = 0;
 		int last = container.size - 1;
@@ -200,6 +203,7 @@ public class MyPriorityQueue<E> implements PriorityQueue<E> {
 	 * @param e2
 	 * 			The second object of the comparison.
 	 */
+	@SuppressWarnings("unchecked")
 	private int myCompare(E e1, E e2) {
 		// If comparator was NOT used to construct the queue
 		if (priorityComparator == null) {
