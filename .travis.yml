@@ -16,5 +16,5 @@ addons:
     build_command:   "ant compile -logger org.apache.tools.ant.listener.AnsiColorLogger"
     branch_pattern: coverity_scan
 
-script: ant test -logger org.apache.tools.ant.listener.AnsiColorLogger
+script: ant runAppAndUnitTests -logger org.apache.tools.ant.listener.AnsiColorLogger
 
