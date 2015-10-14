@@ -62,7 +62,7 @@
 
 		Also, Include a printout of the JUnit results and use a formatter to pretty-up the output
 	-->
-	<target name="runUnitTests" depends="build">
+	<target name="runUnitTests" depends="compile">
 		<echo message="|-----------------Executing Unit Tests----------------|" />
 		<echo message="|-----------------------------------------------------|" />
 		<junit printsummary="yes" haltonfailure="no" showoutput="true" outputtoformatters="true">
