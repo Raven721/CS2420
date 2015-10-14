@@ -8,7 +8,7 @@ import java.util.NoSuchElementException;
  * @author Tim Ellenberger, ellenber
  * @author Jay Mendez, jaym
  * @author Erin Parker
- * @version 10/8/2015
+ * @version 10/22/2015
  * 
  * @param <E>
  *            -- the type of elements contained in the list

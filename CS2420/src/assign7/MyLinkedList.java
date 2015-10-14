@@ -8,7 +8,7 @@ import java.util.Random;
  * 
  * @author Tim Ellenberger, ellenber
  * @author Jay Mendez, jaym
- * @version 10/8/2015
+ * @version 10/22/2015
  * 
  * @param <E>
  *            -- the type of elements contained in the list

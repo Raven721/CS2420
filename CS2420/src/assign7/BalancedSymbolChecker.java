@@ -6,7 +6,10 @@ import java.io.FileNotFoundException;
  * Class containing the checkFile method for checking if the (, [, and { symbols
  * in an input file are correctly matched.
  * 
- * @author Erin Parker and ??
+ * @author Tim Ellenberger, ellenber
+ * @author Jay Mendez, jaym
+ * @author Erin Parker
+ * @version 10/22/2015
  */
 public class BalancedSymbolChecker {
 
