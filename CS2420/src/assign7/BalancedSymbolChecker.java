@@ -2,7 +2,6 @@ package assign7;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -26,141 +25,139 @@ public class BalancedSymbolChecker {
 	 */
 	public static String checkFile(String filename) throws FileNotFoundException {
 
-		try {
-			File f = new File(filename);
+		File f = new File(filename);
 
-			@SuppressWarnings("resource")
-			Scanner in = new Scanner(f);
-			MyStack<Character> stack = new MyStack<Character>();
-			char poppedSymbol;
+		@SuppressWarnings("resource")
+		Scanner in = new Scanner(f);
+		MyStack<Character> stack = new MyStack<Character>();
+		char poppedSymbol;
 
-			int line = 0;
+		int line = 0;
 
-			// Cycle through each separate word in the file
-			while (in.hasNextLine()) {
-				int column = 0;
+		// Cycle through each separate word in the file
+		while (in.hasNextLine()) {
+			int column = 0;
 
-				// increment line on each iteration
-				line++;
+			// increment line on each iteration
+			line++;
 
-				String currentLine = in.nextLine();
-				char[] charArray = currentLine.toCharArray();
+			String currentLine = in.nextLine();
+			char[] charArray = currentLine.toCharArray();
 
-				// Cycle through the current line's characters
-				for (int i = 0; i < charArray.length; i++) {
-					char c = charArray[i];
+			// Cycle through the current line's characters
+			for (int i = 0; i < charArray.length; i++) {
+				char c = charArray[i];
 
-					// Skip to the next character if the current space is empty
-					if (c == ' ') {
-						column++;
-						continue;
-					}
-					if (c == '\t') {
-						column++;
-						continue;
-					}
-
+				// Skip to the next character if the current space is empty
+				if (c == ' ') {
 					column++;
+					continue;
+				}
+				if (c == '\t') {
+					column++;
+					continue;
+				}
 
-					// Find cases where characters must be overlooked i.e.
-					// Comments and String/Character literals
-					if (c == '/' && stack.size() > 0) {
-						if (stack.peek() == '/') {
-							if (charArray[i - 1] == '*') {
-								System.out.println("*/ ends at line " + line + " column " + column);
-								stack.pop();
-							}
-						} else {
-							if (i + 1 < charArray.length) {
-								if (charArray[i + 1] == '/') {
-									System.out.println("// found at line " + line + " column " + column);
-									break;
-								} else if (charArray[i + 1] == '*') {
-									System.out.println("/* begins at line " + line + " column " + column);
-									stack.push('/');
-								}
-							}
-						}
+				column++;
 
-					} else if (c == '"') {
-
-						if (stack.peek() == '"') {
-							System.out.println("\" ends at line " + line + " column " + column);
+				// Find cases where characters must be overlooked i.e.
+				// Comments and String/Character literals
+				if (c == '/' && stack.size() > 0) {
+					if (stack.peek() == '/') {
+						if (charArray[i - 1] == '*') {
+							System.out.println("*/ ends at line " + line + " column " + column);
 							stack.pop();
-						} else {
-							System.out.println("\" begins at line " + line + " column " + column);
-							stack.push('"');
 						}
-					} else if (c == '\'') {
-
-						if (stack.peek() == '\'') {
-							System.out.println("\' ends at line " + line + " column " + column);
-							stack.pop();
-						} else {
-							System.out.println("\' begins at line " + line + " column " + column);
-							stack.push('\'');
+					} else {
+						if (i + 1 < charArray.length) {
+							if (charArray[i + 1] == '/') {
+								System.out.println("// found at line " + line + " column " + column);
+								break;
+							} else if (charArray[i + 1] == '*') {
+								System.out.println("/* begins at line " + line + " column " + column);
+								stack.push('/');
+							}
 						}
 					}
-
-					// Keep iterating if inside a comment or string/character
-					// literal
-					if (stack.size() > 0) {
-						if (stack.peek() == '\'' || stack.peek() == '"' || stack.peek() == '/') {
-							continue;
+				} 
+				else if(c == '/' && stack.isEmpty()) {
+					if (i + 1 < charArray.length) {
+						if (charArray[i + 1] == '/') {
+							System.out.println("// found at line " + line + " column " + column);
+							break;
+						} else if (charArray[i + 1] == '*') {
+							System.out.println("/* begins at line " + line + " column " + column);
+							stack.push('/');
 						}
 					}
-
-					// Push opening symbol to stack
-					if (c == '(' || c == '{' || c == '[') {
-						stack.push(c);
+				}
+				else if (c == '"') {
+					if (stack.peek() == '"') {
+						System.out.println("\" ends at line " + line + " column " + column);
+						stack.pop();
+					} else {
+						System.out.println("\" begins at line " + line + " column " + column);
+						stack.push('"');
 					}
-					// Pop closing symbol from stack
-					else if (c == ')' || c == '}' || c == ']') {
-						if (stack.isEmpty()) {
-							return BalancedSymbolChecker.unmatchedSymbol(line, column, c, ' ');
-						}
+				} else if (c == '\'') {
+					if (stack.peek() == '\'') {
+						System.out.println("\' ends at line " + line + " column " + column);
+						stack.pop();
+					} else {
+						System.out.println("\' begins at line " + line + " column " + column);
+						stack.push('\'');
+					}
+				}
 
-						poppedSymbol = stack.pop();
+				// Keep iterating if inside a comment or string/character
+				// literal
+				if (stack.size() > 0) {
+					if (stack.peek() == '\'' || stack.peek() == '"' || stack.peek() == '/') {
+						continue;
+					}
+				}
 
-						if (poppedSymbol == '(' && c != ')') {
-							return BalancedSymbolChecker.unmatchedSymbol(line, column, c, ')');
-						}
-						if (poppedSymbol == '{' && c != '}') {
-							return BalancedSymbolChecker.unmatchedSymbol(line, column, c, '}');
-						}
-						if (poppedSymbol == '[' && c != ']') {
-							return BalancedSymbolChecker.unmatchedSymbol(line, column, c, ']');
-						}
+				// Push opening symbol to stack
+				if (c == '(' || c == '{' || c == '[') {
+					stack.push(c);
+				}
+				// Pop closing symbol from stack
+				else if (c == ')' || c == '}' || c == ']') {
+					if (stack.isEmpty()) {
+						return BalancedSymbolChecker.unmatchedSymbol(line, column, c, ' ');
 					}
 
+					poppedSymbol = stack.pop();
+
+					if (poppedSymbol == '(' && c != ')') {
+						return BalancedSymbolChecker.unmatchedSymbol(line, column, c, ')');
+					}
+					if (poppedSymbol == '{' && c != '}') {
+						return BalancedSymbolChecker.unmatchedSymbol(line, column, c, '}');
+					}
+					if (poppedSymbol == '[' && c != ']') {
+						return BalancedSymbolChecker.unmatchedSymbol(line, column, c, ']');
+					}
 				}
 			}
-
-			// Close the input stream
-			in.close();
-
-			// Check if the stack is empty after scanning through the file
-			if (!stack.isEmpty()) {
-				poppedSymbol = stack.pop();
-
-				if (poppedSymbol == '(')
-					return BalancedSymbolChecker.unmatchedSymbolAtEOF(')');
-				if (poppedSymbol == '{')
-					return BalancedSymbolChecker.unmatchedSymbolAtEOF('}');
-				if (poppedSymbol == '[')
-					return BalancedSymbolChecker.unmatchedSymbolAtEOF(']');
-				if (poppedSymbol == '/')
-					return BalancedSymbolChecker.unfinishedComment();
-
-			}
 		}
-		// Throw FileNotFoundException if the file does not exist
-		catch (
 
-		IOException e)
+		// Close the input stream
+		in.close();
 
-		{
-			throw new FileNotFoundException();
+		// Check if the stack is empty after scanning through the file
+		if (!stack.isEmpty()) {
+			poppedSymbol = stack.pop();
+
+			if (poppedSymbol == '(')
+				return BalancedSymbolChecker.unmatchedSymbolAtEOF(')');
+			if (poppedSymbol == '{')
+				return BalancedSymbolChecker.unmatchedSymbolAtEOF('}');
+			if (poppedSymbol == '[')
+				return BalancedSymbolChecker.unmatchedSymbolAtEOF(']');
+			if (poppedSymbol == '/')
+				return BalancedSymbolChecker.unfinishedComment();
+
 		}
 
 		// If the input file has made it this far, return all symbols match
