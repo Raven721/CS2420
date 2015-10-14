@@ -1,40 +1,33 @@
 <?xml version="1.0"?>
-<project name="java-junit-template-project" default="test" basedir=".">
+<project name="java-junit-template-project" default="runAppAndUnitTests" basedir=".">
+	<!--
+		Setup path variables
+	-->
 	<property name="main.build.dir" value="build/main" />
 	<property name="jar.dir" value="build/jar" />
 	<property name="main.src.dir" value="CS2420/src/assign6" />
 
-	<property name="test.build.dir" value="build/test" />
-	<property name="test.src.dir" value="CS2420/src/assign6" />
-
 	<path id="classpath.base" />
 
-	<path id="classpath.test">
+	<!--
+		Add the dependecies for JUnit to the classpath, conventiently located in the */lib/ folder for travis-ci
+	-->
+	<path id="classpath.dependecies">
 		<pathelement location="CS2420/lib/junit.jar" />
 		<pathelement location="CS2420/lib/org.hamcrest.core_1.3.0.v201303031735.jar" />
 		<pathelement location="${main.build.dir}" />
 		<path refid="classpath.base" />
 	</path>
 
-	<target name="test" depends="runTimingAnalysis, runUnitTests, clean" />
-
 	<!--
-		Compile source files
+		Compile all of the *.java source files inside the src/HelloWorld folder
 	-->
 	<target name="compile">
 		<mkdir dir="${main.build.dir}" />
 		<javac srcdir="${main.src.dir}" destdir="${main.build.dir}" includeantruntime="false">
-			<classpath refid="classpath.test" />
+			<classpath refid="classpath.dependecies" />
 		</javac>
 
-	</target>
-
-	<target name="build" depends="compile">
-		<mkdir dir="${test.build.dir}" />
-		<javac srcdir="${test.src.dir}" destdir="${test.build.dir}" includeantruntime="false">
-			<classpath refid="classpath.test" />
-		</javac>
-		<echo message="Build done" />
 	</target>
 
 	<!--
@@ -64,31 +57,45 @@
 		<echo message="|-------------TimingAnalysis  Complete----------------|" />
 	</target>
 
-	<!-- Test and build all files  -->
-	<!-- To run this: use "ant" (default) or "ant run" -->
+	<!-- 
+		Execute all of the unit tests
+
+		Also, Include a printout of the JUnit results and use a formatter to pretty-up the output
+	-->
 	<target name="runUnitTests" depends="build">
 		<echo message="|-----------------Executing Unit Tests----------------|" />
 		<echo message="|-----------------------------------------------------|" />
 		<junit printsummary="yes" haltonfailure="no" showoutput="true" outputtoformatters="true">
 			<classpath>
-				<path refid="classpath.test" />
-				<pathelement location="${test.build.dir}" />
+				<path refid="classpath.dependecies" />
+				<pathelement location="${main.build.dir}" />
 			</classpath>
 			<formatter type="plain" usefile="false" />
 			<batchtest>
-				<fileset dir="${test.build.dir}" includes="assign6/**/*Test*.class" />
+				<fileset dir="${main.build.dir}" includes="assign6/**/*Test*.class" />
 			</batchtest>
 		</junit>
 		<echo message="|-----------------------------------------------------|" />
 		<echo message="|----------------Unit Testing Complete----------------|" />
 	</target>
 
-	<!-- delete all class files -->
-	<!-- To run this: use "ant clean" -->
+	<!-- 
+		Perform a cleanup by deleting all *.class files 
+	-->
 	<target name="clean">
 		<delete>
 			<fileset dir="${basedir}" includes="**/*.class" />
 		</delete>
 		<echo message="clean done" />
 	</target>
+
+	<!--
+		Create a target for running the main application, the unit tests and then perform cleanup
+
+		in .travis.yml, use the script command ==> run ant runAppAndUnitTests
+
+		ANT command in .travis.yml uses the postfix -logger org.apache.tools.ant.listener.AnsiColorLogger 
+		to color-up the output text in travis-ci 
+	-->
+	<target name="runAppAndUnitTests" depends="runTimingAnalysis, runUnitTests, clean" />
 </project>
