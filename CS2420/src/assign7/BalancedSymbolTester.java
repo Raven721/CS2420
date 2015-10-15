@@ -290,7 +290,7 @@ public class BalancedSymbolTester {
 		System.out.println("---------");
 		
 		String correctOutput = "No errors found. All symbols match.";
-		String actualOutput = BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class13.java");
+		String actualOutput = BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class12.java");
 		assertEquals(correctOutput, actualOutput);
 	}
 	

@@ -164,6 +164,10 @@ public class BalancedSymbolChecker {
 				return BalancedSymbolChecker.unmatchedSymbolAtEOF('}');
 			if (poppedSymbol == '[')
 				return BalancedSymbolChecker.unmatchedSymbolAtEOF(']');
+			if (poppedSymbol == '\'')
+				return BalancedSymbolChecker.unmatchedSymbolAtEOF('\'');
+			if (poppedSymbol == '"')
+				return BalancedSymbolChecker.unmatchedSymbolAtEOF('"');
 			if (poppedSymbol == '/')
 				return BalancedSymbolChecker.unfinishedComment();
 
