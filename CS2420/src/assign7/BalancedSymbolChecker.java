@@ -62,13 +62,8 @@ public class BalancedSymbolChecker {
 
 				// Find cases where characters must be overlooked i.e.
 				// Comments and String/Character literals
-				if (c == '/' && stack.size() > 0) {
-					if (stack.peek() == '/') {
-						if (charArray[i - 1] == '*') {
-							System.out.println("*/ ends at line " + line + " column " + column);
-							stack.pop();
-						}
-					} else {
+				if(stack.isEmpty()) {
+					if(c == '/'){
 						if (i + 1 < charArray.length) {
 							if (charArray[i + 1] == '/') {
 								System.out.println("// found at line " + line + " column " + column);
@@ -78,37 +73,51 @@ public class BalancedSymbolChecker {
 								stack.push('/');
 							}
 						}
-					}
-				} 
-				else if(c == '/' && stack.isEmpty()) {
-					if (i + 1 < charArray.length) {
-						if (charArray[i + 1] == '/') {
-							System.out.println("// found at line " + line + " column " + column);
-							break;
-						} else if (charArray[i + 1] == '*') {
-							System.out.println("/* begins at line " + line + " column " + column);
-							stack.push('/');
-						}
-					}
-				}
-				else if (c == '"') {
-					if (stack.peek() == '"') {
-						System.out.println("\" ends at line " + line + " column " + column);
-						stack.pop();
-					} else {
+					} else if(c == '"') {
 						System.out.println("\" begins at line " + line + " column " + column);
 						stack.push('"');
-					}
-				} else if (c == '\'') {
-					if (stack.peek() == '\'') {
-						System.out.println("\' ends at line " + line + " column " + column);
-						stack.pop();
-					} else {
+					} else if(c == '\'') {
 						System.out.println("\' begins at line " + line + " column " + column);
 						stack.push('\'');
 					}
 				}
-
+				else if(!stack.isEmpty()) {
+					if(c == '/') {
+						if (stack.peek() == '/') {
+							if (charArray[i - 1] == '*') {
+								System.out.println("*/ ends at line " + line + " column " + column);
+								stack.pop();
+							}
+						} else {
+							if (i + 1 < charArray.length) {
+								if (charArray[i + 1] == '/') {
+									System.out.println("// found at line " + line + " column " + column);
+									break;
+								} else if (charArray[i + 1] == '*') {
+									System.out.println("/* begins at line " + line + " column " + column);
+									stack.push('/');
+								}
+							}
+						}	
+					} else if(c == '"') {
+						if (stack.peek() == '"') {
+							System.out.println("\" ends at line " + line + " column " + column);
+							stack.pop();
+						} else {
+							System.out.println("\" begins at line " + line + " column " + column);
+							stack.push('"');
+						}
+					} else if(c == '\'') {
+						if (stack.peek() == '\'') {
+							System.out.println("\' ends at line " + line + " column " + column);
+							stack.pop();
+						} else {
+							System.out.println("\' begins at line " + line + " column " + column);
+							stack.push('\'');
+						}
+					}
+				}
+				
 				// Keep iterating if inside a comment or string/character
 				// literal
 				if (stack.size() > 0) {

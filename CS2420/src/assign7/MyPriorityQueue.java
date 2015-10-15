@@ -27,6 +27,8 @@ public class MyPriorityQueue<E extends Comparable<? super E>> {
 	/**
 	 * Returns, but does not remove, the minimum element in this priority queue.
 	 * Throws NoSuchElementException if the priority queue is empty.
+	 * 
+	 * @return The minimum element of this priority queue.
 	 */
 	public E findMin() throws NoSuchElementException {
 		return minStack.peek();
@@ -54,6 +56,8 @@ public class MyPriorityQueue<E extends Comparable<? super E>> {
 
 	/**
 	 * Returns the number of items in this priority queue.
+	 * 
+	 * @return The number of items in this priority queue.
 	 */
 	public int size() {
 		return this.size();
@@ -61,6 +65,8 @@ public class MyPriorityQueue<E extends Comparable<? super E>> {
 
 	/**
 	 * Returns true if this priority queue contains no items.
+	 * 
+	 * @return True if this priority queue is empty, False if this priority queue contains at least one item.
 	 */
 	public boolean isEmpty() {
 		return this.isEmpty();
