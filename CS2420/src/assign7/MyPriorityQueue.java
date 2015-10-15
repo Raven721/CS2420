@@ -44,7 +44,7 @@ public class MyPriorityQueue<E extends Comparable<? super E>> {
 		} else {
 			// If the new item is smaller than the last min, push the item to the minStack
 			// Otherwise, push the last min to the minStack
-			if(minStack.peek().compareTo(item) <= 0) {
+			if(minStack.peek().compareTo(item) >= 0) {
 				minStack.push(item);
 			} else {
 				minStack.push(minStack.peek());
