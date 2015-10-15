@@ -15,6 +15,7 @@ import org.junit.Test;
  */
 public class BalancedSymbolTester {
 
+	////////// String checkFile(String filename) //////////
 	@Test
 	public void testCheckFile1() throws FileNotFoundException {
 		System.out.println("----1----");
@@ -158,4 +159,28 @@ public class BalancedSymbolTester {
 		assertEquals(correctOutput, actualOutput);
 	}
 
+	////////// static String unmatchedSymbol(int lineNumber, int colNumber, char symbolRead, char symbolExpected) //////////
+	@Test
+	public void testUnmatchedSymbol(){
+		
+	}
+	
+	////////// static String unmatchedSymbolAtEOF(char symbolExpected) //////////
+	@Test
+	public void testUnmatchedSymbolAtEOF(){
+		
+	}
+	
+	////////// String unfinishedComment() //////////
+	@Test
+	public void testUnfinishedComment(){
+		
+	}
+	
+	////////// static String allSymbolsMatch() //////////
+	@Test
+	public void testAllSymbolMatch(){
+		
+	}
+	
 }

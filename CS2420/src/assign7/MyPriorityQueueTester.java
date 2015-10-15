@@ -13,6 +13,61 @@ import org.junit.Test;
  */
 public class MyPriorityQueueTester {
 
+	///////// E findMin() /////////
+	@Test
+	public void testFindMinWithEmptyStack() {
+		
+	}
+	
+	@Test
+	public void testFindMinWithFullStack() {
+		
+	}
+	
+	
+	///////// void insert(E item) /////////
+	@Test
+	public void testInsertWithEmptyStack() {
+		
+	}
+	
+	@Test
+	public void testInsertWithFullStack() {
+		
+	}
+	
+	///////// int size() /////////
+	@Test
+	public void testSizeWithEmptyStack() {
+		
+	}
+	
+	@Test
+	public void testSizeWithFullStack() {
+		
+	}
+	
+	///////// boolean isEmpty() /////////
+	@Test
+	public void testIsEmptyWithEmptyStack() {
+		
+	}
+	
+	@Test
+	public void testIsEmptyWithFullStack() {
+		
+	}
+	
+	///////// void clear() /////////
+	@Test
+	public void testClearWithEmptyStack() {
+		
+	}
+	
+	@Test
+	public void testClearWithFullStack() {
+		
+	}
 	@Test
 	public void testMyPriorityQueueInteger() {
 		MyPriorityQueue<Integer> queue = new MyPriorityQueue<Integer>();
