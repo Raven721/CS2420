@@ -57,7 +57,6 @@ public class BalancedSymbolChecker {
 					column++;
 					continue;
 				}
-
 				column++;
 
 				// Find cases where characters must be overlooked i.e.
@@ -82,6 +81,15 @@ public class BalancedSymbolChecker {
 					}
 				}
 				else if(!stack.isEmpty()) {
+					// If the current character is inside of a comment or literal, keep iterating
+					if(stack.peek() == '"' && c != '"') {
+						continue;
+					} else if(stack.peek() == '/' && c != '/') {
+						continue;
+					} else if(stack.peek() == '\'' && c != '\'') {
+						continue;
+					}
+					
 					if(c == '/') {
 						if (stack.peek() == '/') {
 							if (charArray[i - 1] == '*') {
@@ -101,16 +109,27 @@ public class BalancedSymbolChecker {
 						}	
 					} else if(c == '"') {
 						if (stack.peek() == '"') {
-							System.out.println("\" ends at line " + line + " column " + column);
-							stack.pop();
+							// Before making any stack operation, make sure that the current character isn't part a String/character escape sequence
+							if(charArray[i - 1] != '\\') {
+								System.out.println("\" ends at line " + line + " column " + column);
+								stack.pop();
+							}
+							else {
+								continue;
+							}
 						} else {
 							System.out.println("\" begins at line " + line + " column " + column);
 							stack.push('"');
 						}
 					} else if(c == '\'') {
 						if (stack.peek() == '\'') {
-							System.out.println("\' ends at line " + line + " column " + column);
-							stack.pop();
+							// Before making any stack operation, make sure that the current character isn't part a String/character escape sequence
+							if(charArray[i - 1] != '\\') {
+								System.out.println("\' ends at line " + line + " column " + column);
+								stack.pop();
+							} else {
+								continue;
+							}
 						} else {
 							System.out.println("\' begins at line " + line + " column " + column);
 							stack.push('\'');

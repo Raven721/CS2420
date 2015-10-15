@@ -1,9 +1,10 @@
 package assign7;
 
 import java.util.NoSuchElementException;
-''" "''
+
 /**
- * Represents a generic stack (last in, first out).
+ * A priority queue that supports access of the minimum element only. ALL
+ * METHODS ARE O(1).
  * 
  * @author Tim Ellenberger, ellenber
  * @author Jay Mendez, jaym
@@ -11,65 +12,71 @@ import java.util.NoSuchElementException;
  * @version 10/22/2015
  * 
  * @param <E>
- *            -- the type of elements contained in the stack
+ *            -- the type of elements contained in this priority queue
  */
-public class MyStack<E> {
+public class MyPriorityQueue<E extends Comparable<? super E>> {
 
-	private MyLinkedList<E> stack;
+	private MyStack<E> itemStack;
+	private MyStack<E> minStack;
 
-	public MyStack() {
-		stack = new MyLinkedList<E>();
+	public MyPriorityQueue() {
+		itemStack = new MyStack<E>();
+		minStack = new MyStack<E>();
 	}
 
 	/**
-	 * Removes all of the elements from the stack.
-	 */
-	public void clear() {
-		stack.clear();
-	}
-
-	/**
-	 * Returns true if the stack contains no elements.
+	 * Returns, but does not remove, the minimum element in this priority queue.
+	 * Throws NoSuchElementException if the priority queue is empty.
 	 * 
-	 * @return True if the stack contains no elements, false if the stack contains at least one element.
+	 * @return The minimum element of this priority queue.
 	 */
-	public boolean isEmpty() {
-		return stack.isEmpty();
+	public E findMin() throws NoSuchElementException {
+		return minStack.peek();
 	}
 
 	/**
-	 * Returns the item at the top of the stack without removing it from the
-	 * stack. Throws NoSuchElementException if the stack is empty.
+	 * Inserts the specified item into this priority queue.
+	 */
+	public void insert(E item) {
+		itemStack.push(item);
+
+		// Add item to min stack if it is the first item
+		if (minStack.isEmpty()) {
+			minStack.push(item);
+		} else {
+			// If the new item is smaller than the last min, push the item to the minStack
+			// Otherwise, push the last min to the minStack
+			if(minStack.peek().compareTo(item) >= 0) {
+				minStack.push(item);
+			} else {
+				minStack.push(minStack.peek());
+			}
+		}
+	}
+
+	/**
+	 * Returns the number of items in this priority queue.
 	 * 
-	 * @return The item at the top of the stack, without altering the stack.
-	 */
-	public E peek() throws NoSuchElementException {
-		return stack.getFirst();
-	}
-
-	/**
-	 * Returns and removes the item at the top of the stack. Throws
-	 * NoSuchElementException if the stack is empty.
-	 * 
-	 * @return The item at the top of the stack, which is subsequently removed from the stack.
-	 */
-	public E pop() throws NoSuchElementException {
-		return stack.removeFirst();
-	}
-
-	/**
-	 * Pushes the input item onto the top of the stack.
-	 */
-	public void push(E item) {
-		stack.addFirst(item);
-	}
-
-	/**
-	 * Returns the number of items in the stack.
-	 * 
-	 * @return The number of items in the stack.
+	 * @return The number of items in this priority queue.
 	 */
 	public int size() {
-		return stack.size();
+		return this.size();
+	}
+
+	/**
+	 * Returns true if this priority queue contains no items.
+	 * 
+	 * @return True if this priority queue is empty, False if this priority queue contains at least one item.
+	 */
+	public boolean isEmpty() {
+		return this.isEmpty();
+	}
+
+	/**
+	 * Removes all of the items from this priority queue.
+	 */
+	public void clear() {
+		itemStack.clear();
+		minStack.clear();
 	}
 }
