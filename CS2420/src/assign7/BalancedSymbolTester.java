@@ -6,6 +6,13 @@ import java.io.FileNotFoundException;
 
 import org.junit.Test;
 
+/**
+ * Unit Tests for the BalancedSymbolChecker class
+ * 
+ * @author Tim Ellenberger, ellenber
+ * @author Jay Mendez, jaym
+ * @version 10/22/2015
+ */
 public class BalancedSymbolTester {
 
 	@Test
