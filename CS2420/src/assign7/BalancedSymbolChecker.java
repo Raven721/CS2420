@@ -86,7 +86,7 @@ public class BalancedSymbolChecker {
 						continue;
 					} else if (stack.peek() == '\'' && c != '\'') {
 						continue;
-					}
+					} 
 
 					// Evaluate the current character based on the last item pushed to the stack
 					if (c == '/') {

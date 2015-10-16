@@ -1,9 +1,7 @@
 package assign7;
 
 import static org.junit.Assert.*;
-
 import java.io.FileNotFoundException;
-
 import org.junit.Test;
 
 /**
@@ -14,7 +12,7 @@ import org.junit.Test;
  * @version 10/22/2015
  */
 public class BalancedSymbolTester {
-
+	
 	////////// String checkFile(String filename) //////////
 	///////// Provided Example Test Files //////////
 	@Test
@@ -161,9 +159,10 @@ public class BalancedSymbolTester {
 	}
 	
 	////////// String checkFile(String filename) //////////
-	///////// Created Test Files //////////
+	////////// Created Test Files //////////
+	////////// Test Parenthesis //////////
 	@Test
-	public void testCheckFileWithCreatedClass1() throws FileNotFoundException {
+	public void testCheckFileWithParenthesisAtBeginningOfFile() throws FileNotFoundException {
 		System.out.println("----1----");
 		System.out.println(BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class1.java"));
 		System.out.println("---------");
@@ -174,117 +173,120 @@ public class BalancedSymbolTester {
 	}
 	
 	@Test
-	public void testCheckFileWithCreatedClass2() throws FileNotFoundException {
+	public void testCheckFileWithParenthesisContainingEscapeSequence() throws FileNotFoundException {
 		System.out.println("----2----");
 		System.out.println(BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class2.java"));
 		System.out.println("---------");
 		
-		String correctOutput = "ERROR: Unmatched symbol at line 7 and column 1. Expected  , but read } instead.";
+		String correctOutput = "No errors found. All symbols match.";
 		String actualOutput = BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class2.java");
 		assertEquals(correctOutput, actualOutput);
 	}
 	
 	@Test
-	public void testCheckFileWithCreatedClass3() throws FileNotFoundException {
+	public void testCheckFileWithParenthesisUnclosedError() throws FileNotFoundException {
 		System.out.println("----3----");
 		System.out.println(BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class3.java"));
 		System.out.println("---------");
 		
-		String correctOutput = "No errors found. All symbols match.";
+		String correctOutput = "ERROR: Unmatched symbol at the end of file. Expected '.";
 		String actualOutput = BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class3.java");
 		assertEquals(correctOutput, actualOutput);
 	}
 	
+	////////// Test Quotation Marks //////////
 	@Test
-	public void testCheckFileWithCreatedClass4() throws FileNotFoundException {
+	public void testCheckFileWithQuotationAtBeginningOfFile() throws FileNotFoundException {
 		System.out.println("----4----");
 		System.out.println(BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class4.java"));
 		System.out.println("---------");
 		
-		String correctOutput = "ERROR: File ended before closing comment.";
+		String correctOutput = "No errors found. All symbols match.";
 		String actualOutput = BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class4.java");
 		assertEquals(correctOutput, actualOutput);
 	}
 	
 	@Test
-	public void testCheckFileWithCreatedClass5() throws FileNotFoundException {
+	public void testCheckFileWithQuotationContainingEscapeSequence() throws FileNotFoundException {
 		System.out.println("----5----");
 		System.out.println(BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class5.java"));
 		System.out.println("---------");
 		
-		String correctOutput = "ERROR: Unmatched symbol at line 3 and column 18. Expected ], but read } instead.";
+		String correctOutput = "No errors found. All symbols match.";
 		String actualOutput = BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class5.java");
 		assertEquals(correctOutput, actualOutput);
 	}
 	
 	@Test
-	public void testCheckFileWithCreatedClass6() throws FileNotFoundException {
+	public void testCheckFileWithQuotationUnclosedError() throws FileNotFoundException {
 		System.out.println("----6----");
 		System.out.println(BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class6.java"));
 		System.out.println("---------");
 		
-		String correctOutput = "No errors found. All symbols match.";
+		String correctOutput = "ERROR: Unmatched symbol at the end of file. Expected \".";
 		String actualOutput = BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class6.java");
 		assertEquals(correctOutput, actualOutput);
 	}
 	
+	////////// Test Block Comments //////////
 	@Test
-	public void testCheckFileWithCreatedClass7() throws FileNotFoundException {
+	public void testCheckFileWithBlockCommentAtBeginningOfFile() throws FileNotFoundException {
 		System.out.println("----7----");
 		System.out.println(BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class7.java"));
 		System.out.println("---------");
 		
-		String correctOutput = "ERROR: Unmatched symbol at line 3 and column 33. Expected ], but read ) instead.";
+		String correctOutput = "No errors found. All symbols match.";
 		String actualOutput = BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class7.java");
 		assertEquals(correctOutput, actualOutput);
 	}
 	
 	@Test
-	public void testCheckFileWithCreatedClass8() throws FileNotFoundException {
+	public void testCheckFileWithBlockCommentContainingEscapeSequence() throws FileNotFoundException {
 		System.out.println("----8----");
 		System.out.println(BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class8.java"));
 		System.out.println("---------");
 		
-		String correctOutput = "ERROR: Unmatched symbol at line 5 and column 30. Expected }, but read ) instead.";
+		String correctOutput = "No errors found. All symbols match.";
 		String actualOutput = BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class8.java");
 		assertEquals(correctOutput, actualOutput);
 	}
 	
 	@Test
-	public void testCheckFileWithCreatedClass9() throws FileNotFoundException {
+	public void testCheckFileWithBlockCommentUnclosedError() throws FileNotFoundException {
 		System.out.println("----9----");
 		System.out.println(BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class9.java"));
 		System.out.println("---------");
 		
-		String correctOutput = "ERROR: Unmatched symbol at line 3 and column 33. Expected ), but read ] instead.";
+		String correctOutput = "ERROR: File ended before closing comment.";
 		String actualOutput = BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class9.java");
 		assertEquals(correctOutput, actualOutput);
 	}
 	
+	////////// Test Single Line Comments //////////
 	@Test
-	public void testCheckFileWithCreatedClass10() throws FileNotFoundException {
+	public void testCheckFileWithSingleLineCommentAtBeginningOfFile() throws FileNotFoundException {
 		System.out.println("----10----");
 		System.out.println(BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class10.java"));
 		System.out.println("---------");
 		
-		String correctOutput = "ERROR: Unmatched symbol at line 5 and column 10. Expected }, but read ] instead.";
+		String correctOutput = "No errors found. All symbols match.";
 		String actualOutput = BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class10.java");
 		assertEquals(correctOutput, actualOutput);
 	}
 	
 	@Test
-	public void testCheckFileWithCreatedClass11() throws FileNotFoundException {
+	public void testCheckFileWithSingleLineCommentContainingEscapeSequence() throws FileNotFoundException {
 		System.out.println("----11----");
 		System.out.println(BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class11.java"));
 		System.out.println("---------");
 		
-		String correctOutput = "ERROR: Unmatched symbol at the end of file. Expected }.";
+		String correctOutput = "No errors found. All symbols match.";
 		String actualOutput = BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class11.java");
 		assertEquals(correctOutput, actualOutput);
 	}
 	
 	@Test
-	public void testCheckFileWithCreatedClass12() throws FileNotFoundException {
+	public void testCheckFileWithSingleLineCommentToTheRightOfStuff() throws FileNotFoundException {
 		System.out.println("----12----");
 		System.out.println(BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class12.java"));
 		System.out.println("---------");
@@ -295,7 +297,7 @@ public class BalancedSymbolTester {
 	}
 	
 	@Test
-	public void testCheckFileWithCreatedClass13() throws FileNotFoundException {
+	public void testCheckFileWithBalancedSymbolCheckerClass() throws FileNotFoundException {
 		System.out.println("----13----");
 		System.out.println(BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class13.java"));
 		System.out.println("---------");

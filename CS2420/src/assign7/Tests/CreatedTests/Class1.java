@@ -1,82 +1,240 @@
+' asdf '
 package assign7;
 
-import java.util.NoSuchElementException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 /**
- * A priority queue that supports access of the minimum element only. ALL
- * METHODS ARE O(1).
+ * Class containing the checkFile method for checking if the (, [, and { symbols
+ * in an input file are correctly matched.
  * 
  * @author Tim Ellenberger, ellenber
  * @author Jay Mendez, jaym
  * @author Erin Parker
  * @version 10/22/2015
- * 
- * @param <E>
- *            -- the type of elements contained in this priority queue
  */
-public class MyPriorityQueue<E extends Comparable<? super E>> {
-
-	private MyStack<E> itemStack;
-	private MyStack<E> minStack;
-
-	public MyPriorityQueue() {
-		itemStack = new MyStack<E>();
-		minStack = new MyStack<E>();
-	}
+public class BalancedSymbolChecker {
 
 	/**
-	 * Returns, but does not remove, the minimum element in this priority queue.
-	 * Throws NoSuchElementException if the priority queue is empty.
+	 * Returns a message indicating whether the input file has unmatched
+	 * symbols. (Use the methods below for constructing messages.) Throws
+	 * FileNotFoundException if the file does not exist.
 	 * 
-	 * @return The minimum element of this priority queue.
+	 * @return Message confirming the results of the symbol matching analysis on
+	 *         the input file.
 	 */
-	public E findMin() throws NoSuchElementException {
-		return minStack.peek();
-	}
+	public static String checkFile(String filename) throws FileNotFoundException {
 
-	/**
-	 * Inserts the specified item into this priority queue.
-	 */
-	public void insert(E item) {
-		itemStack.push(item);
+		File f = new File(filename);
 
-		// Add item to min stack if it is the first item
-		if (minStack.isEmpty()) {
-			minStack.push(item);
-		} else {
-			// If the new item is smaller than the last min, push the item to the minStack
-			// Otherwise, push the last min to the minStack
-			if(minStack.peek().compareTo(item) >= 0) {
-				minStack.push(item);
-			} else {
-				minStack.push(minStack.peek());
+		@SuppressWarnings("resource")
+		Scanner in = new Scanner(f);
+		MyStack<Character> stack = new MyStack<Character>();
+		char poppedSymbol;
+
+		int line = 0;
+
+		// Cycle through each separate word in the file
+		while (in.hasNextLine()) {
+			int column = 0;
+
+			// increment line on each iteration
+			line++;
+
+			String currentLine = in.nextLine();
+			char[] charArray = currentLine.toCharArray();
+
+			// Cycle through the current line's characters
+			for (int i = 0; i < charArray.length; i++) {
+				char c = charArray[i];
+
+				// Skip to the next character if the current space is empty
+				if (c == ' ') {
+					column++;
+					continue;
+				}
+				if (c == '\t') {
+					column++;
+					continue;
+				}
+				column++;
+
+				// Find cases where characters must be overlooked i.e. Comments and String/Character literals
+				if (stack.isEmpty()) {
+					if (c == '/') {
+						if (i + 1 < charArray.length) {
+							if (charArray[i + 1] == '/') {
+								System.out.println("// found at line " + line + " column " + column);
+								break;
+							} else if (charArray[i + 1] == '*') {
+								System.out.println("/* begins at line " + line + " column " + column);
+								stack.push('/');
+							}
+						}
+					} else if (c == '"') {
+						System.out.println("\" begins at line " + line + " column " + column);
+						stack.push('"');
+					} else if (c == '\'') {
+						System.out.println("\' begins at line " + line + " column " + column);
+						stack.push('\'');
+					}
+				} else if (!stack.isEmpty()) {
+					// If the current character is inside of a comment or literal, keep iterating
+					if (stack.peek() == '"' && c != '"') {
+						continue;
+					} else if (stack.peek() == '/' && c != '/') {
+						continue;
+					} else if (stack.peek() == '\'' && c != '\'') {
+						continue;
+					}
+
+					// Evaluate the current character based on the last item pushed to the stack
+					if (c == '/') {
+						if (stack.peek() == '/') {
+							if (charArray[i - 1] == '*') {
+								System.out.println("*/ ends at line " + line + " column " + column);
+								stack.pop();
+							}
+						} else {
+							if (i + 1 < charArray.length) {
+								if (charArray[i + 1] == '/') {
+									System.out.println("// found at line " + line + " column " + column);
+									break;
+								} else if (charArray[i + 1] == '*') {
+									System.out.println("/* begins at line " + line + " column " + column);
+									stack.push('/');
+								}
+							}
+						}
+					} else if (c == '"') {
+						if (stack.peek() == '"') {
+							// Before making any stack operation, make sure that the current character isn't part of a String/character literal escape sequence
+							if (charArray[i - 1] != '\\') {
+								System.out.println("\" ends at line " + line + " column " + column);
+								stack.pop();
+							} else {
+								continue;
+							}
+						} else {
+							System.out.println("\" begins at line " + line + " column " + column);
+							stack.push('"');
+						}
+					} else if (c == '\'') {
+						if (stack.peek() == '\'') {
+							// Before making any stack operation, make sure that the current character isn't part of a String/character literal escape sequence
+							if (charArray[i - 1] != '\\') {
+								System.out.println("\' ends at line " + line + " column " + column);
+								stack.pop();
+							} else {
+								continue;
+							}
+						} else {
+							System.out.println("\' begins at line " + line + " column " + column);
+							stack.push('\'');
+						}
+					}
+				}
+
+				// Keep iterating if inside a comment or string/character literal
+				if (!stack.isEmpty()) {
+					if (stack.peek() == '\'' || stack.peek() == '"' || stack.peek() == '/') {
+						continue;
+					}
+				}
+
+				// Push opening symbol to stack
+				if (c == '(' || c == '{' || c == '[') {
+					stack.push(c);
+				}
+				// Pop closing symbol from stack
+				else if (c == ')' || c == '}' || c == ']') {
+					if (stack.isEmpty()) {
+						return BalancedSymbolChecker.unmatchedSymbol(line, column, c, ' ');
+					}
+
+					poppedSymbol = stack.pop();
+
+					if (poppedSymbol == '(' && c != ')') {
+						return BalancedSymbolChecker.unmatchedSymbol(line, column, c, ')');
+					}
+					if (poppedSymbol == '{' && c != '}') {
+						return BalancedSymbolChecker.unmatchedSymbol(line, column, c, '}');
+					}
+					if (poppedSymbol == '[' && c != ']') {
+						return BalancedSymbolChecker.unmatchedSymbol(line, column, c, ']');
+					}
+				}
 			}
 		}
+
+		// Close the input stream
+		in.close();
+
+		// Check if the stack is empty after scanning through the file
+		if (!stack.isEmpty()) {
+			poppedSymbol = stack.pop();
+
+			// If an item is left in the stack after iterating through the entire file, return the corresponding error message  
+			if (poppedSymbol == '(')
+				return BalancedSymbolChecker.unmatchedSymbolAtEOF(')');
+			if (poppedSymbol == '{')
+				return BalancedSymbolChecker.unmatchedSymbolAtEOF('}');
+			if (poppedSymbol == '[')
+				return BalancedSymbolChecker.unmatchedSymbolAtEOF(']');
+			if (poppedSymbol == '\'')
+				return BalancedSymbolChecker.unmatchedSymbolAtEOF('\'');
+			if (poppedSymbol == '"')
+				return BalancedSymbolChecker.unmatchedSymbolAtEOF('"');
+			if (poppedSymbol == '/')
+				return BalancedSymbolChecker.unfinishedComment();
+
+		}
+
+		// If the input file has made it this far, return all symbols match
+		return BalancedSymbolChecker.allSymbolsMatch();
 	}
 
 	/**
-	 * Returns the number of items in this priority queue.
+	 * Returns an error message for unmatched symbol at the input line and
+	 * column numbers. Indicates the symbol match that was expected and the
+	 * symbol that was read.
 	 * 
-	 * @return The number of items in this priority queue.
+	 * @return Message confirming an unmatched symbol at the input line and
+	 *         column numbers.
 	 */
-	public int size() {
-		return this.size();
+	private static String unmatchedSymbol(int lineNumber, int colNumber, char symbolRead, char symbolExpected) {
+		return "ERROR: Unmatched symbol at line " + lineNumber + " and column " + colNumber + ". Expected "
+				+ symbolExpected + ", but read " + symbolRead + " instead.";
 	}
 
 	/**
-	 * Returns true if this priority queue contains no items.
+	 * Returns an error message for unmatched symbol at the end of file.
+	 * Indicates the symbol match that was expected.
 	 * 
-	 * @return True if this priority queue is empty, False if this priority queue contains at least one item.
+	 * @return Message confirming an unmatched symbol at the end of the file and
+	 *         indicates the expected symbol.
 	 */
-	public boolean isEmpty() {
-		return this.isEmpty();
+	private static String unmatchedSymbolAtEOF(char symbolExpected) {
+		return "ERROR: Unmatched symbol at the end of file. Expected " + symbolExpected + ".";
 	}
 
 	/**
-	 * Removes all of the items from this priority queue.
+	 * Returns an error message for a file that ends with an open /* comment.
+	 * 
+	 * @return Message confirming that that the file ended with an open /*
 	 */
-	public void clear() {
-		itemStack.clear();
-		minStack.clear();
+	private static String unfinishedComment() {
+		return "ERROR: File ended before closing comment.";
+	}
+
+	/**
+	 * Returns a message for a file in which all symbols match.
+	 * 
+	 * @return Message confirming that all symbols match.
+	 */
+	private static String allSymbolsMatch() {
+		return "No errors found. All symbols match.";
 	}
 }
+
