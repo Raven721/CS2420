@@ -60,7 +60,7 @@ public class MyPriorityQueue<E extends Comparable<? super E>> {
 	 * @return The number of items in this priority queue.
 	 */
 	public int size() {
-		return this.size();
+		return itemStack.size();
 	}
 
 	/**
@@ -69,7 +69,7 @@ public class MyPriorityQueue<E extends Comparable<? super E>> {
 	 * @return True if this priority queue is empty, False if this priority queue contains at least one item.
 	 */
 	public boolean isEmpty() {
-		return this.isEmpty();
+		return itemStack.isEmpty();
 	}
 
 	/**

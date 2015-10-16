@@ -38,7 +38,7 @@ public class MyStackTester {
 	}
 	
 	@Test
-	public void testClearWithFullStack() {
+	public void testClearWithPopulatedStack() {
 		// Stack have three items before and zero items after the clear method is invoked on the stack
 		stack.push(1);
 		stack.push(1);
@@ -58,7 +58,7 @@ public class MyStackTester {
 	}
 	
 	@Test
-	public void testIsEmptyWithFullStack() {
+	public void testIsEmptyWithPopulatedStack() {
 		// A stack with three items should return false when isEmpty() is invoked on it
 		stack.push(1);
 		stack.push(1);
@@ -79,7 +79,7 @@ public class MyStackTester {
 	}
 	
 	@Test
-	public void testPeekWithFullStack() {
+	public void testPeekWithPopulatedStack() {
 		// The peek() method should return the last item added to the stack if the stack is not empty
 		stack.push(10);
 		stack.push(50);
@@ -103,7 +103,7 @@ public class MyStackTester {
 	}
 	
 	@Test
-	public void testPopWithFullStack() {
+	public void testPopWithPopulatedStack() {
 		// The pop() method should return the last item added to the stack and then remove it if the stack is not empty
 		stack.push(10);
 		stack.push(50);
@@ -133,7 +133,7 @@ public class MyStackTester {
 	}
 	
 	@Test
-	public void testPushWithFullStack() {
+	public void testPushWithPopulatedStack() {
 		// The push method should add an element to a stack already containing elements
 		assertTrue(stack.isEmpty());
 		
@@ -160,7 +160,7 @@ public class MyStackTester {
 	}
 	
 	@Test
-	public void testSizeWithFullStack() {
+	public void testSizeWithPopulatedStack() {
 		// size() should return zero if the stack is empty
 		// The push method should add an element to a stack already containing elements
 		assertTrue(stack.isEmpty());
