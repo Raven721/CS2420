@@ -59,10 +59,9 @@ public class BalancedSymbolChecker {
 				}
 				column++;
 
-				// Find cases where characters must be overlooked i.e.
-				// Comments and String/Character literals
-				if(stack.isEmpty()) {
-					if(c == '/'){
+				// Find cases where characters must be overlooked i.e. Comments and String/Character literals
+				if (stack.isEmpty()) {
+					if (c == '/') {
 						if (i + 1 < charArray.length) {
 							if (charArray[i + 1] == '/') {
 								System.out.println("// found at line " + line + " column " + column);
@@ -72,25 +71,25 @@ public class BalancedSymbolChecker {
 								stack.push('/');
 							}
 						}
-					} else if(c == '"') {
+					} else if (c == '"') {
 						System.out.println("\" begins at line " + line + " column " + column);
 						stack.push('"');
-					} else if(c == '\'') {
+					} else if (c == '\'') {
 						System.out.println("\' begins at line " + line + " column " + column);
 						stack.push('\'');
 					}
-				}
-				else if(!stack.isEmpty()) {
+				} else if (!stack.isEmpty()) {
 					// If the current character is inside of a comment or literal, keep iterating
-					if(stack.peek() == '"' && c != '"') {
+					if (stack.peek() == '"' && c != '"') {
 						continue;
-					} else if(stack.peek() == '/' && c != '/') {
+					} else if (stack.peek() == '/' && c != '/') {
 						continue;
-					} else if(stack.peek() == '\'' && c != '\'') {
+					} else if (stack.peek() == '\'' && c != '\'') {
 						continue;
 					}
-					
-					if(c == '/') {
+
+					// Evaluate the current character based on the last item pushed to the stack
+					if (c == '/') {
 						if (stack.peek() == '/') {
 							if (charArray[i - 1] == '*') {
 								System.out.println("*/ ends at line " + line + " column " + column);
@@ -106,25 +105,24 @@ public class BalancedSymbolChecker {
 									stack.push('/');
 								}
 							}
-						}	
-					} else if(c == '"') {
+						}
+					} else if (c == '"') {
 						if (stack.peek() == '"') {
-							// Before making any stack operation, make sure that the current character isn't part a String/character escape sequence
-							if(charArray[i - 1] != '\\') {
+							// Before making any stack operation, make sure that the current character isn't part of a String/character literal escape sequence
+							if (charArray[i - 1] != '\\') {
 								System.out.println("\" ends at line " + line + " column " + column);
 								stack.pop();
-							}
-							else {
+							} else {
 								continue;
 							}
 						} else {
 							System.out.println("\" begins at line " + line + " column " + column);
 							stack.push('"');
 						}
-					} else if(c == '\'') {
+					} else if (c == '\'') {
 						if (stack.peek() == '\'') {
-							// Before making any stack operation, make sure that the current character isn't part a String/character escape sequence
-							if(charArray[i - 1] != '\\') {
+							// Before making any stack operation, make sure that the current character isn't part of a String/character literal escape sequence
+							if (charArray[i - 1] != '\\') {
 								System.out.println("\' ends at line " + line + " column " + column);
 								stack.pop();
 							} else {
@@ -136,10 +134,9 @@ public class BalancedSymbolChecker {
 						}
 					}
 				}
-				
-				// Keep iterating if inside a comment or string/character
-				// literal
-				if (stack.size() > 0) {
+
+				// Keep iterating if inside a comment or string/character literal
+				if (!stack.isEmpty()) {
 					if (stack.peek() == '\'' || stack.peek() == '"' || stack.peek() == '/') {
 						continue;
 					}
@@ -177,6 +174,7 @@ public class BalancedSymbolChecker {
 		if (!stack.isEmpty()) {
 			poppedSymbol = stack.pop();
 
+			// If an item is left in the stack after iterating through the entire file, return the corresponding error message  
 			if (poppedSymbol == '(')
 				return BalancedSymbolChecker.unmatchedSymbolAtEOF(')');
 			if (poppedSymbol == '{')
@@ -194,7 +192,6 @@ public class BalancedSymbolChecker {
 
 		// If the input file has made it this far, return all symbols match
 		return BalancedSymbolChecker.allSymbolsMatch();
-
 	}
 
 	/**
