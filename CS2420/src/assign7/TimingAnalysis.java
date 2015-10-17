@@ -269,8 +269,8 @@ public class TimingAnalysis {
 	/**
 	 * Generic method for populating a MyStack stack from an array of items
 	 * 
-	 * @param itemList Array of items to be added to the LinkedList 
-	 * @return the populated LinkedList
+	 * @param itemList Array of items to be added to the MyStack 
+	 * @return the populated MyStack
 	 */
 	private static MyStack<String> generateStack(String[] itemList) {
 		MyStack<String> stack = new MyStack<String>();
@@ -285,8 +285,8 @@ public class TimingAnalysis {
 	/**
 	 * Generic method for populating a MyPriorityQueue queue from an array of items
 	 * 
-	 * @param itemList Array of items to be added to the LinkedList 
-	 * @return the populated LinkedList
+	 * @param itemList Array of items to be added to the MyPriorityQueue 
+	 * @return the populated MyPriorityQueue
 	 */
 	private static MyPriorityQueue<String> generateQueue(String[] itemList) {
 		MyPriorityQueue<String> queue = new MyPriorityQueue<String>();
