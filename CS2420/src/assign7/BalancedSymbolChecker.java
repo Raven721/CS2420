@@ -35,11 +35,11 @@ public class BalancedSymbolChecker {
 
 		int line = 0;
 
-		// Cycle through each separate word in the file
+		// Cycle through the input file, line by line
 		while (in.hasNextLine()) {
 			int column = 0;
 
-			// increment line on each iteration
+			// Increment line counter on each iteration
 			line++;
 
 			String currentLine = in.nextLine();
