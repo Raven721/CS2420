@@ -90,7 +90,7 @@ public class BalancedSymbolChecker {
 
 					// Evaluate the current character based on the last item pushed to the stack
 					if (c == '/') {
-						if (stack.peek() == '/') {
+						if (stack.peek() == '/' && i - 1 >= 0) {
 							if (charArray[i - 1] == '*') {
 								System.out.println("*/ ends at line " + line + " column " + column);
 								stack.pop();
@@ -106,7 +106,7 @@ public class BalancedSymbolChecker {
 								}
 							}
 						}
-					} else if (c == '"') {
+					} else if (c == '"' && i - 1 >= 0) {
 						if (stack.peek() == '"') {
 							// Before making any stack operation, make sure that the current character isn't part of a String/character literal escape sequence
 							if (charArray[i - 1] != '\\') {
@@ -119,7 +119,7 @@ public class BalancedSymbolChecker {
 							System.out.println("\" begins at line " + line + " column " + column);
 							stack.push('"');
 						}
-					} else if (c == '\'') {
+					} else if (c == '\'' && i - 1 >= 0) {
 						if (stack.peek() == '\'') {
 							// Before making any stack operation, make sure that the current character isn't part of a String/character literal escape sequence
 							if (charArray[i - 1] != '\\') {
