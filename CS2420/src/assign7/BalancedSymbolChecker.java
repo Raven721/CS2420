@@ -6,7 +6,8 @@ import java.util.Scanner;
 
 /**
  * Class containing the checkFile method for checking if the (, [, and { symbols
- * in an input file are correctly matched.
+ * in an input file are correctly matched in addition to working around the classical 
+ * java properties of block comments and single line comments.
  * 
  * @author Tim Ellenberger, ellenber
  * @author Jay Mendez, jaym
@@ -64,18 +65,18 @@ public class BalancedSymbolChecker {
 					if (c == '/') {
 						if (i + 1 < charArray.length) {
 							if (charArray[i + 1] == '/') {
-								System.out.println("// found at line " + line + " column " + column);
+								// Break to the next line if a single line comment is found (//)
 								break;
 							} else if (charArray[i + 1] == '*') {
-								System.out.println("/* begins at line " + line + " column " + column);
+								// Push (/) to the stack if the beginning of a block comment is found (/*)
 								stack.push('/');
 							}
 						}
 					} else if (c == '"') {
-						System.out.println("\" begins at line " + line + " column " + column);
+						// Push (") to the stack if the beginning of a String literal is found (")
 						stack.push('"');
 					} else if (c == '\'') {
-						System.out.println("\' begins at line " + line + " column " + column);
+						// Push (') to the stack if the beginning of a character literal is found (')
 						stack.push('\'');
 					}
 				} else if (!stack.isEmpty()) {
@@ -92,16 +93,16 @@ public class BalancedSymbolChecker {
 					if (c == '/') {
 						if (stack.peek() == '/' && i - 1 >= 0) {
 							if (charArray[i - 1] == '*') {
-								System.out.println("*/ ends at line " + line + " column " + column);
+								// Pop (/) from the stack if the end of a block comment is found (*/)
 								stack.pop();
 							}
 						} else {
 							if (i + 1 < charArray.length) {
 								if (charArray[i + 1] == '/') {
-									System.out.println("// found at line " + line + " column " + column);
+									// Break to the next line if a single line comment is found (//)
 									break;
 								} else if (charArray[i + 1] == '*') {
-									System.out.println("/* begins at line " + line + " column " + column);
+									// Push (/) to the stack if the beginning of a block comment is found (/*)
 									stack.push('/');
 								}
 							}
@@ -110,26 +111,26 @@ public class BalancedSymbolChecker {
 						if (stack.peek() == '"') {
 							// Before making any stack operation, make sure that the current character isn't part of a String/character literal escape sequence
 							if (charArray[i - 1] != '\\') {
-								System.out.println("\" ends at line " + line + " column " + column);
+								// Pop (") from the stack if the end of a String literal is found (")
 								stack.pop();
 							} else {
 								continue;
 							}
 						} else {
-							System.out.println("\" begins at line " + line + " column " + column);
+							// Push (") to the stack if the beginning of a String literal is found (")
 							stack.push('"');
 						}
 					} else if (c == '\'' && i - 1 >= 0) {
 						if (stack.peek() == '\'') {
 							// Before making any stack operation, make sure that the current character isn't part of a String/character literal escape sequence
 							if (charArray[i - 1] != '\\') {
-								System.out.println("\' ends at line " + line + " column " + column);
+								// Pop (') from the stack if the end of a character literal is found (')
 								stack.pop();
 							} else {
 								continue;
 							}
 						} else {
-							System.out.println("\' begins at line " + line + " column " + column);
+							// Push (') to the stack if the beginning of a character literal is found (')
 							stack.push('\'');
 						}
 					}
