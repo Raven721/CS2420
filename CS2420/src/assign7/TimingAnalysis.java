@@ -21,28 +21,28 @@ public class TimingAnalysis {
 
 	public static void main(String[] args) {
 		// Run timing analysis on MyStack's clear() method
-		timeMyStack("clear()", 5000, 100000, 1000000, 100000);
+		timeMyStack("clear()", 320, 100000, 2000000, 100000);
 
 		// Run timing analysis on MyStack's isEmpty() method
-		timeMyStack("isEmpty()", 5000, 100000, 1000000, 100000);
+		timeMyStack("isEmpty()", 125, 100000, 2000000, 100000);
 
 		// Run timing analysis on MyStack's peek() method
-		timeMyStack("peek()", 5000, 100000, 1000000, 100000);
+		timeMyStack("peek()", 250, 100000, 2000000, 100000);
 
 		// Run timing analysis on MyStack's pop() method
-		timeMyStack("pop()", 5000, 100000, 1000000, 100000);
+		timeMyStack("pop()", 5000, 100000, 2000000, 100000);
 
 		// Run timing analysis on MyStack's push(E item) method
-		timeMyStack("push(E item)", 5000, 100000, 1000000, 100000);
+		timeMyStack("push(E item)", 5000, 100000, 2000000, 100000);
 
 		// Run timing analysis on MyStack's size() method
-		timeMyStack("size()", 5000, 100000, 1000000, 100000);
+		timeMyStack("size()", 5000, 100000, 2000000, 100000);
 		
 		// Run timing analysis on MyPriorityQueue's findMin() method
-		timeMyPriorityQueue("findMin()", 5000, 100000, 1000000, 100000);
+		timeMyPriorityQueue("findMin()", 300, 100000, 2000000, 100000);
 
 		// Run timing analysis on MyPriorityQueue's insert(E item) method
-		timeMyPriorityQueue("insert(E item)", 5000, 100000, 1000000, 100000);
+		timeMyPriorityQueue("insert(E item)", 5000, 100000, 2000000, 100000);
 	}
 
 	/**
@@ -66,12 +66,12 @@ public class TimingAnalysis {
 		long startTime, midptTime, stopTime;
 
 		// try computing T(N)/F(N), see if it converges
-		DecimalFormat formatter = new DecimalFormat("0000E0");
+		DecimalFormat formatter = new DecimalFormat("0000E00");
 
-		System.out.println("------------------------- MyStack Timing Analysis: " + timingMethod + " ----------------------------------");
+		System.out.println("----------------------------- MyStack Timing Analysis: " + timingMethod + " ----------------------------------");
 		System.out.println("\t\t\t    timesToLoop: " + timesToLoop + " | Should be O(1)");
-		System.out.println("\nN\tT(N)\t|\tT(N)/logN\tT(N)/NlogN\tT(N)/N\t\tT(N)/N^2\tT(N)/N^3");
-		System.out.println("------------------------------------------------------------------------------------------------");
+		System.out.println("\nN\tT(N)\t\t|\tT(N)/logN\tT(N)/NlogN\tT(N)/N\t\tT(N)/N^2\tT(N)/N^3");
+		System.out.println("---------------------------------------------------------------------------------------------------------");
 
 		for (int N = nStart; N <= nStop; N += nStep) {
 
@@ -147,11 +147,11 @@ public class TimingAnalysis {
 
 			System.out.println(
 					formatter.format(avgTime) + "\t|\t" + formatter.format(avgTime / (Math.log10(N) / Math.log10(2)))
-							+ "\t\t" + formatter.format(avgTime / (N * (Math.log10(N) / Math.log10(2)))) + "\t\t"
-							+ formatter.format(avgTime / N) + "\t\t" + formatter.format(avgTime / (N * N)) + "\t\t"
+							+ "\t" + formatter.format(avgTime / (N * (Math.log10(N) / Math.log10(2)))) + "\t"
+							+ formatter.format(avgTime / N) + "\t" + formatter.format(avgTime / (N * N)) + "\t"
 							+ formatter.format(avgTime / (N * N * N)));
 		}
-		System.out.println("------------------------------------------------------------------------------------------------");
+		System.out.println("---------------------------------------------------------------------------------------------------------");
 	}
 	
 	/**
@@ -175,11 +175,11 @@ public class TimingAnalysis {
 		long startTime, midptTime, stopTime;
 
 		// try computing T(N)/F(N), see if it converges
-		DecimalFormat formatter = new DecimalFormat("0000E0");
+		DecimalFormat formatter = new DecimalFormat("0000E00");
 
 		System.out.println("------------------- MyPriorityQueue Timing Analysis: " + timingMethod + " ----------------------");
 		System.out.println("\t\t\t    timesToLoop: " + timesToLoop + " | Should be O(1)");
-		System.out.println("\nN\tT(N)\t|\tT(N)/logN\tT(N)/NlogN\tT(N)/N\t\tT(N)/N^2\tT(N)/N^3");
+		System.out.println("\nN\tT(N)\t\t|\tT(N)/logN\tT(N)/NlogN\tT(N)/N\t\tT(N)/N^2\tT(N)/N^3");
 		System.out.println("------------------------------------------------------------------------------------------------");
 
 		for (int N = nStart; N <= nStop; N += nStep) {
@@ -228,11 +228,11 @@ public class TimingAnalysis {
 
 			System.out.println(
 					formatter.format(avgTime) + "\t|\t" + formatter.format(avgTime / (Math.log10(N) / Math.log10(2)))
-							+ "\t\t" + formatter.format(avgTime / (N * (Math.log10(N) / Math.log10(2)))) + "\t\t"
-							+ formatter.format(avgTime / N) + "\t\t" + formatter.format(avgTime / (N * N)) + "\t\t"
+							+ "\t" + formatter.format(avgTime / (N * (Math.log10(N) / Math.log10(2)))) + "\t"
+							+ formatter.format(avgTime / N) + "\t" + formatter.format(avgTime / (N * N)) + "\t"
 							+ formatter.format(avgTime / (N * N * N)));
 		}
-		System.out.println("------------------------------------------------------------------------------------------------");
+		System.out.println("---------------------------------------------------------------------------------------------------------");
 	}
 	
 	/**
