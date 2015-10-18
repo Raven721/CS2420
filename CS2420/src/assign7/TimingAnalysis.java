@@ -21,28 +21,28 @@ public class TimingAnalysis {
 
 	public static void main(String[] args) {
 		// Run timing analysis on MyStack's clear() method
-		timeMyStack("clear()", 320, 100000, 2000000, 100000);
+		timeMyStack("clear()", 1000, 100000, 2000000, 100000);
 
 		// Run timing analysis on MyStack's isEmpty() method
-		timeMyStack("isEmpty()", 125, 100000, 2000000, 100000);
+		timeMyStack("isEmpty()", 600, 100000, 2000000, 100000);
 
 		// Run timing analysis on MyStack's peek() method
-		timeMyStack("peek()", 250, 100000, 2000000, 100000);
+		timeMyStack("peek()", 800, 100000, 2000000, 100000);
 
 		// Run timing analysis on MyStack's pop() method
-		timeMyStack("pop()", 5000, 100000, 2000000, 100000);
+		timeMyStack("pop()", 9000, 100000, 2000000, 100000);
 
 		// Run timing analysis on MyStack's push(E item) method
-		timeMyStack("push(E item)", 5000, 100000, 2000000, 100000);
+		timeMyStack("push(E item)", 10000, 100000, 2000000, 100000);
 
 		// Run timing analysis on MyStack's size() method
-		timeMyStack("size()", 5000, 100000, 2000000, 100000);
+		timeMyStack("size()", 800, 100000, 2000000, 100000);
 		
 		// Run timing analysis on MyPriorityQueue's findMin() method
-		timeMyPriorityQueue("findMin()", 300, 100000, 2000000, 100000);
+		timeMyPriorityQueue("findMin()", 1000, 100000, 2000000, 100000);
 
 		// Run timing analysis on MyPriorityQueue's insert(E item) method
-		timeMyPriorityQueue("insert(E item)", 5000, 100000, 2000000, 100000);
+		timeMyPriorityQueue("insert(E item)", 6000, 100000, 2000000, 100000);
 	}
 
 	/**
@@ -64,6 +64,7 @@ public class TimingAnalysis {
 	 */
 	private static void timeMyStack(String timingMethod, int timesToLoop, int nStart, int nStop, int nStep) {
 		long startTime, midptTime, stopTime;
+		boolean retry = false;
 
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E00");
@@ -81,7 +82,9 @@ public class TimingAnalysis {
 			// Create an ArrayList containing wordList
 			MyStack<String> stack = generateStack(wordList);
 			
-			System.out.print(N + "\t");
+			if(!retry) {
+				System.out.print(N + "\t");
+			}
 		
 			// Let things stabilize
 			startTime = System.nanoTime();
@@ -143,6 +146,14 @@ public class TimingAnalysis {
 			
 			// Compute the average time
 			double avgTime = ((midptTime - startTime) - (stopTime - midptTime)) / timesToLoop;
+			
+			if(avgTime <= 0){
+				retry = true;
+				N -= 100000;
+				continue;
+			} else {
+				retry = false;
+			}
 
 			System.out.println(
 					formatter.format(avgTime) + "\t|\t" + formatter.format(avgTime / (Math.log10(N) / Math.log10(2)))
@@ -172,6 +183,7 @@ public class TimingAnalysis {
 	 */
 	private static void timeMyPriorityQueue(String timingMethod, int timesToLoop, int nStart, int nStop, int nStep) {
 		long startTime, midptTime, stopTime;
+		boolean retry = false;
 
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E00");
@@ -189,7 +201,9 @@ public class TimingAnalysis {
 			// Create an ArrayList containing wordList
 			MyPriorityQueue<String> queue = generateQueue(wordList);
 			
-			System.out.print(N + "\t");
+			if(!retry) {
+				System.out.print(N + "\t");
+			}
 		
 			// Let things stabilize
 			startTime = System.nanoTime();
@@ -223,6 +237,14 @@ public class TimingAnalysis {
 			
 			// Compute the average time
 			double avgTime = ((midptTime - startTime) - (stopTime - midptTime)) / timesToLoop;
+			
+			if(avgTime <= 0){
+				retry = true;
+				N -= 100000;
+				continue;
+			} else {
+				retry = false;
+			}
 
 			System.out.println(
 					formatter.format(avgTime) + "\t|\t" + formatter.format(avgTime / (Math.log10(N) / Math.log10(2)))
