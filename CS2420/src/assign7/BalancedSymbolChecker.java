@@ -176,18 +176,24 @@ public class BalancedSymbolChecker {
 			poppedSymbol = stack.pop();
 
 			// If an item is left in the stack after iterating through the entire file, return the corresponding error message  
-			if (poppedSymbol == '(')
+			if (poppedSymbol == '(') {
 				return BalancedSymbolChecker.unmatchedSymbolAtEOF(')');
-			if (poppedSymbol == '{')
+			}
+			if (poppedSymbol == '{') {
 				return BalancedSymbolChecker.unmatchedSymbolAtEOF('}');
-			if (poppedSymbol == '[')
+			}
+			if (poppedSymbol == '[') {
 				return BalancedSymbolChecker.unmatchedSymbolAtEOF(']');
-			if (poppedSymbol == '\'')
+			}
+			if (poppedSymbol == '\'') {
 				return BalancedSymbolChecker.unmatchedSymbolAtEOF('\'');
-			if (poppedSymbol == '"')
+			}
+			if (poppedSymbol == '"') {
 				return BalancedSymbolChecker.unmatchedSymbolAtEOF('"');
-			if (poppedSymbol == '/')
+			}
+			if (poppedSymbol == '/') {
 				return BalancedSymbolChecker.unfinishedComment();
+			}
 
 		}
 

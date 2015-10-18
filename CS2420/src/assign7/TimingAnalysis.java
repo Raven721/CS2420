@@ -75,7 +75,6 @@ public class TimingAnalysis {
 
 		for (int N = nStart; N <= nStop; N += nStep) {
 
-			// Create arrays/data here...
 			// Create a randomly generated array of words, of uniform length
 			String[] wordList = generateStringArray(N);
 			
@@ -184,7 +183,6 @@ public class TimingAnalysis {
 
 		for (int N = nStart; N <= nStop; N += nStep) {
 
-			// Create arrays/data here...
 			// Create a randomly generated array of words, of uniform length
 			String[] wordList = generateStringArray(N);
 			
