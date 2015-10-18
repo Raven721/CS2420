@@ -39,7 +39,7 @@ public class TimingAnalysis {
 		timeMyStack("size()", 5000, 100000, 2000000, 100000);
 		
 		// Run timing analysis on MyPriorityQueue's findMin() method
-		timeMyPriorityQueue("findMin()", 320, 100000, 2000000, 100000);
+		timeMyPriorityQueue("findMin()", 300, 100000, 2000000, 100000);
 
 		// Run timing analysis on MyPriorityQueue's insert(E item) method
 		timeMyPriorityQueue("insert(E item)", 5000, 100000, 2000000, 100000);
@@ -179,7 +179,7 @@ public class TimingAnalysis {
 		System.out.println("------------------- MyPriorityQueue Timing Analysis: " + timingMethod + " ----------------------");
 		System.out.println("\t\t\t    timesToLoop: " + timesToLoop + " | Should be O(1)");
 		System.out.println("\nN\tT(N)\t\t|\tT(N)/logN\tT(N)/NlogN\tT(N)/N\t\tT(N)/N^2\tT(N)/N^3");
-		System.out.println("------------------------------------------------------------------------------------------------");
+		System.out.println("---------------------------------------------------------------------------------------------------------");
 
 		for (int N = nStart; N <= nStop; N += nStep) {
 
