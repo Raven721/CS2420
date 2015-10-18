@@ -39,7 +39,7 @@ public class TimingAnalysis {
 		timeMyStack("size()", 5000, 100000, 2000000, 100000);
 		
 		// Run timing analysis on MyPriorityQueue's findMin() method
-		timeMyPriorityQueue("findMin()", 300, 100000, 2000000, 100000);
+		timeMyPriorityQueue("findMin()", 320, 100000, 2000000, 100000);
 
 		// Run timing analysis on MyPriorityQueue's insert(E item) method
 		timeMyPriorityQueue("insert(E item)", 5000, 100000, 2000000, 100000);
