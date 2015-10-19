@@ -21,7 +21,7 @@ public class TimingAnalysis {
 
 	public static void main(String[] args) {
 		// Run timing analysis on MyStack's clear() method
-		timeMyStack("clear()", 1000, 100000, 2000000, 100000);
+		timeMyStack("clear()", 2000, 100000, 2000000, 100000);
 
 		// Run timing analysis on MyStack's isEmpty() method
 		timeMyStack("isEmpty()", 600, 100000, 2000000, 100000);
@@ -36,7 +36,7 @@ public class TimingAnalysis {
 		timeMyStack("push(E item)", 10000, 100000, 2000000, 100000);
 
 		// Run timing analysis on MyStack's size() method
-		timeMyStack("size()", 800, 100000, 2000000, 100000);
+		timeMyStack("size()", 5000, 100000, 2000000, 100000);
 		
 		// Run timing analysis on MyPriorityQueue's findMin() method
 		timeMyPriorityQueue("findMin()", 1000, 100000, 2000000, 100000);
