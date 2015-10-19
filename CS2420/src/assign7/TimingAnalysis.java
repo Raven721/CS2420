@@ -76,10 +76,8 @@ public class TimingAnalysis {
 
 		for (int N = nStart; N <= nStop; N += nStep) {
 
-			// Create a randomly generated array of words, of uniform length
+			// Create a data set to work with
 			String[] wordList = generateStringArray(N);
-			
-			// Create an ArrayList containing wordList
 			MyStack<String> stack = generateStack(wordList);
 			
 			if(!retry) {
@@ -195,10 +193,8 @@ public class TimingAnalysis {
 
 		for (int N = nStart; N <= nStop; N += nStep) {
 
-			// Create a randomly generated array of words, of uniform length
+			// Create a data set to work with
 			String[] wordList = generateStringArray(N);
-			
-			// Create an ArrayList containing wordList
 			MyPriorityQueue<String> queue = generateQueue(wordList);
 			
 			if(!retry) {
