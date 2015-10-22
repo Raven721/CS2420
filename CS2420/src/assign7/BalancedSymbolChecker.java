@@ -63,6 +63,12 @@ public class BalancedSymbolChecker {
 				// Find cases where characters must be overlooked i.e. Comments and String/Character literals
 				if (stack.isEmpty()) {
 					if (c == '/') {
+						if (i - 1 > -1) {
+							// Check that there isn't a close block comment symbol before an open block comment symbol
+							if(charArray[i - 1] == '*') {
+								return BalancedSymbolChecker.unmatchedClosingBlockComment();
+							}
+						}
 						if (i + 1 < charArray.length) {
 							if (charArray[i + 1] == '/') {
 								// Break to the next line if a single line comment is found (//)
@@ -232,6 +238,15 @@ public class BalancedSymbolChecker {
 	 */
 	private static String unfinishedComment() {
 		return "ERROR: File ended before closing comment.";
+	}
+	
+	/**
+	 * Returns an error message for a file that ends with an open *'/ comment.
+	 * 
+	 * @return Message confirming that that the file ended with an open *'/
+	 */
+	private static String unmatchedClosingBlockComment() {
+		return "ERROR: Unmatched closing block comment found.";
 	}
 
 	/**

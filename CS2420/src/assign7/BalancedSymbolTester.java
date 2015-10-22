@@ -174,6 +174,13 @@ public class BalancedSymbolTester {
 		assertEquals(correctOutput, actualOutput);
 	}
 	
+	@Test
+	public void testCheckFileWithClosingBlockComment() throws FileNotFoundException {
+		String correctOutput = "ERROR: Unmatched closing block comment found.";
+		String actualOutput = BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class14.java");
+		assertEquals(correctOutput, actualOutput);
+	}
+	
 	////////// Test Single Line Comments //////////
 	@Test
 	public void testCheckFileWithSingleLineCommentAtBeginningOfFile() throws FileNotFoundException {
@@ -202,4 +209,82 @@ public class BalancedSymbolTester {
 		String actualOutput = BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class13.java");
 		assertEquals(correctOutput, actualOutput);
 	}
+	
+	////////// Test { //////////
+	@Test
+	public void testCheckFileWithUnBalancedOpeningCurlyBrace() throws FileNotFoundException {
+		String correctOutput = "ERROR: Unmatched symbol at the end of file. Expected }.";
+		String actualOutput = BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class15.java");
+		assertEquals(correctOutput, actualOutput);
+	}
+	
+	////////// Test } //////////
+	@Test
+	public void testCheckFileWithUnBalancedClosingCurlyBrace() throws FileNotFoundException {
+		String correctOutput = "ERROR: Unmatched symbol at line 1 and column 1. Expected  , but read } instead.";
+		String actualOutput = BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class16.java");
+		assertEquals(correctOutput, actualOutput);
+	}
+	
+	////////// Test ( //////////
+	@Test
+	public void testCheckFileWithUnBalancedOpeningCurvedBrace() throws FileNotFoundException {
+		String correctOutput = "ERROR: Unmatched symbol at the end of file. Expected ).";
+		String actualOutput = BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class17.java");
+		assertEquals(correctOutput, actualOutput);
+	}
+	
+	////////// Test ) //////////
+	@Test
+	public void testCheckFileWithUnBalancedClosingCurvedBrace() throws FileNotFoundException {
+		String correctOutput = "ERROR: Unmatched symbol at line 1 and column 1. Expected  , but read ) instead.";
+		String actualOutput = BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class18.java");
+		assertEquals(correctOutput, actualOutput);
+	}
+	
+	////////// Test [ //////////
+	@Test
+	public void testCheckFileWithUnBalancedOpeningSquareBracket() throws FileNotFoundException {
+		String correctOutput = "ERROR: Unmatched symbol at the end of file. Expected ].";
+		String actualOutput = BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class19.java");
+		assertEquals(correctOutput, actualOutput);
+	}
+	
+	////////// Test ] //////////
+	@Test
+	public void testCheckFileWithUnBalancedClosingSquareBracket() throws FileNotFoundException {
+		String correctOutput = "ERROR: Unmatched symbol at line 1 and column 1. Expected  , but read ] instead.";
+		String actualOutput = BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\Class20.java");
+		assertEquals(correctOutput, actualOutput);
+	}
+	
+	////////// Test all of assignment 7's source code for errors //////////
+	@Test
+	public void testCheckFileWithSymbolCheckerSource() throws FileNotFoundException {
+		String correctOutput = "No errors found. All symbols match.";
+		String actualOutput = BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\BalancedSymbolChecker.java");
+		assertEquals(correctOutput, actualOutput);
+	}
+	
+	@Test
+	public void testCheckFileWithMyLinkedListSource() throws FileNotFoundException {
+		String correctOutput = "No errors found. All symbols match.";
+		String actualOutput = BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\MyLinkedList.java");
+		assertEquals(correctOutput, actualOutput);
+	}
+	
+	@Test
+	public void testCheckFileWithMyPriorityQueueSource() throws FileNotFoundException {
+		String correctOutput = "No errors found. All symbols match.";
+		String actualOutput = BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\MyPriorityQueue.java");
+		assertEquals(correctOutput, actualOutput);
+	}
+	
+	@Test
+	public void testCheckFileWithMyStackSource() throws FileNotFoundException {
+		String correctOutput = "No errors found. All symbols match.";
+		String actualOutput = BalancedSymbolChecker.checkFile("src\\assign7\\Tests\\CreatedTests\\MyStack.java");
+		assertEquals(correctOutput, actualOutput);
+	}
+	
 }
