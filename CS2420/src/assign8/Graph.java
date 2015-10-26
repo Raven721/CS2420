@@ -19,7 +19,7 @@ import java.util.Queue;
  * @version 10/29/2015
  */
 public class Graph {
-	
+
 	/*
 	 * Pg. 536 Data Structures: Problem Solving Using Java
 	 * 
@@ -30,10 +30,19 @@ public class Graph {
 	// Each entry is a key (vertex name) is mapped to its value (vertex).
 	private Map<String, Vertex> vertices;
 
+	private boolean isDirected;
+
 	public Graph() {
 		// HashMap is an implementation of Map with fast running times, we will
 		// learn why in a few weeks.
 		vertices = new HashMap<String, Vertex>();
+		this.isDirected = false;
+	}	
+	public Graph(boolean _isDirected) {
+		// HashMap is an implementation of Map with fast running times, we will
+		// learn why in a few weeks.
+		vertices = new HashMap<String, Vertex>();
+		this.isDirected = _isDirected;
 	}
 
 	/**
@@ -43,7 +52,7 @@ public class Graph {
 	public void addEdge(String name1, String name2) {
 		Vertex vertex1;
 		// If the vertex is already in our collection, get it.
-		if(vertices.containsKey(name1))
+		if (vertices.containsKey(name1))
 			vertex1 = vertices.get(name1);
 		// If the vertex is not already in our collection, add it.
 		else {
@@ -53,15 +62,21 @@ public class Graph {
 
 		// Do the same for other vertex.
 		Vertex vertex2;
-		if(vertices.containsKey(name2))
+		if (vertices.containsKey(name2))
 			vertex2 = vertices.get(name2);
 		else {
 			vertex2 = new Vertex(name2);
 			vertices.put(name2, vertex2);
 		}
 
-		vertex1.addEdge(vertex2); // undirected graph: add edge to both adj-lists
-		vertex2.addEdge(vertex1);
+		if (!isDirected) {
+
+			vertex1.addEdge(vertex2); // undirected graph: add edge to both
+			vertex2.addEdge(vertex1); // adj-lists
+		}
+		else {
+			vertex1.addEdge(vertex2); // directed graph: add edge to V1
+		}
 	}
 
 	/**
@@ -70,10 +85,10 @@ public class Graph {
 	 */
 	public boolean thereIsAPath(String name1, String name2) {
 		// Check to see if the vertices are in our collection.
-		if(!vertices.containsKey(name1))
+		if (!vertices.containsKey(name1))
 			return false;
 
-		if(!vertices.containsKey(name2))
+		if (!vertices.containsKey(name2))
 			return false;
 
 		// Keep track of the vertices left to visit and those already visited.
@@ -83,24 +98,25 @@ public class Graph {
 		Vertex v = vertices.get(name1);
 		verticesToBeVisited.offer(v); // enqueue
 
-		while(!verticesToBeVisited.isEmpty()) {
+		while (!verticesToBeVisited.isEmpty()) {
 			v = verticesToBeVisited.poll(); // dequeue
 			verticesAlreadyVisited.add(v);
 
 			Iterator<Edge> itr = v.edges();
-			while(itr.hasNext()) {
+			while (itr.hasNext()) {
 				v = itr.next().getOtherVertex();
 
-				if(v.getName().equals(name2))
+				if (v.getName().equals(name2))
 					return true;
 
-				if(!verticesAlreadyVisited.contains(v))
+				if (!verticesAlreadyVisited.contains(v))
 					verticesToBeVisited.offer(v); // enqueue
 			}
 		}
 
 		// Is the verticesAlreadyVisited list an efficient way to keep track of
-		// whether a vertex has already been visited? Is not, what is a better way?
+		// whether a vertex has already been visited? Is not, what is a better
+		// way?
 
 		return false;
 	}
@@ -109,13 +125,13 @@ public class Graph {
 		Object[] arr = vertices.values().toArray();
 
 		String str = "";
-		for(int i = 0; i < arr.length; i++)
+		for (int i = 0; i < arr.length; i++)
 			str += arr[i] + "\n";
 		return str;
 	}
 
 	public void checkForPath(String vertexName1, String vertexName2) {
-		if(thereIsAPath(vertexName1, vertexName2))
+		if (thereIsAPath(vertexName1, vertexName2))
 			System.out.println("There is a path from " + vertexName1 + " to " + vertexName2 + ".");
 		else
 			System.out.println("There is not a path from " + vertexName1 + " to " + vertexName2 + ".");
@@ -126,17 +142,17 @@ public class Graph {
 			PrintWriter out = new PrintWriter(filename);
 			out.println("graph G {");
 
-			if(vertices.isEmpty())
+			if (vertices.isEmpty())
 				out.println("");
 			else {
 				List<Vertex> alreadyVisited = new LinkedList<Vertex>();
 
-				for(Vertex v : vertices.values()) {
+				for (Vertex v : vertices.values()) {
 					Iterator<Edge> edges = v.edges();
-					while(edges.hasNext()) {
+					while (edges.hasNext()) {
 						Vertex x = edges.next().getOtherVertex();
 
-						if(!alreadyVisited.contains(x))
+						if (!alreadyVisited.contains(x))
 							out.println("\t\"" + v.getName() + "\" -- \"" + x.getName() + "\"");
 					}
 					alreadyVisited.add(v);
@@ -145,8 +161,7 @@ public class Graph {
 
 			out.println("}");
 			out.close();
-		}
-		catch(IOException e) {
+		} catch (IOException e) {
 			System.out.println(e);
 		}
 	}
@@ -192,6 +207,6 @@ public class Graph {
 
 	public void setDirected(boolean b) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
