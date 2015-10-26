@@ -19,6 +19,12 @@ import java.util.Queue;
  * @version 10/29/2015
  */
 public class Graph {
+	
+	/*
+	 * Pg. 536 Data Structures: Problem Solving Using Java
+	 * 
+	 * Example Graph class and graph methods
+	 */
 
 	// Recall that a map is a collection of entries.
 	// Each entry is a key (vertex name) is mapped to its value (vertex).
