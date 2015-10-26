@@ -1,0 +1,17 @@
+// directed graph of cities (contains cycles)
+
+digraph G {
+      "Salt Lake City" -> "Dallas"
+      "Salt Lake City" -> "Atlanta"
+
+      "Dallas" -> "Atlanta"
+      "Dallas" ->"Washington DC"
+
+      "Atlanta" -> "Washington DC"
+      "Atlanta" -> "San Diego"
+
+      "Washington DC" -> "San Diego"
+
+      "San Diego" -> "Salt Lake City"
+
+}

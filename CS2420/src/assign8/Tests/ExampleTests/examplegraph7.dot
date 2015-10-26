@@ -1,0 +1,24 @@
+// directed acyclic graph of CS classes and prerequisites
+
+digraph D {
+	"CS 1410" -> "CS 2420"
+	"CS 1410" -> "CS 2100"
+	
+	"CS 2100" -> "CS 3100*"
+	"CS 2100" -> "CS 4150"
+
+	"CS 2420" -> "CS 3100*"
+	"CS 2420" -> "CS 3200*"
+	"CS 2420" -> "CS 3500"
+	"CS 2420" -> "CS 3810"
+	"CS 2420" -> "CS 4150"
+
+	"MATH 2250" -> "CS 3200*"
+
+	"CS 3500" -> "CS 3505"
+	"CS 3500" -> "CS 4400"
+
+	"CS 3505" -> "CS 4500"
+
+	"CS 3810" -> "CS 4400"
+}

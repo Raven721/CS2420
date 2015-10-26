@@ -21,6 +21,6 @@ public class GraphUtilTester {
 	
 	@Test
 	public void testGraphUtilWithValidInput() {
-		GraphUtil.topologicalSort("src\\tests\\examplegraph.dot");
+		GraphUtil.topologicalSort("src\\Tests\\ExampleTests\\examplegraph.dot");
 	}
 }

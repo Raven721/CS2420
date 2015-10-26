@@ -1,0 +1,10 @@
+// contains cycles
+
+digraph G {
+  "vertex 1" -> "vertex 2"
+  "vertex 2" -> "vertex 3"
+  "vertex 1" -> "vertex 3"
+  "vertex 3" -> "vertex 4"
+  "vertex 4" -> "vertex 2"
+  "vertex 1" -> "vertex 4"
+}

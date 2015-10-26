@@ -1,0 +1,12 @@
+// contains cycles
+
+digraph G {
+  A -> B
+  A -> D
+  B -> A
+  B -> E
+  E -> D
+  D -> B
+  D -> C
+  C -> A
+}
