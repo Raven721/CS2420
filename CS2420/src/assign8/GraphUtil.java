@@ -28,6 +28,7 @@ public class GraphUtil {
 	 * @return a list of the vertex names in sorted order
 	 */
 	public static List<String> topologicalSort(String filename) {
+		// Page 555 in Data Structures: Problem Solving Using Java
 		// FILL IN -- do not return null
 
 		return null;
