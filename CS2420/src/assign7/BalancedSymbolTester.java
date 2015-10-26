@@ -287,4 +287,16 @@ public class BalancedSymbolTester {
 		assertEquals(correctOutput, actualOutput);
 	}
 	
+	////////// Test that an exception is thrown if the file is not found //////////
+	@Test
+	public void testFileNotFoundException() throws FileNotFoundException{
+		// Test will fail if a FileNotFoundException is not thrown
+		try{
+			BalancedSymbolChecker.checkFile("DoesntExist.1234");
+			fail();
+		}
+		catch(FileNotFoundException e){
+		}
+	}
+	
 }

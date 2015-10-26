@@ -95,7 +95,7 @@ public class BalancedSymbolChecker {
 						continue;
 					} 
 
-					// Evaluate the current character based on the last item pushed to the stack
+					// Evaluate the current character if it is a matching ', " or */ to the current item on the stack
 					if (c == '/') {
 						if (stack.peek() == '/' && i - 1 >= 0) {
 							if (charArray[i - 1] == '*') {
@@ -177,11 +177,10 @@ public class BalancedSymbolChecker {
 		// Close the input stream
 		in.close();
 
-		// Check if the stack is empty after scanning through the file
+		// If an item is left in the stack after iterating through the entire file, return the corresponding error message 
 		if (!stack.isEmpty()) {
 			poppedSymbol = stack.pop();
 
-			// If an item is left in the stack after iterating through the entire file, return the corresponding error message  
 			if (poppedSymbol == '(') {
 				return BalancedSymbolChecker.unmatchedSymbolAtEOF(')');
 			}
