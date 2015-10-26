@@ -2,8 +2,15 @@ package assign8;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Scanner;
+import java.util.Set;
+import java.util.Collection;
+import java.util.Collections;
+
+import java.util.Iterator;
 
 /**
  * Utility class containing methods for operating on graphs.
@@ -30,8 +37,56 @@ public class GraphUtil {
 	public static List<String> topologicalSort(String filename) {
 		// Page 555 in Data Structures: Problem Solving Using Java
 		// FILL IN -- do not return null
+		
+		Graph g = GraphUtil.buildGraphFromDot(filename);
+		
+		// Throw exception if the graph is undirected or cyclic
+		if(!g.getDirected()) {
+			throw new UnsupportedOperationException();
+		}
+		
+		// Setup containers for all graph vertices and corresponding sorted list 
+		Queue<Vertex> vertQueue = new LinkedList<Vertex>();
+		List<String> orderedVert = new LinkedList<String>();
+		
+		// get the list of vertices
+		Collection<Vertex> vertices = g.getVertices();
+		
+		// Find vertices with indegree 0
+		for(Vertex v: vertices) {
+			if(v.getInDegree() == 0) {
+				vertQueue.add(v);
+				orderedVert.add(v.getName());
+			}
+		}
+		
+		// Decrement
+		while(!vertQueue.isEmpty()) {
+			Vertex v = vertQueue.remove();
 
-		return null;
+			Iterator<Edge> itr = v.edges();
+			Edge tempEdge;
+			Vertex destVertex;
+			while (itr.hasNext()){
+				tempEdge = itr.next();
+				destVertex = tempEdge.getOtherVertex();
+				destVertex.setInDegree(destVertex.getInDegree() - 1);
+				
+				if(destVertex.getInDegree() == 0) {
+					vertQueue.add(destVertex);
+					orderedVert.add(destVertex.getName());
+				}
+			}
+		}
+		
+		for(Vertex v : vertices) {
+			if(v.getInDegree() != 0) {
+				throw new UnsupportedOperationException();
+			}
+		}
+		
+		return orderedVert;
+		// TODO: how detect cycles, what about unreachable nodes (never get to zero)
 	}
 
 	/**
@@ -71,7 +126,8 @@ public class GraphUtil {
 	 * @param filename
 	 *            -- name of the DOT file
 	 */
-	private static Graph buildGraphFromDot(String filename) {
+	//TODO : change back to private
+	public static Graph buildGraphFromDot(String filename) {
 		// creates a new, empty graph (CHANGE AS NEEDED)
 		Graph g = new Graph();
 

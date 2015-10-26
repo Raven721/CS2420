@@ -30,16 +30,46 @@ public class Vertex {
 	private String name; // used to id the Vertex
 
 	private LinkedList<Edge> adj; // adjacency list
+	
+	private int inDegree;
 
 	public Vertex(String _name) {
 		this.name = _name;
 		this.adj = new LinkedList<Edge>();
+		this.inDegree = 0;
 	}
 
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * @return the inDegree
+	 */
+	public int getInDegree() {
+		return inDegree;
+	}
+
+	/**
+	 * @param inDegree the inDegree to set
+	 */
+	public void setInDegree(int inDegree) {
+		this.inDegree = inDegree;
+	}
+	/**
+	 * 
+	 * @param vertex2
+	 * @return
+	 */
+	public boolean containsEdge(Vertex vertex2) {
+		for(Edge e : adj){
+			if(vertex2.name.equals(e.getOtherVertex())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public void addEdge(Vertex otherVertex) {
 		adj.add(new Edge(otherVertex));
 	}
@@ -56,3 +86,4 @@ public class Vertex {
 		return s;
 	}
 }
+

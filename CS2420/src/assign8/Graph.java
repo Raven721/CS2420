@@ -3,12 +3,14 @@ package assign8;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Set;
 
 /**
  * Representation of an undirected, unweighted graph.
@@ -44,6 +46,26 @@ public class Graph {
 		vertices = new HashMap<String, Vertex>();
 		this.isDirected = _isDirected;
 	}
+	
+	/**
+	 * 
+	 * @param b
+	 */
+	public void setDirected(boolean b) {
+		this.isDirected = b;
+	}
+	
+	/**
+	 * 
+	 * @return True if the graph is directed, false if otherwise.
+	 */
+	public boolean getDirected() {
+		return isDirected;
+	}
+	
+	public Collection<Vertex> getVertices() {
+		return vertices.values();
+	}
 
 	/**
 	 * Adds an edge between the vertex identified using "name1" and the vertex
@@ -70,12 +92,16 @@ public class Graph {
 		}
 
 		if (!isDirected) {
-
-			vertex1.addEdge(vertex2); // undirected graph: add edge to both
-			vertex2.addEdge(vertex1); // adj-lists
+			if(!vertex1.containsEdge(vertex2)) {
+				vertex1.addEdge(vertex2); // undirected graph: add edge to both
+				vertex2.addEdge(vertex1); // adj-lists
+			}
 		}
 		else {
-			vertex1.addEdge(vertex2); // directed graph: add edge to V1
+			if(!vertex1.containsEdge(vertex2)) {
+				vertex1.addEdge(vertex2); // directed graph: add edge to V1
+				vertex2.setInDegree(vertex2.getInDegree() + 1); // increment inDegree of V2
+			}
 		}
 	}
 
@@ -203,10 +229,5 @@ public class Graph {
 		g.checkForPath("3", "1");
 
 		g.generateDotFile("graph2.dot");
-	}
-
-	public void setDirected(boolean b) {
-		// TODO Auto-generated method stub
-
 	}
 }
