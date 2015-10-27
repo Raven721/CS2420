@@ -39,6 +39,7 @@ public class Graph {
 		vertices = new HashMap<String, Vertex>();
 		this.isDirected = false;
 	}	
+	
 	public Graph(boolean _isDirected) {
 		// HashMap is an implementation of Map with fast running times, we will
 		// learn why in a few weeks.
@@ -64,6 +65,14 @@ public class Graph {
 	
 	public Collection<Vertex> getVertices() {
 		return vertices.values();
+	}
+	
+	public Vertex getVertex(String name) {
+		if(!vertices.containsKey(name)) {
+			throw new UnsupportedOperationException();
+		} 
+		
+		return vertices.get(name);
 	}
 
 	/**
@@ -228,5 +237,16 @@ public class Graph {
 		g.checkForPath("3", "1");
 
 		g.generateDotFile("graph2.dot");
+	}
+	
+	/**
+	 * 
+	 */
+	public void initializeBFSVertices() {
+		Collection<Vertex> verticeList = getVertices();
+		
+		for(Vertex v: verticeList) {
+			v.setDistanceFromStart(Double.POSITIVE_INFINITY);
+		}
 	}
 }

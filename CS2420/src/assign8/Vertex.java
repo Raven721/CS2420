@@ -33,13 +33,12 @@ public class Vertex {
 	
 	private int inDegree; // used in topo sort
 	
-	private int distanceFromStart; // used in BFS
+	private double distanceFromStart; // used in BFS
 
 	public Vertex(String _name) {
 		this.name = _name;
 		this.adj = new LinkedList<Edge>();
 		this.inDegree = 0;
-		this.distanceFromStart = 0;
 	}
 
 	/**
@@ -56,8 +55,12 @@ public class Vertex {
 	 *  
 	 * @return The number of edges from the beginning of the graph to the current vertex.
 	 */
-	public int getDistanceFromStart() {
+	public double getDistanceFromStart() {
 		return distanceFromStart;
+	}
+	
+	public void setDistanceFromStart(Double distance) {
+		distanceFromStart = distance;
 	}
 	
 	/**

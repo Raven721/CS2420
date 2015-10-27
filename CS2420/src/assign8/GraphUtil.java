@@ -105,7 +105,37 @@ public class GraphUtil {
 	 *         starting vertex (inclusive) to the ending vertex (inclusive).
 	 */
 	public static List<String> breadthFirstSearch(String filename, String start, String end) {
-		// FILL IN -- do not return null
+		Graph g = GraphUtil.buildGraphFromDot(filename);
+		
+		g.initializeBFSVertices();
+		
+		// Setup containers for all graph vertices and corresponding sorted list 
+		Queue<Vertex> vertQueue = new LinkedList<Vertex>();
+		List<String> orderedVert = new LinkedList<String>();
+		
+		// Initialize 
+		g.getVertex(start).setDistanceFromStart(0d);
+		vertQueue.add(g.getVertex(start));
+		
+		Vertex tempVert;
+		while(!vertQueue.isEmpty()) {
+			tempVert = vertQueue.remove();
+			
+			Iterator<Edge> itr = tempVert.edges();
+			Edge tempEdge;
+			Vertex destVertex;
+			while (itr.hasNext()){
+				tempEdge = itr.next();
+				destVertex = tempEdge.getOtherVertex();
+				destVertex.setInDegree(destVertex.getInDegree() - 1);
+				
+				if(destVertex.getInDegree() == 0) {
+					vertQueue.add(destVertex);
+					orderedVert.add(destVertex.getName());
+				}
+			}
+			
+		}
 
 		return null;
 	}
