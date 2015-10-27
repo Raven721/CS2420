@@ -96,7 +96,7 @@ public class GraphUtilTester {
 		path = GraphUtil.topologicalSort("src\\assign8\\Tests\\ExampleTests\\examplegraph9.dot");
 	}
 	
-	//TODO Check with TA on how to handle a dot file with only one vertex
+	//TODO Add special case for Zero and One vertex, return the single vertex or empty brackets
 	@Test
 	public void testTopographicalSortWithCreatedOneVertexGraph() {
 		//exception.expect(UnsupportedOperationException.class);

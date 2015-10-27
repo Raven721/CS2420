@@ -117,17 +117,20 @@ public class GraphUtil {
 		g.getVertex(start).setDistanceFromStart(0d);
 		vertQueue.add(g.getVertex(start));
 		
-		Vertex tempVert;
+		Vertex startVertex;
 		while(!vertQueue.isEmpty()) {
-			tempVert = vertQueue.remove();
+			startVertex = vertQueue.remove();
 			
-			Iterator<Edge> itr = tempVert.edges();
+			Iterator<Edge> itr = startVertex.edges();
 			Edge tempEdge;
 			Vertex destVertex;
 			while (itr.hasNext()){
 				tempEdge = itr.next();
 				destVertex = tempEdge.getOtherVertex();
-				destVertex.setInDegree(destVertex.getInDegree() - 1);
+				
+				if(destVertex.getDistanceFromStart() == Double.POSITIVE_INFINITY) {
+					destVertex.setDistanceFromStart(startVertex.getDistanceFromStart() + 1);
+				}
 				
 				if(destVertex.getInDegree() == 0) {
 					vertQueue.add(destVertex);
