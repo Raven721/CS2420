@@ -31,13 +31,14 @@ public class GraphUtilTester {
 		graph = new Graph();
 	}
 	
-//	//////////// breadthFirstSearch(String filename, String start, String end) //////////// 
-//	@Test
-//	public void testBreadthFirstSearch() {
-//		path = GraphUtil.breadthFirstSearch("src\\Tests\\ExampleTests\\examplegraph.dot", "Vertex 1", "Vertex 2");
-//		System.out.println(path.toString());
-//	}
-//	
+	//////////// breadthFirstSearch(String filename, String start, String end) //////////// 
+	@Test
+	public void testBreadthFirstSearch() {
+		path = GraphUtil.breadthFirstSearch("src\\assign8\\Tests\\ExampleTests\\examplegraph5.dot", "1", "5");
+		System.out.println("Example2graph with BFS.dot:");
+		System.out.println("\t" + path.toString());
+	}
+	
 	//////////// topologicalSort(String filename) //////////// 
 	@Test
 	public void testTopographicalSortWithExampleGraph() {
