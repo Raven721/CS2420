@@ -107,11 +107,17 @@ public class GraphUtil {
 	public static List<String> breadthFirstSearch(String filename, String start, String end) {
 		Graph g = GraphUtil.buildGraphFromDot(filename);
 		
+		// Throw exception if the graph is undirected
+		if(!g.getDirected()) {
+			throw new UnsupportedOperationException();
+		}
+		
+		// Initialize all vertices to POSINFINITY
 		g.initializeBFSVertices();
 		
 		// Setup containers for all graph vertices and corresponding sorted list 
 		Queue<Vertex> vertQueue = new LinkedList<Vertex>();
-		List<String> orderedVert = new LinkedList<String>();
+		
 		
 		// Initialize 
 		g.getVertex(start).setDistanceFromStart(0d);
@@ -146,8 +152,25 @@ public class GraphUtil {
 			}
 			
 		}
-
-		return null;
+		
+		if(g.getVertex(end).getDistanceFromStart() == Double.POSITIVE_INFINITY) {
+			return new LinkedList<String>();
+		}
+		
+		LinkedList<String> orderedVert = new LinkedList<String>();
+		
+		//Begin at the destination vertex
+		Vertex currentVertex = g.getVertex(end);
+		
+		// Process previous pointers until we find the start
+		while(currentVertex != g.getVertex(start)) {
+			orderedVert.addFirst(currentVertex.getName());
+			currentVertex = currentVertex.getPreviousVertex();
+		}
+		// Finally add the start vertex
+		orderedVert.addFirst(start);
+		
+		return orderedVert;
 	}
 
 	/**
