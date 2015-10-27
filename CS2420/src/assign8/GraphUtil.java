@@ -84,7 +84,6 @@ public class GraphUtil {
 		}
 		
 		return orderedVert;
-		// TODO: how detect cycles, what about unreachable nodes (never get to zero)
 	}
 
 	/**
