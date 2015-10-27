@@ -39,6 +39,7 @@ public class Vertex {
 		this.name = _name;
 		this.adj = new LinkedList<Edge>();
 		this.inDegree = 0;
+		this.distanceFromStart = 0;
 	}
 
 	/**
@@ -57,6 +58,13 @@ public class Vertex {
 	 */
 	public int getDistanceFromStart() {
 		return distanceFromStart;
+	}
+	
+	/**
+	 * Increments the distance of the current vertex from the beginning of the graph.
+	 */
+	public void incrementDistanceFromStart(){
+		distanceFromStart++;
 	}
 
 	/**
