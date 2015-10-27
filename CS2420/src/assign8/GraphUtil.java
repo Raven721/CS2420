@@ -50,6 +50,14 @@ public class GraphUtil {
 		// get the list of vertices
 		Collection<Vertex> vertices = g.getVertices();
 		
+		//
+		if(vertices.size() == 1) {
+			orderedVert.add(vertices.iterator().next().getName());
+			return orderedVert;
+		} else if(vertices.size() == 0) {
+			return orderedVert;
+		}
+		
 		// Find vertices with indegree 0
 		for(Vertex v: vertices) {
 			if(v.getInDegree() == 0) {
