@@ -83,19 +83,20 @@ public class GraphUtilTester {
 	@Test
 	public void testTopographicalSortWithExampleGraph7() {
 		path = GraphUtil.topologicalSort("src\\assign8\\Tests\\ExampleTests\\examplegraph7.dot");
-		System.out.println(path.toString());
+		System.out.println("Example7graph.dot:");
+		System.out.println("\t" + path.toString());
 	}
 	
 	@Test
 	public void testTopographicalSortWithExampleGraph8() {
+		exception.expect(UnsupportedOperationException.class);
 		path = GraphUtil.topologicalSort("src\\assign8\\Tests\\ExampleTests\\examplegraph8.dot");
-		System.out.println(path.toString());
 	}
 	
 	@Test
 	public void testTopographicalSortWithExampleGraph9() {
+		exception.expect(UnsupportedOperationException.class);
 		path = GraphUtil.topologicalSort("src\\assign8\\Tests\\ExampleTests\\examplegraph9.dot");
-		System.out.println(path.toString());
 	}
 	
 	//////////// buildGraphFromDot ////////////
