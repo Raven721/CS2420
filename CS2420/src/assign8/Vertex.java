@@ -34,6 +34,8 @@ public class Vertex {
 	private int inDegree; // used in topo sort
 	
 	private double distanceFromStart; // used in BFS
+	
+	private Vertex prev; // used in BFS
 
 	public Vertex(String _name) {
 		this.name = _name;
@@ -88,6 +90,14 @@ public class Vertex {
 		this.inDegree = inDegree;
 	}
 	
+	public Vertex getPreviousVertex() {
+		return prev;
+	}
+
+	public void setPreviousVertex(Vertex prev) {
+		this.prev = prev;
+	}
+
 	/**
 	 * Verifies if the current vertex is connected to another vertex through an edge. 
 	 * 

@@ -118,6 +118,8 @@ public class GraphUtil {
 		vertQueue.add(g.getVertex(start));
 		
 		Vertex startVertex;
+		
+		VertQueueProcessor:
 		while(!vertQueue.isEmpty()) {
 			startVertex = vertQueue.remove();
 			
@@ -128,14 +130,19 @@ public class GraphUtil {
 				tempEdge = itr.next();
 				destVertex = tempEdge.getOtherVertex();
 				
+				// Check that the destination vertex hasn't been visited
 				if(destVertex.getDistanceFromStart() == Double.POSITIVE_INFINITY) {
 					destVertex.setDistanceFromStart(startVertex.getDistanceFromStart() + 1);
-				}
-				
-				if(destVertex.getInDegree() == 0) {
+					destVertex.setPreviousVertex(startVertex);
+					
+					// If the destination is found, quit searching the graph
+					if(destVertex.equals(g.getVertex(end))) {
+						break VertQueueProcessor;
+					}
+					
 					vertQueue.add(destVertex);
-					orderedVert.add(destVertex.getName());
 				}
+
 			}
 			
 		}
