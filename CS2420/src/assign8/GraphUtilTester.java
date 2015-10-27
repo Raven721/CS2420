@@ -96,6 +96,23 @@ public class GraphUtilTester {
 		path = GraphUtil.topologicalSort("src\\assign8\\Tests\\ExampleTests\\examplegraph9.dot");
 	}
 	
+	//TODO Check with TA on how to handle a dot file with only one vertex
+	@Test
+	public void testTopographicalSortWithCreatedOneVertexGraph() {
+		//exception.expect(UnsupportedOperationException.class);
+		path = GraphUtil.topologicalSort("src\\assign8\\Tests\\CreatedTests\\graphWithOneVert.dot");
+		System.out.println("graphWithOneVert.dot:");
+		System.out.println("\t" + path.toString());
+	}
+	
+	@Test
+	public void testTopographicalSortWithCreatedTwoVertexGraph() {
+		//exception.expect(UnsupportedOperationException.class);
+		path = GraphUtil.topologicalSort("src\\assign8\\Tests\\CreatedTests\\graphWithTwoVerts.dot");
+		System.out.println("graphWithTwoVerts.dot:");
+		System.out.println("\t" + path.toString());
+	}
+	
 	//////////// buildGraphFromDot ////////////
 	@Test
 	public void testBuildGraphFromDotWithDirectedInput() {
