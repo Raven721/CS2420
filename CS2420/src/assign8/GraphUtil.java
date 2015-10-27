@@ -6,9 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Scanner;
-import java.util.Set;
 import java.util.Collection;
-import java.util.Collections;
 
 import java.util.Iterator;
 
@@ -127,6 +125,7 @@ public class GraphUtil {
 	 *            -- name of the DOT file
 	 */
 	//TODO : change back to private
+	@SuppressWarnings("resource")
 	public static Graph buildGraphFromDot(String filename) {
 		// creates a new, empty graph (CHANGE AS NEEDED)
 		Graph g = new Graph();
