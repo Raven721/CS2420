@@ -19,6 +19,12 @@ public class Vertex {
 	private double distanceFromStart; // used in BFS
 	private Vertex prev; // used in BFS
 
+	/**
+	 * Constructor for Vertex class
+	 * 
+	 * @param _name
+	 * 			Name of the Vertex being constructed
+	 */
 	public Vertex(String _name) {
 		this.name = _name;
 		this.adj = new LinkedList<Edge>();
@@ -53,13 +59,6 @@ public class Vertex {
 		distanceFromStart = distance;
 	}
 	
-	/**
-	 * Increments the distance of the current vertex from the beginning of the graph.
-	 */
-	public void incrementDistanceFromStart(){
-		distanceFromStart++;
-	}
-
 	/**
 	 * Returns the number of edges directed at the current vertex.
 	 * 
@@ -135,7 +134,6 @@ public class Vertex {
 	 * 
 	 * @return s A string containing this vertex and its adjacent indexes.
 	 */
-	//TODO: Do we need this method for this assignment? It isn't used.
 	public String toString() {
 		String s = "Vertex " + name + " adjacent to ";
 		Iterator<Edge> itr = adj.iterator();

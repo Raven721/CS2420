@@ -11,7 +11,13 @@ package assign8;
 public class Edge {
 
 	private Vertex other; // 2nd vertex in Edge
-	
+
+	/**
+	 * Constructor for Edge class
+	 * 
+	 * @param _other
+	 * 			destination vertex that the edge connects to
+	 */
 	public Edge(Vertex _other) {
 		this.other = _other;
 	}
