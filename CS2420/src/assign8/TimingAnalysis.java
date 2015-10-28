@@ -20,19 +20,25 @@ import java.util.Random;
  */
 public class TimingAnalysis {
 
-	//TODO: Separate graph generation from timing, the BFS will throw an exception if the given end vertex isn't randomly generated in the list.
-	// Instead, Generate the files, then pick the last end vertex in the file as the destination vertex, this guarantees the destination vertex is actually in the list
+	private static String startVert;
+	private static String destVert;
+
+	// TODO: Separate graph generation from timing, the BFS will throw an
+	// exception if the given end vertex isn't randomly generated in the list.
+	// Instead, Generate the files, then pick the last end vertex in the file as
+	// the destination vertex, this guarantees the destination vertex is
+	// actually in the list
 	public static void main(String[] args) {
-		 // Time breadth-first search where the #edges = 4 * #vertices
-//		 timeGraphMethod("src/assign8/Tests/GeneratedGraphs/BFSearch",
-//		 "breadth-first search", 20, 1000, 10000, 1000, 4, "1", "960");
-//		
-//		 // Time breadth-first search where the #edges = 3 * #vertices
-//		 timeGraphMethod("src/assign8/Tests/GeneratedGraphs/BFSearch",
-//		 "breadth-first search", 20, 1000, 10000, 1000, 3, "1", "2");
+		// Time breadth-first search where the #edges = 4 * #vertices
+		 timeGraphMethod("src/assign8/Tests/GeneratedGraphs/BFSearch",
+		 "breadth-first search", 20, 1000, 10000, 1000, 1);
+		
+		 // Time breadth-first search where the #edges = 3 * #vertices
+		 timeGraphMethod("src/assign8/Tests/GeneratedGraphs/BFSearch",
+		 "breadth-first search", 20, 1000, 10000, 1000, 3);
 
 		// Time topological sort
-		timeGraphMethod("src/assign8/Tests/GeneratedGraphs/topoSort", "topological", 50, 100, 1000, 100, 10, "", "");
+		timeGraphMethod("src/assign8/Tests/GeneratedGraphs/topoSort", "topological", 50, 100, 1000, 100, 10);
 	}
 
 	/**
@@ -48,13 +54,13 @@ public class TimingAnalysis {
 	 * @param end
 	 */
 	private static void timeGraphMethod(String filename, String timingMethod, int timesToLoop, int nStart, int nStop,
-			int nStep, int edgeFactor, String start, String end) {
+			int nStep, int edgeFactor) {
 		long startTime, midptTime, stopTime;
 		boolean retry = false;
 
-		// Generated vertices have the name "v3", "v45" etc
-		start = "v" + start;
-		end = "v" + end;
+//		// Generated vertices have the name "v3", "v45" etc
+//		start = "v" + start;
+//		end = "v" + end;
 
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
@@ -94,7 +100,7 @@ public class TimingAnalysis {
 				}
 			} else if (timingMethod.equals("breadth-first search")) {
 				for (int i = 0; i < timesToLoop; i++) {
-					GraphUtil.breadthFirstSearch(fullPathName, start, end);
+					GraphUtil.breadthFirstSearch(fullPathName, startVert, destVert);
 				}
 			}
 
@@ -156,7 +162,7 @@ public class TimingAnalysis {
 		out.println("digraph G {");
 
 		// generate a list of vertices
-		if(vertexCount < 0) {
+		if (vertexCount < 0) {
 			System.out.println("VertexCount negative: " + vertexCount);
 		}
 		String[] vertex = new String[vertexCount];
@@ -166,9 +172,19 @@ public class TimingAnalysis {
 
 		// randomly connect the vertices using 2 * |V| edges
 		if (graphType.equals("cyclic")) {
-			for (int i = 0; i < edgeFactor * vertexCount; i++)
-				out.println("\t" + "\"" + vertex[rng.nextInt(vertexCount)] + "\"" + edgeOp + "\""
-						+ vertex[rng.nextInt(vertexCount)] + "\"");
+			int rand1, rand2;
+			for (int i = 0; i < edgeFactor * vertexCount; i++) {
+				rand1 = rng.nextInt(vertexCount);
+				rand2 = rng.nextInt(vertexCount);
+
+				out.println("\t" + "\"" + vertex[rand1] + "\"" + edgeOp + "\"" + vertex[rand2] + "\"");
+				
+				if (i == 0) {
+					startVert = "v" + Integer.toString(rand1);
+				}
+				destVert = "v" + Integer.toString(rand2);
+				
+			}
 		}
 		// Randomly connect vertex to vertices below it in the graph
 		// TODO: Fix so that the second vertex number is greater than the first
@@ -177,16 +193,17 @@ public class TimingAnalysis {
 			int nextVert;
 			for (int j = 0; j < edgeFactor; j++) {
 				for (int i = 0; i < vertexCount - 1; i++) {
-					//TODO: Debug
-				
+					// TODO: Debug
+
 					do {
 						nextVert = rng.nextInt(vertexCount - i) + (i + 1) - 1;
-					} while(nextVert <= i || nextVert > vertex.length - 1);
-				
-//					System.out.println("Number of vertexes: " + vertexCount + " Current Vertex: " + i + " next vertex: " + Math.abs(nextVert));
+					} while (nextVert <= i || nextVert > vertex.length - 1);
 
-					out.println("\t" + "\"" + vertex[i] + "\"" + edgeOp + "\""
-							+ vertex[nextVert] + "\"");
+					// System.out.println("Number of vertexes: " + vertexCount +
+					// " Current Vertex: " + i + " next vertex: " +
+					// Math.abs(nextVert));
+
+					out.println("\t" + "\"" + vertex[i] + "\"" + edgeOp + "\"" + vertex[nextVert] + "\"");
 				}
 			}
 		}
