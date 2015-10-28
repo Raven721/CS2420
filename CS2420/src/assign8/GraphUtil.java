@@ -167,7 +167,7 @@ public class GraphUtil {
 		
 		LinkedList<String> orderedVert = new LinkedList<String>();
 		
-		//Begin at the destination vertex
+		// Begin at the destination vertex
 		Vertex currentVertex = g.getVertex(end);
 		
 		// Process previous pointers until we find the start

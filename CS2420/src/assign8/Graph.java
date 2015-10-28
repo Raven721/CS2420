@@ -40,6 +40,7 @@ public class Graph {
 		this.isDirected = false;
 	}	
 	
+	//TODO: Topological Sort and BFS can't work with undirected graphs, should this method be removed?
 	public Graph(boolean _isDirected) {
 		// HashMap is an implementation of Map with fast running times, we will
 		// learn why in a few weeks.
@@ -63,10 +64,19 @@ public class Graph {
 		return isDirected;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public Collection<Vertex> getVertices() {
 		return vertices.values();
 	}
 	
+	/**
+	 * 
+	 * @param name
+	 * @return
+	 */
 	public Vertex getVertex(String name) {
 		if(!vertices.containsKey(name)) {
 			throw new UnsupportedOperationException();
@@ -116,6 +126,8 @@ public class Graph {
 	/**
 	 * Returns true is there is a path (i.e., a list of edges) connecting vertex
 	 * identified using "name1" to vertex identified using "name2".
+	 * 
+	 * @return Returns true if a path exists between two specified vertices.
 	 */
 	public boolean thereIsAPath(String name1, String name2) {
 		// Check to see if the vertices are in our collection.
@@ -155,6 +167,7 @@ public class Graph {
 		return false;
 	}
 
+	//TODO: Should this method be removed? I do not believe it is actually used.
 	public String toString() {
 		Object[] arr = vertices.values().toArray();
 
@@ -164,6 +177,7 @@ public class Graph {
 		return str;
 	}
 
+	//TODO: Should this method be removed? I do not believe it is actually used.
 	public void checkForPath(String vertexName1, String vertexName2) {
 		if (thereIsAPath(vertexName1, vertexName2))
 			System.out.println("There is a path from " + vertexName1 + " to " + vertexName2 + ".");
@@ -171,6 +185,7 @@ public class Graph {
 			System.out.println("There is not a path from " + vertexName1 + " to " + vertexName2 + ".");
 	}
 
+	//TODO: This method should probably be removed, we need to use the method provided in GraphUtil
 	public void generateDotFile(String filename) {
 		try {
 			PrintWriter out = new PrintWriter(filename);
@@ -200,6 +215,7 @@ public class Graph {
 		}
 	}
 
+	//TODO: This method should probably be removed
 	public static void main(String[] args) {
 		// build a sample graph
 		Graph g = new Graph();
@@ -240,7 +256,7 @@ public class Graph {
 	}
 	
 	/**
-	 * 
+	 * Initializes all vertices in a Breadth-First-Search graph to positive infinity
 	 */
 	public void initializeBFSVertices() {
 		Collection<Vertex> verticeList = getVertices();

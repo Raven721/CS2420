@@ -16,12 +16,25 @@ public class Edge {
 		this.other = _other;
 	}
 	
+	/**
+	 * Returns the complementary vertex to the current vertex, from the 
+	 * opposite end of a shared edge.
+	 * 
+	 * @return The complementary vertex to the current vertex, from the
+	 * opposite end of a shared edge.
+	 */
 	public Vertex getOtherVertex() {
 		return other;
 	}
 
+	/**
+	 * Returns the name of the vertex on the opposite end of a shared edge
+	 * to the current vertex.
+	 * 
+	 * @return Returns the name of the vertex on the opposite end of a shared 
+	 * edge to the current vertex.
+	 */
 	public String toString() {
 		return other.getName();
 	}
-
 }

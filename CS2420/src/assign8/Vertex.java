@@ -13,28 +13,10 @@ import java.util.Iterator;
  */
 public class Vertex {
 
-	/*
-	 * Pg. 534 Data Structures: Problem Solving Using Java
-	 * A vertex object should contain:
-	 * 1. Name - Name corresponding to this vertex in the hashmap
-	 * 2. Adj - List of adjacent vertices established when the graph is read
-	 * 3. Dist - The length of the shortest path (either weighted or unweighted)
-	 * 4. Prev - The previous vertex on the shortest path to this vertex
-	 * 
-	 * i.e.
-	 * 1. public String name;
-	 * 2. public List<Edge> adj;
-	 * 3. public double dist;
-	 * 4. public Vertex prev;
-	 */
 	private String name; // used to id the Vertex
-
 	private LinkedList<Edge> adj; // adjacency list
-	
 	private int inDegree; // used in topo sort
-	
 	private double distanceFromStart; // used in BFS
-	
 	private Vertex prev; // used in BFS
 
 	public Vertex(String _name) {
@@ -61,6 +43,12 @@ public class Vertex {
 		return distanceFromStart;
 	}
 	
+	/**
+	 * Sets the distance of the current vertex from the starting point in the graph
+	 * 
+	 * @param distance The specified distance of the current vertex to the starting point
+	 * in the graph.
+	 */
 	public void setDistanceFromStart(Double distance) {
 		distanceFromStart = distance;
 	}
@@ -90,10 +78,20 @@ public class Vertex {
 		this.inDegree = inDegree;
 	}
 	
+	/**
+	 * Returns the previously traversed vertex in the graph.
+	 * 
+	 * @return The previously traversed vertex in the graph.
+	 */
 	public Vertex getPreviousVertex() {
 		return prev;
 	}
 
+	/**
+	 * Sets the reference of this vertex's previously traversed vertex to the specified vertex.
+	 * 
+	 * @param prev The vertex for the current vertex to reference as its previously traversed vertex.
+	 */
 	public void setPreviousVertex(Vertex prev) {
 		this.prev = prev;
 	}
@@ -101,7 +99,7 @@ public class Vertex {
 	/**
 	 * Verifies if the current vertex is connected to another vertex through an edge. 
 	 * 
-	 * @param vertex2 The destination vertex
+	 * @param vertex2 The destination vertex.
 	 * 
 	 * @return True if the current vertex is connected to a specified destination vertex.
 	 */
@@ -117,7 +115,7 @@ public class Vertex {
 	/**
 	 * Adds an edge between the current vertex and a given destination vertex.
 	 * 
-	 * @param otherVertex The destination vertex
+	 * @param otherVertex The destination vertex.
 	 */
 	public void addEdge(Vertex otherVertex) {
 		adj.add(new Edge(otherVertex));
@@ -137,6 +135,7 @@ public class Vertex {
 	 * 
 	 * @return s A string containing this vertex and its adjacent indexes.
 	 */
+	//TODO: Do we need this method for this assignment? It isn't used.
 	public String toString() {
 		String s = "Vertex " + name + " adjacent to ";
 		Iterator<Edge> itr = adj.iterator();
