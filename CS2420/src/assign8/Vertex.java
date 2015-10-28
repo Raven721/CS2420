@@ -7,7 +7,7 @@ import java.util.Iterator;
  * A class representation of a vertex.
  *
  * @author Tim Ellenberger, ellenber
- * @author John Strasser
+ * @author John Strasser, strasser
  * @author Erin Parker
  * @version 10/29/2015
  */

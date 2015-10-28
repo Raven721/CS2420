@@ -14,7 +14,7 @@ import java.util.Iterator;
  * Utility class containing methods for operating on graphs.
  *
  * @author Tim Ellenberger, ellenber
- * @author John Strasser
+ * @author John Strasser, strasser
  * @author Erin Parker
  * @version 10/29/2015
  */

@@ -15,7 +15,7 @@ import java.util.Queue;
  * Representation of an undirected, unweighted graph.
  * 
  * @author Tim Ellenberger, ellenber
- * @author John Strasser
+ * @author John Strasser, strasser
  * @author Erin Parker
  * @version 10/29/2015
  */
