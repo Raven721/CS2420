@@ -49,14 +49,16 @@ public class Graph {
 	}
 	
 	/**
+	 * Sets the direction status of the graph.
 	 * 
-	 * @param b
+	 * @param b Specifies if the current graph is directed(true) or undirected(false)
 	 */
 	public void setDirected(boolean b) {
 		this.isDirected = b;
 	}
 	
 	/**
+	 * Returns true if the graph is directed or false if the graph is undirected. 
 	 * 
 	 * @return True if the graph is directed, false if otherwise.
 	 */
@@ -65,17 +67,19 @@ public class Graph {
 	}
 	
 	/**
+	 * Returns all of the vertices from the input file in no particular order.
 	 * 
-	 * @return
+	 * @return An unordered Collection<Vertex> of all vertices in the input file
 	 */
 	public Collection<Vertex> getVertices() {
 		return vertices.values();
 	}
 	
 	/**
+	 * Returns the vertex stored in a map associated with the input string name.
 	 * 
-	 * @param name
-	 * @return
+	 * @param name The name of the vertex to be returned
+	 * @return The vertex associated with the specified name
 	 */
 	public Vertex getVertex(String name) {
 		if(!vertices.containsKey(name)) {
@@ -88,6 +92,9 @@ public class Graph {
 	/**
 	 * Adds an edge between the vertex identified using "name1" and the vertex
 	 * identifies using "name2".
+	 * 
+	 * @param name1 The name of the starting vertex.
+	 * @param name2 The name of the destination vertex.
 	 */
 	public void addEdge(String name1, String name2) {
 		Vertex vertex1;
