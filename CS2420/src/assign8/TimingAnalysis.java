@@ -118,7 +118,7 @@ public class TimingAnalysis {
 
 			if (avgTime <= 0) {
 				retry = true;
-				vertexCount -= 100000;
+				vertexCount -= 1000;
 				continue;
 			} else {
 				retry = false;
@@ -179,14 +179,14 @@ public class TimingAnalysis {
 					nextVert = rng.nextInt(vertexCount - i) + (i + 1) - 1;
 				} while(nextVert <= i || nextVert > vertex.length - 1);
 				
-				System.out.println("Number of vertexes: " + vertexCount + " Current Vertex: " + i + " next vertex: " + Math.abs(nextVert));
+//				System.out.println("Number of vertexes: " + vertexCount + " Current Vertex: " + i + " next vertex: " + Math.abs(nextVert));
 
 				out.println("\t" + "\"" + vertex[i] + "\"" + edgeOp + "\""
 						+ vertex[nextVert] + "\"");
 			}
-
-			out.println("}");
-			out.close();
 		}
+
+		out.println("}");
+		out.close();
 	}
 }
