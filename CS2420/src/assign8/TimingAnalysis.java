@@ -20,6 +20,8 @@ import java.util.Random;
  */
 public class TimingAnalysis {
 
+	//TODO: Separate graph generation from timing, the BFS will throw an exception if the given end vertex isn't randomly generated in the list.
+	// Instead, Generate the files, then pick the last end vertex in the file as the destination vertex, this guarantees the destination vertex is actually in the list
 	public static void main(String[] args) {
 		 // Time breadth-first search where the #edges = 4 * #vertices
 		 timeGraphMethod("src\\assign8\\Tests\\GeneratedGraphs\\BFSearch",
