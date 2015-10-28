@@ -1,7 +1,5 @@
 package assign8;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -21,32 +19,21 @@ import java.util.Queue;
  */
 public class Graph {
 
-	/*
-	 * Pg. 536 Data Structures: Problem Solving Using Java
-	 * 
-	 * Example Graph class and graph methods
-	 */
-
 	// Recall that a map is a collection of entries.
 	// Each entry is a key (vertex name) is mapped to its value (vertex).
 	private Map<String, Vertex> vertices;
 
-	private boolean isDirected;
+	private boolean isDirected; // tracks if graph is directed or undirected type
 
+	/**
+	 * Default constructor for Graph class
+	 */
 	public Graph() {
 		// HashMap is an implementation of Map with fast running times, we will
 		// learn why in a few weeks.
 		vertices = new HashMap<String, Vertex>();
 		this.isDirected = false;
 	}	
-	
-	//TODO: Topological Sort and BFS can't work with undirected graphs, should this method be removed?
-	public Graph(boolean _isDirected) {
-		// HashMap is an implementation of Map with fast running times, we will
-		// learn why in a few weeks.
-		vertices = new HashMap<String, Vertex>();
-		this.isDirected = _isDirected;
-	}
 	
 	/**
 	 * Sets the direction status of the graph.
@@ -115,17 +102,20 @@ public class Graph {
 			vertex2 = new Vertex(name2);
 			vertices.put(name2, vertex2);
 		}
-
+		
+		// Undirected graph we go ahead and add edges to both vertices if the edge does not exist
 		if (!isDirected) {
 			if(!vertex1.containsEdge(vertex2)) {
-				vertex1.addEdge(vertex2); // undirected graph: add edge to both
-				vertex2.addEdge(vertex1); // adj-lists
+				vertex1.addEdge(vertex2);
+				vertex2.addEdge(vertex1);
 			}
 		}
+		// For directed graph we add edge from V1, and we increment V2's inDegree (if edge does not already
+		// exist
 		else {
 			if(!vertex1.containsEdge(vertex2)) {
-				vertex1.addEdge(vertex2); // directed graph: add edge to V1
-				vertex2.setInDegree(vertex2.getInDegree() + 1); // increment inDegree of V2
+				vertex1.addEdge(vertex2); 
+				vertex2.setInDegree(vertex2.getInDegree() + 1); 
 			}
 		}
 	}
@@ -174,7 +164,9 @@ public class Graph {
 		return false;
 	}
 
-	//TODO: Should this method be removed? I do not believe it is actually used.
+	/**
+	 * Override the toString method for better information on the Graph object
+	 */
 	public String toString() {
 		Object[] arr = vertices.values().toArray();
 
@@ -184,84 +176,6 @@ public class Graph {
 		return str;
 	}
 
-	//TODO: Should this method be removed? I do not believe it is actually used.
-	public void checkForPath(String vertexName1, String vertexName2) {
-		if (thereIsAPath(vertexName1, vertexName2))
-			System.out.println("There is a path from " + vertexName1 + " to " + vertexName2 + ".");
-		else
-			System.out.println("There is not a path from " + vertexName1 + " to " + vertexName2 + ".");
-	}
-
-	//TODO: This method should probably be removed, we need to use the method provided in GraphUtil
-	public void generateDotFile(String filename) {
-		try {
-			PrintWriter out = new PrintWriter(filename);
-			out.println("graph G {");
-
-			if (vertices.isEmpty())
-				out.println("");
-			else {
-				List<Vertex> alreadyVisited = new LinkedList<Vertex>();
-
-				for (Vertex v : vertices.values()) {
-					Iterator<Edge> edges = v.edges();
-					while (edges.hasNext()) {
-						Vertex x = edges.next().getOtherVertex();
-
-						if (!alreadyVisited.contains(x))
-							out.println("\t\"" + v.getName() + "\" -- \"" + x.getName() + "\"");
-					}
-					alreadyVisited.add(v);
-				}
-			}
-
-			out.println("}");
-			out.close();
-		} catch (IOException e) {
-			System.out.println(e);
-		}
-	}
-
-	//TODO: This method should probably be removed
-	public static void main(String[] args) {
-		// build a sample graph
-		Graph g = new Graph();
-
-		g.addEdge("V1", "V3");
-		g.addEdge("V1", "V4");
-		g.addEdge("V2", "V4");
-		g.addEdge("V2", "V1");
-		g.addEdge("V4", "V5");
-		g.addEdge("V5", "V3");
-		g.addEdge("V6", "V7");
-
-		g.checkForPath("V2", "V3");
-		g.checkForPath("V4", "V3");
-		g.checkForPath("V6", "V5");
-
-		g.generateDotFile("graph.dot");
-
-		// build another sample graph
-		g = new Graph();
-
-		g.addEdge("0", "1");
-		g.addEdge("0", "2");
-		g.addEdge("0", "7");
-		g.addEdge("1", "2");
-		g.addEdge("2", "3");
-		g.addEdge("3", "4");
-		g.addEdge("3", "5");
-		g.addEdge("3", "6");
-		g.addEdge("4", "5");
-		g.addEdge("5", "6");
-		g.addEdge("7", "1");
-		g.addEdge("7", "6");
-
-		g.checkForPath("3", "1");
-
-		g.generateDotFile("graph2.dot");
-	}
-	
 	/**
 	 * Initializes all vertices in a Breadth-First-Search graph to positive infinity
 	 */

@@ -33,12 +33,11 @@ public class GraphUtil {
 	 * @return a list of the vertex names in sorted order
 	 */
 	public static List<String> topologicalSort(String filename) {
-		// Page 555 in Data Structures: Problem Solving Using Java
-		// FILL IN -- do not return null
-		
+	
+		// Create our graph from the supplied DOT file
 		Graph g = GraphUtil.buildGraphFromDot(filename);
 		
-		// Throw exception if the graph is undirected or cyclic
+		// Throw exception if the graph is undirected
 		if(!g.getDirected()) {
 			throw new UnsupportedOperationException();
 		}
@@ -50,15 +49,17 @@ public class GraphUtil {
 		// get the list of vertices
 		Collection<Vertex> vertices = g.getVertices();
 		
-		//
+		// If we only have single vertex, just return it
+		// TODO: do we fix - currently buildGraphFromDot returns size 0 for single vertex
 		if(vertices.size() == 1) {
 			orderedVert.add(vertices.iterator().next().getName());
 			return orderedVert;
+		// if no vertices, just return empty list
 		} else if(vertices.size() == 0) {
 			return orderedVert;
 		}
 		
-		// Find vertices with indegree 0
+		// Find vertices with inDegree 0 and add them to the vertQueue and to the output list
 		for(Vertex v: vertices) {
 			if(v.getInDegree() == 0) {
 				vertQueue.add(v);
@@ -68,16 +69,19 @@ public class GraphUtil {
 		
 		// Decrement
 		while(!vertQueue.isEmpty()) {
+			// grab next vertex to process
 			Vertex v = vertQueue.remove();
 
+			// create edge iterator to visit all edges
 			Iterator<Edge> itr = v.edges();
 			Edge tempEdge;
 			Vertex destVertex;
+			// visit each edge and decrement inDegree of the destination
 			while (itr.hasNext()){
 				tempEdge = itr.next();
 				destVertex = tempEdge.getOtherVertex();
 				destVertex.setInDegree(destVertex.getInDegree() - 1);
-				
+				// if destination is now of inDegree zero queue it up and add to output list
 				if(destVertex.getInDegree() == 0) {
 					vertQueue.add(destVertex);
 					orderedVert.add(destVertex.getName());
@@ -85,6 +89,8 @@ public class GraphUtil {
 			}
 		}
 		
+		// If any vertices had inDegree >0 after running topoSort algorithm, we have a
+		// cycle or we had disconnected parts of the graph
 		for(Vertex v : vertices) {
 			if(v.getInDegree() != 0) {
 				throw new UnsupportedOperationException();
@@ -127,16 +133,18 @@ public class GraphUtil {
 		Queue<Vertex> vertQueue = new LinkedList<Vertex>();
 		
 		
-		// Initialize 
+		// Initialize the starting vertex
 		g.getVertex(start).setDistanceFromStart(0d);
 		vertQueue.add(g.getVertex(start));
 		
 		Vertex startVertex;
 		
-		VertQueueProcessor:
+		VertQueueProcessor: // name this loop to break out early when destination reached
 		while(!vertQueue.isEmpty()) {
+			// grab the next vertex to process
 			startVertex = vertQueue.remove();
 			
+			// iterate through the edges and update the distance for the destination vertices
 			Iterator<Edge> itr = startVertex.edges();
 			Edge tempEdge;
 			Vertex destVertex;
@@ -144,7 +152,7 @@ public class GraphUtil {
 				tempEdge = itr.next();
 				destVertex = tempEdge.getOtherVertex();
 				
-				// Check that the destination vertex hasn't been visited
+				// Check that the destination vertex hasn't been visited, then update distance and prev
 				if(destVertex.getDistanceFromStart() == Double.POSITIVE_INFINITY) {
 					destVertex.setDistanceFromStart(startVertex.getDistanceFromStart() + 1);
 					destVertex.setPreviousVertex(startVertex);
@@ -152,19 +160,18 @@ public class GraphUtil {
 					// If the destination is found, quit searching the graph
 					if(destVertex.equals(g.getVertex(end))) {
 						break VertQueueProcessor;
-					}
-					
+					}	
 					vertQueue.add(destVertex);
 				}
-
 			}
-			
 		}
 		
+		// If there is not a path from start to end, then the end is still infinity
 		if(g.getVertex(end).getDistanceFromStart() == Double.POSITIVE_INFINITY) {
 			return new LinkedList<String>();
 		}
 		
+		// Create list to hold the ordered vertices from start to end
 		LinkedList<String> orderedVert = new LinkedList<String>();
 		
 		// Begin at the destination vertex
@@ -194,11 +201,9 @@ public class GraphUtil {
 	 * @param filename
 	 *            -- name of the DOT file
 	 */
-	//TODO : change back to private, although it is mentioned in the forum that this is an acceptable change in order to
-	// make the timing analysis code work. Leaving this public may be necessary. 
 	@SuppressWarnings("resource")
 	public static Graph buildGraphFromDot(String filename) {
-		// creates a new, empty graph (CHANGE AS NEEDED)
+		// creates a new, empty graph 
 		Graph g = new Graph();
 
 		Scanner s = null;
@@ -219,15 +224,13 @@ public class GraphUtil {
 			line = line.replaceFirst("//.*", "");
 
 			if (line.indexOf("digraph") >= 0) {
-				g.setDirected(true); // Denotes that graph is directed (CHANGE
-										// AS NEEDED)
+				g.setDirected(true); // Denotes that graph is directed 
 				edgeOp = "->";
 				line = line.replaceFirst(".*\\{", "");
 				break;
 			}
 			if (line.indexOf("graph") >= 0) {
 				g.setDirected(false); // Denotes that graph is undirected
-										// (CHANGE AS NEEDED)
 				edgeOp = "--";
 				line = line.replaceFirst(".*\\{", "");
 				break;
