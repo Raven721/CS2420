@@ -24,15 +24,15 @@ public class TimingAnalysis {
 	// Instead, Generate the files, then pick the last end vertex in the file as the destination vertex, this guarantees the destination vertex is actually in the list
 	public static void main(String[] args) {
 		 // Time breadth-first search where the #edges = 4 * #vertices
-		 timeGraphMethod("src/assign8/Tests/GeneratedGraphs/BFSearch",
-		 "breadth-first search", 20, 1000, 10000, 1000, 4, "1", "960");
-		
-		 // Time breadth-first search where the #edges = 3 * #vertices
-		 timeGraphMethod("src/assign8/Tests/GeneratedGraphs/BFSearch",
-		 "breadth-first search", 20, 1000, 10000, 1000, 3, "1", "2");
+//		 timeGraphMethod("src/assign8/Tests/GeneratedGraphs/BFSearch",
+//		 "breadth-first search", 20, 1000, 10000, 1000, 4, "1", "960");
+//		
+//		 // Time breadth-first search where the #edges = 3 * #vertices
+//		 timeGraphMethod("src/assign8/Tests/GeneratedGraphs/BFSearch",
+//		 "breadth-first search", 20, 1000, 10000, 1000, 3, "1", "2");
 
 		// Time topological sort
-		timeGraphMethod("src/assign8/Tests/GeneratedGraphs/topoSort", "topological", 50, 1000, 20000, 1000, 0, "", "");
+		timeGraphMethod("src/assign8/Tests/GeneratedGraphs/topoSort", "topological", 50, 100, 1000, 100, 10, "", "");
 	}
 
 	/**
@@ -118,7 +118,7 @@ public class TimingAnalysis {
 
 			if (avgTime <= 0) {
 				retry = true;
-				vertexCount -= 1000;
+				vertexCount -= nStep;
 				continue;
 			} else {
 				retry = false;
@@ -175,17 +175,19 @@ public class TimingAnalysis {
 		// but smaller than the last
 		else if (graphType.equals("acyclic")) {
 			int nextVert;
-			for (int i = 0; i < vertexCount - 1; i++) {
-				//TODO: Debug
+			for (int j = 0; j < edgeFactor; j++) {
+				for (int i = 0; i < vertexCount - 1; i++) {
+					//TODO: Debug
 				
-				do {
-					nextVert = rng.nextInt(vertexCount - i) + (i + 1) - 1;
-				} while(nextVert <= i || nextVert > vertex.length - 1);
+					do {
+						nextVert = rng.nextInt(vertexCount - i) + (i + 1) - 1;
+					} while(nextVert <= i || nextVert > vertex.length - 1);
 				
-//				System.out.println("Number of vertexes: " + vertexCount + " Current Vertex: " + i + " next vertex: " + Math.abs(nextVert));
+//					System.out.println("Number of vertexes: " + vertexCount + " Current Vertex: " + i + " next vertex: " + Math.abs(nextVert));
 
-				out.println("\t" + "\"" + vertex[i] + "\"" + edgeOp + "\""
-						+ vertex[nextVert] + "\"");
+					out.println("\t" + "\"" + vertex[i] + "\"" + edgeOp + "\""
+							+ vertex[nextVert] + "\"");
+				}
 			}
 		}
 
