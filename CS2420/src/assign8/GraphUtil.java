@@ -48,14 +48,9 @@ public class GraphUtil {
 		
 		// get the list of vertices
 		Collection<Vertex> vertices = g.getVertices();
-		
-		// If we only have single vertex, just return it
-		// TODO: do we fix - currently buildGraphFromDot returns size 0 for single vertex
-		if(vertices.size() == 1) {
-			orderedVert.add(vertices.iterator().next().getName());
-			return orderedVert;
+
 		// if no vertices, just return empty list
-		} else if(vertices.size() == 0) {
+		if(vertices.size() == 0) {
 			return orderedVert;
 		}
 		
