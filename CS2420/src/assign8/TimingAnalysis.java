@@ -23,11 +23,6 @@ public class TimingAnalysis {
 	private static String startVert;
 	private static String destVert;
 
-	// TODO: Separate graph generation from timing, the BFS will throw an
-	// exception if the given end vertex isn't randomly generated in the list.
-	// Instead, Generate the files, then pick the last end vertex in the file as
-	// the destination vertex, this guarantees the destination vertex is
-	// actually in the list
 	public static void main(String[] args) {
 		// Time breadth-first search where the #edges = 4 * #vertices
 		 timeGraphMethod("src/assign8/Tests/GeneratedGraphs/BFSearch",
@@ -57,10 +52,6 @@ public class TimingAnalysis {
 			int nStep, int edgeFactor) {
 		long startTime, midptTime, stopTime;
 		boolean retry = false;
-
-//		// Generated vertices have the name "v3", "v45" etc
-//		start = "v" + start;
-//		end = "v" + end;
 
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
@@ -187,21 +178,13 @@ public class TimingAnalysis {
 			}
 		}
 		// Randomly connect vertex to vertices below it in the graph
-		// TODO: Fix so that the second vertex number is greater than the first
-		// but smaller than the last
 		else if (graphType.equals("acyclic")) {
 			int nextVert;
 			for (int j = 0; j < edgeFactor; j++) {
 				for (int i = 0; i < vertexCount - 1; i++) {
-					// TODO: Debug
-
 					do {
 						nextVert = rng.nextInt(vertexCount - i) + (i + 1) - 1;
 					} while (nextVert <= i || nextVert > vertex.length - 1);
-
-					// System.out.println("Number of vertexes: " + vertexCount +
-					// " Current Vertex: " + i + " next vertex: " +
-					// Math.abs(nextVert));
 
 					out.println("\t" + "\"" + vertex[i] + "\"" + edgeOp + "\"" + vertex[nextVert] + "\"");
 				}

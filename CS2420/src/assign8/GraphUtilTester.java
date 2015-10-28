@@ -158,9 +158,7 @@ public class GraphUtilTester {
 		exception.expect(UnsupportedOperationException.class);
 		path = GraphUtil.topologicalSort("src/assign8/Tests/ExampleTests/examplegraph9.dot");
 	}
-	
-	//TODO Add special case for Zero and One vertex, return the single vertex or empty brackets
-	//TODO Figure out what to do if the file exists but contains no vertices, currently GraphUtil returns an empty list
+
 	@Test
 	public void testTopographicalSortWithCreatedZeroVertexGraph() {
 		path = GraphUtil.topologicalSort("src/assign8/Tests/CreatedTests/graphWithNoVerts.dot");
@@ -196,7 +194,6 @@ public class GraphUtilTester {
 		path = GraphUtil.topologicalSort("src/assign8/Tests/CreatedTests/undirectedGraph.dot");
 	}
 	
-	//TODO: Remove these tests after changing buildGraphFromDot method back to private
 	//////////// buildGraphFromDot ////////////
 	@Test
 	public void testBuildGraphFromDotWithDirectedInput() {
