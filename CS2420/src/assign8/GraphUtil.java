@@ -194,7 +194,8 @@ public class GraphUtil {
 	 * @param filename
 	 *            -- name of the DOT file
 	 */
-	//TODO : change back to private
+	//TODO : change back to private, although it is mentioned in the forum that this is an acceptable change in order to
+	// make the timing analysis code work. Leaving this public may be necessary. 
 	@SuppressWarnings("resource")
 	public static Graph buildGraphFromDot(String filename) {
 		// creates a new, empty graph (CHANGE AS NEEDED)
