@@ -24,16 +24,52 @@ public class TimingAnalysis {
 	private static String destVert;
 
 	public static void main(String[] args) {
+		int vFactor;
+		int vStart;
+		int eFactor;
+		int timesToLoop = 20;
+		
 		// Time breadth-first search where the #edges = 4 * #vertices
+		eFactor = 1;
+		vFactor = 1;
+		vStart = vFactor * 10000;
 		 timeGraphMethod("src/assign8/Tests/GeneratedGraphs/BFSearch",
-		 "breadth-first search", 20, 1000, 10000, 1000, 1);
+		 "breadth-first search", timesToLoop, vStart, 20*vStart, vStart, eFactor);
 		
 		 // Time breadth-first search where the #edges = 3 * #vertices
+		eFactor = 3;
+		vFactor = 1;
+		vStart = vFactor * 10000;
 		 timeGraphMethod("src/assign8/Tests/GeneratedGraphs/BFSearch",
-		 "breadth-first search", 20, 1000, 10000, 1000, 3);
-
+		 "breadth-first search", timesToLoop, vStart, 20*vStart, vStart, eFactor);
+		
+		 // Time breadth-first search where the #edges = 4 * #vertices
+		vFactor = 2;
+		eFactor = 1;
+		vStart = vFactor * 10000;
+		timeGraphMethod("src/assign8/Tests/GeneratedGraphs/BFSearch",
+		"breadth-first search", timesToLoop, vStart, 20*vStart, vStart, eFactor);
+	
+		// Time breadth-first search where the #edges = 4 * #vertices
+		vFactor = 4;
+		eFactor = 1;
+		vStart = vFactor * 10000;
+		timeGraphMethod("src/assign8/Tests/GeneratedGraphs/BFSearch",
+		"breadth-first search", timesToLoop, vStart, 20*vStart, vStart, eFactor);
+		
+		// Time breadth-first search where the #edges = 4 * #vertices
+		vFactor = 1;
+		eFactor = 7;
+		vStart = vFactor * 10000;
+		timeGraphMethod("src/assign8/Tests/GeneratedGraphs/BFSearch",
+		"breadth-first search", timesToLoop, vStart, 20*vStart, vStart, eFactor);
+				
+		
 		// Time topological sort
-		timeGraphMethod("src/assign8/Tests/GeneratedGraphs/topoSort", "topological", 50, 100, 1000, 100, 10);
+		vFactor = 1;
+		eFactor = 10;
+		vStart = vFactor * 100;
+		timeGraphMethod("src/assign8/Tests/GeneratedGraphs/topoSort", "topological", timesToLoop, vStart, 10*vStart, vStart, eFactor);
 	}
 
 	/**
