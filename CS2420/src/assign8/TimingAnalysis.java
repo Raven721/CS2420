@@ -32,7 +32,7 @@ public class TimingAnalysis {
 		 "breadth-first search", 20, 1000, 10000, 1000, 3, "1", "2");
 
 		// Time topological sort
-		timeGraphMethod("src/assign8/Tests/GeneratedGraphs/topoSort", "topological", 5, 100, 1000, 100, 0, "", "");
+		timeGraphMethod("src/assign8/Tests/GeneratedGraphs/topoSort", "topological", 50, 1000, 20000, 1000, 0, "", "");
 	}
 
 	/**
@@ -156,6 +156,9 @@ public class TimingAnalysis {
 		out.println("digraph G {");
 
 		// generate a list of vertices
+		if(vertexCount < 0) {
+			System.out.println("VertexCount negative: " + vertexCount);
+		}
 		String[] vertex = new String[vertexCount];
 		for (int i = 0; i < vertexCount; i++) {
 			vertex[i] = "v" + i;
