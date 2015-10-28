@@ -24,15 +24,15 @@ public class TimingAnalysis {
 	// Instead, Generate the files, then pick the last end vertex in the file as the destination vertex, this guarantees the destination vertex is actually in the list
 	public static void main(String[] args) {
 		 // Time breadth-first search where the #edges = 4 * #vertices
-		 timeGraphMethod("src\\assign8\\Tests\\GeneratedGraphs\\BFSearch",
+		 timeGraphMethod("src/assign8/Tests/GeneratedGraphs/BFSearch",
 		 "breadth-first search", 20, 1000, 10000, 1000, 4, "1", "960");
 		
 		 // Time breadth-first search where the #edges = 3 * #vertices
-		 timeGraphMethod("src\\assign8\\Tests\\GeneratedGraphs\\BFSearch",
+		 timeGraphMethod("src/assign8/Tests/GeneratedGraphs/BFSearch",
 		 "breadth-first search", 20, 1000, 10000, 1000, 3, "1", "2");
 
 		// Time topological sort
-		timeGraphMethod("src\\assign8\\Tests\\GeneratedGraphs\\topoSort", "topological", 5, 100, 1000, 100, 0, "", "");
+		timeGraphMethod("src/assign8/Tests/GeneratedGraphs/topoSort", "topological", 5, 100, 1000, 100, 0, "", "");
 	}
 
 	/**
