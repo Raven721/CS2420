@@ -65,6 +65,8 @@ public class Graph {
 	/**
 	 * Returns the vertex stored in a map associated with the input string name.
 	 * 
+	 * Throws an UnsupportedOperationException if the input vertex name is not found.
+	 * 
 	 * @param name The name of the vertex to be returned
 	 * @return The vertex associated with the specified name
 	 */

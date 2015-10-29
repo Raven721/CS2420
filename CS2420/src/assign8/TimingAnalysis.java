@@ -1,5 +1,6 @@
 package assign8;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DecimalFormat;
@@ -29,47 +30,47 @@ public class TimingAnalysis {
 		int eFactor;
 		int timesToLoop = 20;
 		
-		// Time breadth-first search where the #edges = 4 * #vertices
+		// Time breadth-first search where the 2(Edges)
 		eFactor = 1;
 		vFactor = 1;
 		vStart = vFactor * 10000;
 		 timeGraphMethod("src/assign8/Tests/GeneratedGraphs/BFSearch",
-		 "breadth-first search", timesToLoop, vStart, 20*vStart, vStart, eFactor);
+		 "breadth-first search", timesToLoop, 10000, 1300000, 2, eFactor);
 		
-		 // Time breadth-first search where the #edges = 3 * #vertices
-		eFactor = 3;
-		vFactor = 1;
-		vStart = vFactor * 10000;
-		 timeGraphMethod("src/assign8/Tests/GeneratedGraphs/BFSearch",
-		 "breadth-first search", timesToLoop, vStart, 20*vStart, vStart, eFactor);
-		
-		 // Time breadth-first search where the #edges = 4 * #vertices
-		vFactor = 2;
-		eFactor = 1;
-		vStart = vFactor * 10000;
-		timeGraphMethod("src/assign8/Tests/GeneratedGraphs/BFSearch",
-		"breadth-first search", timesToLoop, vStart, 20*vStart, vStart, eFactor);
-	
-		// Time breadth-first search where the #edges = 4 * #vertices
-		vFactor = 4;
-		eFactor = 1;
-		vStart = vFactor * 10000;
-		timeGraphMethod("src/assign8/Tests/GeneratedGraphs/BFSearch",
-		"breadth-first search", timesToLoop, vStart, 20*vStart, vStart, eFactor);
-		
-		// Time breadth-first search where the #edges = 4 * #vertices
-		vFactor = 1;
-		eFactor = 7;
-		vStart = vFactor * 10000;
-		timeGraphMethod("src/assign8/Tests/GeneratedGraphs/BFSearch",
-		"breadth-first search", timesToLoop, vStart, 20*vStart, vStart, eFactor);
-				
-		
-		// Time topological sort
-		vFactor = 1;
-		eFactor = 10;
-		vStart = vFactor * 100;
-		timeGraphMethod("src/assign8/Tests/GeneratedGraphs/topoSort", "topological", timesToLoop, vStart, 10*vStart, vStart, eFactor);
+//		 // Time breadth-first search where the #edges = 3 * #vertices
+//		eFactor = 3;
+//		vFactor = 1;
+//		vStart = vFactor * 10000;
+//		 timeGraphMethod("src/assign8/Tests/GeneratedGraphs/BFSearch",
+//		 "breadth-first search", timesToLoop, vStart, 20*vStart, vStart, eFactor);
+//		
+//		 // Time breadth-first search where the #edges = 1 * 2 #vertices
+//		vFactor = 2;
+//		eFactor = 1;
+//		vStart = vFactor * 10000;
+//		timeGraphMethod("src/assign8/Tests/GeneratedGraphs/BFSearch",
+//		"breadth-first search", timesToLoop, vStart, 20*vStart, vStart, eFactor);
+//	
+//		// Time breadth-first search where the #edges = 4 * #vertices
+//		vFactor = 4;
+//		eFactor = 1;
+//		vStart = vFactor * 10000;
+//		timeGraphMethod("src/assign8/Tests/GeneratedGraphs/BFSearch",
+//		"breadth-first search", timesToLoop, vStart, 20*vStart, vStart, eFactor);
+//		
+//		// Time breadth-first search where the #edges = 4 * #vertices
+//		vFactor = 1;
+//		eFactor = 7;
+//		vStart = vFactor * 10000;
+//		timeGraphMethod("src/assign8/Tests/GeneratedGraphs/BFSearch",
+//		"breadth-first search", timesToLoop, vStart, 20*vStart, vStart, eFactor);
+//				
+//		
+//		// Time topological sort
+//		vFactor = 1;
+//		eFactor = 10;
+//		vStart = vFactor * 100;
+//		timeGraphMethod("src/assign8/Tests/GeneratedGraphs/topoSort", "topological", timesToLoop, vStart, 10*vStart, vStart, eFactor);
 	}
 
 	/**
@@ -99,7 +100,7 @@ public class TimingAnalysis {
 		System.out.println(
 				"---------------------------------------------------------------------------------------------------------");
 
-		for (int vertexCount = nStart; vertexCount <= nStop; vertexCount += nStep) {
+		for (int vertexCount = nStart; vertexCount <= nStop; vertexCount *= nStep) {
 
 			String fullPathName = filename + vertexCount + ".dot";
 
@@ -176,6 +177,12 @@ public class TimingAnalysis {
 	 */
 	public static void generateRandomDotFile(String filename, int vertexCount, int edgeFactor, String graphType) {
 		PrintWriter out = null;
+		
+//		File f = new File(filename);
+//		if(f.exists()) {
+//			return;
+//		}
+		
 		try {
 			out = new PrintWriter(filename);
 		} catch (IOException e) {
@@ -205,7 +212,7 @@ public class TimingAnalysis {
 				rand2 = rng.nextInt(vertexCount);
 
 				out.println("\t" + "\"" + vertex[rand1] + "\"" + edgeOp + "\"" + vertex[rand2] + "\"");
-				
+		
 				if (i == 0) {
 					startVert = "v" + Integer.toString(rand1);
 				}
