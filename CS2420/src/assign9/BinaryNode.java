@@ -7,108 +7,142 @@ package assign9;
  * @author Tim Ellenberger, ellenber
  * @author John Strasser, strasser
  * @author Erin Parker
- * @version 11/05/2015 
+ * @version 11/05/2015
  */
 public class BinaryNode<Type> {
 
-  private Type data;
+	private Type data;
 
-  private BinaryNode<Type> leftChild;
+	private BinaryNode<Type> leftChild;
 
-  private BinaryNode<Type> rightChild;
+	private BinaryNode<Type> rightChild;
 
-  public BinaryNode(Type _data, BinaryNode<Type> _leftChild,
-      BinaryNode<Type> _rightChild) {
-    data = _data;
-    leftChild = _leftChild;
-    rightChild = _rightChild;
-  }
+	private BinaryNode<Type> parent;
 
-  public BinaryNode(Type _data) {
-    this(_data, null, null);
-  }
+	public BinaryNode(Type _data, BinaryNode<Type> _parent, BinaryNode<Type> _leftChild, BinaryNode<Type> _rightChild) {
+		data = _data;
+		parent = _parent;
+		leftChild = _leftChild;
+		rightChild = _rightChild;
+	}
 
-  /**
-   * Getter method.
-   * 
-   * @return the node data.
-   */
-  public Type getData() {
-    return data;
-  }
+	public BinaryNode(Type _data) {
+		this(_data, null, null, null);
+	}
 
-  /**
-   * Setter method.
-   * 
-   * @param _data
-   *          - the node data to be set.
-   */
-  public void setData(Type _data) {
-    data = _data;
-  }
+	/**
+	 * Getter method.
+	 * 
+	 * @return the node data.
+	 */
+	public Type getData() {
+		return data;
+	}
 
-  /**
-   * Getter method.
-   * 
-   * @return the left child node.
-   */
-  public BinaryNode<Type> getLeftChild() {
-    return leftChild;
-  }
+	/**
+	 * Setter method.
+	 * 
+	 * @param _data
+	 *            - the node data to be set.
+	 */
+	public void setData(Type _data) {
+		data = _data;
+	}
 
-  /**
-   * Setter method.
-   * 
-   * @param _leftChild
-   *          - the left child node to be set.
-   */
-  public void setLeftChild(BinaryNode<Type> _leftChild) {
-    leftChild = _leftChild;
-  }
+	/**
+	 * @return the parent
+	 */
+	public BinaryNode<Type> getParent() {
+		return parent;
+	}
 
-  /**
-   * Getter method.
-   * 
-   * @return the right child node.
-   */
-  public BinaryNode<Type> getRightChild() {
-    return rightChild;
-  }
+	/**
+	 * @param parent
+	 *            the parent to set
+	 */
+	public void setParent(BinaryNode<Type> parent) {
+		this.parent = parent;
+	}
 
-  /**
-   * Setter method.
-   * 
-   * @param _rightChild
-   *          - the right child node to be set.
-   */
-  public void setRightChild(BinaryNode<Type> _rightChild) {
-    rightChild = _rightChild;
-  }
+	/**
+	 * Getter method.
+	 * 
+	 * @return the left child node.
+	 */
+	public BinaryNode<Type> getLeftChild() {
+		return leftChild;
+	}
 
-  /**
-   * Returns the leftmost node in the binary tree rooted at this node.
-   */
-  public BinaryNode<Type> getLeftmostNode() {
-    // FILL IN -- do not return null
-    return null;
-  }
+	/**
+	 * Setter method.
+	 * 
+	 * @param _leftChild
+	 *            - the left child node to be set.
+	 */
+	public void setLeftChild(BinaryNode<Type> _leftChild) {
+		leftChild = _leftChild;
+	}
 
-  /**
-   * Returns the rightmost node in the binary tree rooted at this node.
-   */
-  public BinaryNode<Type> getRightmostNode() {
-    // FILL IN -- do not return null
-    return null;
-  }
+	/**
+	 * Getter method.
+	 * 
+	 * @return the right child node.
+	 */
+	public BinaryNode<Type> getRightChild() {
+		return rightChild;
+	}
 
-  /**
-   * Returns the height of the binary tree rooted at this node. The height of a
-   * tree is the length of the longest path to a leaf node. Consider a tree with
-   * a single node to have a height of zero. 
-   */
-  public int height() {
-    // FILL IN -- do not return 0
-    return 0;
-  }
+	/**
+	 * Setter method.
+	 * 
+	 * @param _rightChild
+	 *            - the right child node to be set.
+	 */
+	public void setRightChild(BinaryNode<Type> _rightChild) {
+		rightChild = _rightChild;
+	}
+
+	/**
+	 * Returns the leftmost node in the binary tree rooted at this node.
+	 */
+	public BinaryNode<Type> getLeftmostNode() {
+		if (getLeftChild() == null)
+			return this;
+		return getLeftChild().getLeftmostNode();
+	}
+
+	/**
+	 * Returns the rightmost node in the binary tree rooted at this node.
+	 */
+	public BinaryNode<Type> getRightmostNode() {
+		if (getRightChild() == null)
+			return this;
+		return getRightChild().getRightmostNode();
+	}
+
+	/**
+	 * Returns the height of the binary tree rooted at this node. The height of
+	 * a tree is the length of the longest path to a leaf node. Consider a tree
+	 * with a single node to have a height of zero.
+	 */
+	public int height() {
+		// get left child and right child
+		BinaryNode<Type> lc = getLeftChild();
+		BinaryNode<Type> rc = getRightChild();
+
+		// leaf node has no edged to add to height
+		if (lc == null && rc == null)
+			return 0;
+
+		// if single child, just add one + height of subtree
+		if (lc == null)
+			return 1 + rc.height();
+		if (rc == null)
+			return 1 + lc.height();
+
+		// if two children, find max of subtrees
+		return 1 + Math.max(lc.height(), rc.height());
+
+	}
 
 }
