@@ -18,6 +18,14 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
 	// The number of items currently in this BST
 	private int size;
+	
+	/**
+	 * The default constructor for a BinarySearchTree
+	 */
+	public BinarySearchTree() {
+		rootNode = null;
+		size = 0;
+	}
 
 	/**
 	 * Ensures that this set contains the specified item.
@@ -132,8 +140,8 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 */
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-
+		rootNode = null;
+		size = 0;
 	}
 
 	/**
@@ -190,8 +198,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 */
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return (size == 0);
 	}
 
 	/**
@@ -249,8 +256,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 */
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return size;
 	}
 
 	/**
