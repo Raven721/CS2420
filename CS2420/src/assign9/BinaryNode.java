@@ -2,7 +2,7 @@ package assign9;
 
 /**
  * Represents a generically-typed binary tree node. Each binary node contains
- * data, a left child, and a right child.
+ * data, a left child, a right child and its parent.
  * 
  * @author Tim Ellenberger, ellenber
  * @author John Strasser, strasser
