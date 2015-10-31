@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.NoSuchElementException;
 
 /**
- * ????????????????????
+ * A class representation of a binary search tree.
  * 
  * @author Tim Ellenberger, ellenber
  * @author John Strasser, strasser
@@ -211,7 +211,8 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 			}
 		}
 
-		// If the search node is never found after traversing the BST, return false
+		// If the search node is never found after traversing the BST, return
+		// false
 		return false;
 	}
 
@@ -345,8 +346,47 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 */
 	@Override
 	public ArrayList<Type> toArrayList() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Type> sortedNodeList = new ArrayList<Type>();
+
+		// Return an empty list if this BST is empty
+		if (isEmpty()) {
+			return sortedNodeList;
+		}
+
+		// If this binary search tree isn't empty...
+		// Begin recursive in-order traversal of the tree starting at the root
+		inOrderTraversal(sortedNodeList, rootNode);
+
+		return sortedNodeList;
 	}
 
+	/**
+	 * A helper method for the toArrayList method that recursively performs an
+	 * in-order traversal of this binary search tree, while storing each node as
+	 * it is found into an ArrayList
+	 * 
+	 * @param sortedList
+	 *            An ArrayList to store and return the list of sorted nodes in
+	 *            this binary search tree.
+	 * @param currentNode
+	 *            The node currently being examined.
+	 * @return A sorted list of all nodes in this binary search tree.
+	 */
+	private ArrayList<Type> inOrderTraversal(ArrayList<Type> sortedList, BinaryNode<Type> currentNode) {
+		// Go to the left-most child in the tree before considering a
+		// right-child
+		if (currentNode.getLeftChild() != null) {
+			inOrderTraversal(sortedList, currentNode.getLeftChild());
+		}
+
+		// Add the currently left-most child to the list
+		sortedList.add(currentNode.getData());
+
+		// If there are no more left-children, look for a right child
+		if (currentNode.getRightChild() != null) {
+			inOrderTraversal(sortedList, currentNode.getRightChild());
+		}
+
+		return sortedList;
+	}
 }
