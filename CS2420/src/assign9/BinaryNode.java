@@ -119,6 +119,42 @@ public class BinaryNode<Type> {
 			return this;
 		return getRightChild().getRightmostNode();
 	}
+	
+	/**
+	 * Returns true if this node is a leaf node i.e. does not have children
+	 * 
+	 * @return True if this node is a leaf node i.e. does not have children
+	 */
+	public boolean isLeafNode() {
+		return (this.leftChild == null && this.rightChild == null);
+	}
+	
+	/**
+	 * Returns true if this node only has a left child.
+	 * 
+	 * @return True if this node only has a left child.
+	 */
+	public boolean hasLeftChildOnly() {
+		return (this.leftChild != null && this.rightChild == null);
+	}
+	
+	/**
+	 * Returns true if this node only has a right child.
+	 * 
+	 * @return True if this node only has a right child.
+	 */
+	public boolean hasRightChildOnly() {
+		return (this.leftChild == null && this.rightChild != null);
+	}
+	
+	/**
+	 * Returns true if this node has both a left and a right child.
+	 * 
+	 * @return True if this node has both a left and a right child.
+	 */
+	public boolean hasTwoChildren() {
+		return (this.leftChild != null && this.rightChild != null);
+	}
 
 	/**
 	 * Returns the height of the binary tree rooted at this node. The height of

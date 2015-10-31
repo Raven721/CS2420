@@ -295,6 +295,44 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		// Return the right-most node in this binary search tree
 		return rootNode.getRightmostNode().getData();
 	}
+	
+	/**
+	 * Searches for a node in this binary search tree using an input item.
+	 * 
+	 * @param searchItem The item to be found in this binary search tree.
+	 * @param currentNode The current node for comparison to the searchItem.
+	 * 
+	 * @return The node containing the searchItem data.
+	 */
+	private BinaryNode<Type> findNode(Type searchItem, BinaryNode<Type> currentNode) {
+		// Compare the search item to the currentNode in the tree
+		int compareNodes = searchItem.compareTo(currentNode.getData());
+		
+		// If the search item is equivalent to the current node data...
+		// Stop the search and return true
+		if (compareNodes == 0) {
+			return currentNode;
+		}
+
+		// If the search item is greater than the current node data...
+		// Traverse to the right child of the current node
+		if (compareNodes > 0) {
+			if (currentNode.getRightChild() != null) {
+				return findNode(searchItem, currentNode.getRightChild());
+			}
+		}
+
+		// If the search item is less than the current node data...
+		// Traverse to the left child of the current node
+		if (compareNodes < 0) {
+			if (currentNode.getLeftChild() != null) {
+				return findNode(searchItem, currentNode.getLeftChild());
+			}
+		}
+		
+		// If the search item is never found, return null
+		return null;
+	}
 
 	/**
 	 * Ensures that this set does not contain the specified item.
@@ -309,7 +347,84 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 */
 	@Override
 	public boolean remove(Type item) {
-		// TODO Auto-generated method stub
+		int initialSize = size();
+		
+		// Throw an exception if the input item is null
+		if (item == null) {
+			throw new NullPointerException();
+		}
+		
+		// Check if the item to be removed is actually in this BST
+		if(!contains(item)) {
+			return false;
+		}
+		
+		// If the BST only has a single node, clear the tree and break
+		if(size() == 1) {
+			this.clear();
+			return true;
+		}
+		
+		// Find the node in the tree that needs to be removed
+		// And begin the removal process
+		remove(findNode(item, rootNode));
+		
+		return (size() < initialSize);
+	}
+	
+	/**
+	 * A helper method for the remove method, that does the actual node deletion
+	 * from this binary search tree.
+	 * 
+	 * @param currentNode The node to be removed from this binary search tree.
+	 * @return True if the specified node is successfully removed from this binary search tree.
+	 */
+	private boolean remove(BinaryNode<Type> currentNode) {
+		
+		// CASE A --leaf node: simply delete it
+		if(currentNode.isLeafNode()){
+			currentNode.setParent(null);
+			
+			// Removal Successful
+			return true;
+		}
+		
+		// CASE B(i) -- Node with one (left)child
+		if(currentNode.hasLeftChildOnly()) {
+			BinaryNode<Type> parentNode = currentNode.getParent();
+			
+			// Give currentNode's left child to currentNode's parent
+			parentNode.setLeftChild(currentNode.getLeftChild());
+			
+			size--;
+			
+			// Removal Successful
+			return true;
+		}
+		
+		// CASE B(ii) -- Node with one (right)child
+		if(currentNode.hasRightChildOnly()) {
+			BinaryNode<Type> parentNode = currentNode.getParent();
+			
+			// Give currentNode's right child to currentNode's parent
+			parentNode.setRightChild(currentNode.getRightChild());
+			
+			size--;
+			
+			// Removal Successful
+			return true;
+		}
+		
+		//TODO: Not yet implemented, a method for finding the successor node
+		// to the current node must be found
+		// CASE C -- Node with two children
+		if(currentNode.hasTwoChildren()) {
+			
+			
+			// Removal Successful
+			return true;
+		}
+		
 		return false;
 	}
 
