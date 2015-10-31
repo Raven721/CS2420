@@ -18,7 +18,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
 	// The number of items currently in this BST
 	private int size;
-	
+
 	/**
 	 * The default constructor for a BinarySearchTree
 	 */
@@ -50,7 +50,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		// If this BST is empty, set the current node as the root
 		if (rootNode == null) {
 			rootNode = currentNode;
-			
+
 			size++;
 			return true;
 		}
@@ -93,14 +93,15 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 			if (parentNode.getLeftChild() == null) {
 				parentNode.setLeftChild(newNode);
 				newNode.setParent(parentNode);
-				
+
 				size++;
 				return true;
 			}
 		}
 
 		// If the new node and parent node are equal...
-		// Disregard the new node and break the recursion as the new node won't be added to the BST
+		// Disregard the new node and break the recursion as the new node won't
+		// be added to the BST
 		return false;
 	}
 
@@ -119,17 +120,17 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	@Override
 	public boolean addAll(Collection<? extends Type> items) {
 		int initialSize = size();
-		
+
 		// Attempt to insert every item in this collection into this BST
-		for(Type t: items) {
+		for (Type t : items) {
 			// Throw an exception if the current item is null
-			if(t == null) {
+			if (t == null) {
 				throw new NullPointerException();
 			}
-			
+
 			add(t);
 		}
-		
+
 		// If this BST's size has increased by at least one node, return true
 		return (size() > initialSize);
 	}
@@ -157,7 +158,60 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 */
 	@Override
 	public boolean contains(Type item) {
-		// TODO Auto-generated method stub
+		// Throw exception if item is null
+		if (item == null) {
+			throw new NullPointerException();
+		}
+
+		BinaryNode<Type> currentNode = new BinaryNode<Type>(item);
+
+		// If this BinarySearchTree is empty, it cannot contain this item
+		if (isEmpty()) {
+			return false;
+		}
+
+		// If this BST is not empty, traverse through the tree recursively
+		return contains(currentNode, rootNode);
+	}
+
+	/**
+	 * A helper method for the contains(Type item) method that recursively
+	 * traverses this binary search tree and compares the current node with a
+	 * node to be found in the tree.
+	 * 
+	 * @param searchNode
+	 *            The node to be searched for in this binary search tree.
+	 * @param currentNode
+	 *            The current node for comparison in this binary search tree.
+	 * @return True if this binary search tree contains the searchNode.
+	 */
+	private boolean contains(BinaryNode<Type> searchNode, BinaryNode<Type> currentNode) {
+		// Compare the newNode to the currentNode in the tree
+		int compareNodes = (searchNode.getData()).compareTo(currentNode.getData());
+
+		// If the search node is equivalent to the current node...
+		// Stop the search and return true
+		if (compareNodes == 0) {
+			return true;
+		}
+
+		// If the search node is greater than the current node...
+		// Traverse to the right child of the current node
+		if (compareNodes > 0) {
+			if (searchNode.getLeftChild() != null) {
+				return contains(searchNode, currentNode.getLeftChild());
+			}
+		}
+
+		// If the search node is less than the current node...
+		// Traverse to the left child of the current node
+		if (compareNodes < 0) {
+			if (searchNode.getRightChild() != null) {
+				return contains(searchNode, currentNode.getRightChild());
+			}
+		}
+
+		// If the search node is never found after traversing the BST, return false
 		return false;
 	}
 
@@ -174,8 +228,21 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 */
 	@Override
 	public boolean containsAll(Collection<? extends Type> items) {
-		// TODO Auto-generated method stub
-		return false;
+		// Attempt to search for every item in this collection in this BST
+		for (Type t : items) {
+			// Throw an exception if the current item is null
+			if (t == null) {
+				throw new NullPointerException();
+			}
+
+			// If the current item is not in this binary search tree, return
+			// false
+			if (!contains(t)) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	/**
@@ -187,8 +254,13 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 */
 	@Override
 	public Type first() throws NoSuchElementException {
-		// TODO Auto-generated method stub
-		return null;
+		// If this binary search tree is empty, throw an exception
+		if (isEmpty()) {
+			throw new NoSuchElementException();
+		}
+
+		// Return the left-most node in this binary search tree
+		return rootNode.getLeftmostNode().getData();
 	}
 
 	/**
@@ -210,8 +282,13 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 */
 	@Override
 	public Type last() throws NoSuchElementException {
-		// TODO Auto-generated method stub
-		return null;
+		// If this binary search tree is empty, throw an exception
+		if (isEmpty()) {
+			throw new NoSuchElementException();
+		}
+
+		// Return the right-most node in this binary search tree
+		return rootNode.getRightmostNode().getData();
 	}
 
 	/**
