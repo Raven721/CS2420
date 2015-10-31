@@ -80,12 +80,14 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		// Add new node as right child
 		if (compareNodes > 0) {
 			if (parentNode.getRightChild() == null) {
-				parentNode.setLeftChild(newNode);
+				parentNode.setRightChild(newNode);
 				newNode.setParent(parentNode);
 
 				size++;
 				return true;
 			}
+			
+			return add(newNode, parentNode.getRightChild());
 		}
 		// If the new node is lesser than the parent...
 		// Add new node as left child
@@ -97,6 +99,8 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 				size++;
 				return true;
 			}
+			
+			return add(newNode, parentNode.getLeftChild());
 		}
 
 		// If the new node and parent node are equal...
@@ -187,7 +191,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 */
 	private boolean contains(BinaryNode<Type> searchNode, BinaryNode<Type> currentNode) {
 		// Compare the newNode to the currentNode in the tree
-		int compareNodes = (searchNode.getData()).compareTo(currentNode.getData());
+		int compareNodes = searchNode.getData().compareTo(currentNode.getData());
 
 		// If the search node is equivalent to the current node...
 		// Stop the search and return true
@@ -198,16 +202,16 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		// If the search node is greater than the current node...
 		// Traverse to the right child of the current node
 		if (compareNodes > 0) {
-			if (searchNode.getLeftChild() != null) {
-				return contains(searchNode, currentNode.getLeftChild());
+			if (currentNode.getRightChild() != null) {
+				return contains(searchNode, currentNode.getRightChild());
 			}
 		}
 
 		// If the search node is less than the current node...
 		// Traverse to the left child of the current node
 		if (compareNodes < 0) {
-			if (searchNode.getRightChild() != null) {
-				return contains(searchNode, currentNode.getRightChild());
+			if (currentNode.getLeftChild() != null) {
+				return contains(searchNode, currentNode.getLeftChild());
 			}
 		}
 
