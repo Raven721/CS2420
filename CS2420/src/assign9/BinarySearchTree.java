@@ -110,8 +110,20 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 */
 	@Override
 	public boolean addAll(Collection<? extends Type> items) {
-		// TODO Auto-generated method stub
-		return false;
+		int initialSize = size();
+		
+		// Attempt to insert every item in this collection into this BST
+		for(Type t: items) {
+			// Throw an exception if the current item is null
+			if(t == null) {
+				throw new NullPointerException();
+			}
+			
+			add(t);
+		}
+		
+		// If this BST's size has increased by at least one node, return true
+		return (size() > initialSize);
 	}
 
 	/**
