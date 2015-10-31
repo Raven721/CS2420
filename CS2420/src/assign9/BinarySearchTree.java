@@ -13,6 +13,11 @@ import java.util.NoSuchElementException;
  * @version 11/05/2015
  */
 public class BinarySearchTree<Type extends Comparable<? super Type>> implements SortedSet<Type> {
+	// The root node of this BST
+	private BinaryNode<Type> rootNode;
+
+	// The number of items currently in this BST
+	private int size;
 
 	/**
 	 * Ensures that this set contains the specified item.
@@ -27,7 +32,67 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 */
 	@Override
 	public boolean add(Type item) {
-		// TODO Auto-generated method stub
+		// Throw exception if item is null
+		if (item == null) {
+			throw new NullPointerException();
+		}
+
+		BinaryNode<Type> currentNode = new BinaryNode<Type>(item);
+
+		// If this BST is empty, set the current node as the root
+		if (rootNode == null) {
+			rootNode = currentNode;
+			
+			size++;
+			return true;
+		}
+
+		// If the BST is not empty, begin recursion to find
+		// an appropriate place for the new node in the tree.
+		return add(currentNode, rootNode);
+	}
+
+	/**
+	 * A helper method for the add(Type item) method that recursively finds the
+	 * proper placement for a new node in a balanced search tree.
+	 * 
+	 * @param newNode
+	 *            The node to be inserted into this balanced search tree.
+	 * @param parentNode
+	 *            The current node in the balanced search tree to be compared
+	 *            with the incoming new node.
+	 * @return True if the new node has found its proper placement and has been
+	 *         inserted into the balanced search tree.
+	 */
+	private boolean add(BinaryNode<Type> newNode, BinaryNode<Type> parentNode) {
+		// Compare the newNode to the currentNode in the tree
+		int compareNodes = (newNode.getData()).compareTo(parentNode.getData());
+
+		// If the new node is greater than the parent...
+		// Add new node as right child
+		if (compareNodes > 0) {
+			if (parentNode.getRightChild() == null) {
+				parentNode.setLeftChild(newNode);
+				newNode.setParent(parentNode);
+
+				size++;
+				return true;
+			}
+		}
+		// If the new node is lesser than the parent...
+		// Add new node as left child
+		if (compareNodes < 0) {
+			if (parentNode.getLeftChild() == null) {
+				parentNode.setLeftChild(newNode);
+				newNode.setParent(parentNode);
+				
+				size++;
+				return true;
+			}
+		}
+
+		// If the new node and parent node are equal...
+		// Disregard the new node and break the recursion as the new node won't be added to the BST
 		return false;
 	}
 
@@ -180,7 +245,8 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 * Returns an ArrayList containing all of the items in this set, in sorted
 	 * order.
 	 * 
-	 * @return An ArrayList<Type> containing all of the items in this set, in sorted order.
+	 * @return An ArrayList<Type> containing all of the items in this set, in
+	 *         sorted order.
 	 */
 	@Override
 	public ArrayList<Type> toArrayList() {
