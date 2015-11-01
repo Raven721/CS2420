@@ -106,5 +106,24 @@ public class BinarySearchTreeTester {
 		assertEquals(0, tree.size());
 		assertTrue(tree.isEmpty());
 	}
+	
+	@Test
+	public void testGenerateDotFromBST(){
+		tree = new BinarySearchTree<Integer>();
+		tree.add(12);
+		tree.add(45);
+		tree.add(93);
+		tree.add(32);
+		tree.add(9);
+		tree.add(2);
+		tree.add(5);
+		tree.add(78);
+		tree.add(112);
+		tree.add(113);
+		tree.add(116);
+		tree.add(31);
+		
+		tree.generateDotFromBST("src/assign9/ref/test.dot");
+	}
 
 }

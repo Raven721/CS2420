@@ -1,7 +1,10 @@
 package assign9;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
@@ -86,7 +89,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 				size++;
 				return true;
 			}
-			
+
 			return add(newNode, parentNode.getRightChild());
 		}
 		// If the new node is lesser than the parent...
@@ -99,7 +102,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 				size++;
 				return true;
 			}
-			
+
 			return add(newNode, parentNode.getLeftChild());
 		}
 
@@ -295,19 +298,21 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		// Return the right-most node in this binary search tree
 		return rootNode.getRightmostNode().getData();
 	}
-	
+
 	/**
 	 * Searches for a node in this binary search tree using an input item.
 	 * 
-	 * @param searchItem The item to be found in this binary search tree.
-	 * @param currentNode The current node for comparison to the searchItem.
+	 * @param searchItem
+	 *            The item to be found in this binary search tree.
+	 * @param currentNode
+	 *            The current node for comparison to the searchItem.
 	 * 
 	 * @return The node containing the searchItem data.
 	 */
 	private BinaryNode<Type> findNode(Type searchItem, BinaryNode<Type> currentNode) {
 		// Compare the search item to the currentNode in the tree
 		int compareNodes = searchItem.compareTo(currentNode.getData());
-		
+
 		// If the search item is equivalent to the current node data...
 		// Stop the search and return true
 		if (compareNodes == 0) {
@@ -329,7 +334,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 				return findNode(searchItem, currentNode.getLeftChild());
 			}
 		}
-		
+
 		// If the search item is never found, return null
 		return null;
 	}
@@ -348,83 +353,89 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	@Override
 	public boolean remove(Type item) {
 		int initialSize = size();
-		
+
 		// Throw an exception if the input item is null
 		if (item == null) {
 			throw new NullPointerException();
 		}
-		
+
 		// Check if the item to be removed is actually in this BST
-		if(!contains(item)) {
+		if (!contains(item)) {
 			return false;
 		}
-		
+
 		// If the BST only has a single node, clear the tree and break
-		if(size() == 1) {
+		if (size() == 1) {
 			this.clear();
 			return true;
 		}
-		
+
 		// Find the node in the tree that needs to be removed
 		// And begin the removal process
 		remove(findNode(item, rootNode));
-		
+
 		return (size() < initialSize);
 	}
-	
+
 	/**
 	 * A helper method for the remove method, that does the actual node deletion
 	 * from this binary search tree.
 	 * 
-	 * @param currentNode The node to be removed from this binary search tree.
-	 * @return True if the specified node is successfully removed from this binary search tree.
+	 * @param currentNode
+	 *            The node to be removed from this binary search tree.
+	 * @return True if the specified node is successfully removed from this
+	 *         binary search tree.
 	 */
+	// TODO: Not tested
 	private boolean remove(BinaryNode<Type> currentNode) {
-		
+
 		// CASE A --leaf node: simply delete it
-		if(currentNode.isLeafNode()){
+		if (currentNode.isLeafNode()) {
 			currentNode.setParent(null);
-			
+
 			// Removal Successful
 			return true;
 		}
-		
+
 		// CASE B(i) -- Node with one (left)child
-		if(currentNode.hasLeftChildOnly()) {
+		if (currentNode.hasLeftChildOnly()) {
 			BinaryNode<Type> parentNode = currentNode.getParent();
-			
+
 			// Give currentNode's left child to currentNode's parent
 			parentNode.setLeftChild(currentNode.getLeftChild());
-			
+
 			size--;
-			
+
 			// Removal Successful
 			return true;
 		}
-		
+
 		// CASE B(ii) -- Node with one (right)child
-		if(currentNode.hasRightChildOnly()) {
+		if (currentNode.hasRightChildOnly()) {
 			BinaryNode<Type> parentNode = currentNode.getParent();
-			
+
 			// Give currentNode's right child to currentNode's parent
 			parentNode.setRightChild(currentNode.getRightChild());
-			
+
 			size--;
-			
+
 			// Removal Successful
 			return true;
 		}
-		
-		//TODO: Not yet implemented, a method for finding the successor node
-		// to the current node must be found
+
 		// CASE C -- Node with two children
-		if(currentNode.hasTwoChildren()) {
-			
-			
-			// Removal Successful
-			return true;
+		if (currentNode.hasTwoChildren()) {
+			// currentNode's successor is the smallest node in its right subtree
+			BinaryNode<Type> successorNode = currentNode.getRightChild().getLeftmostNode();
+
+			// Replace the node's data with that of the smallest node
+			// of its right subtree (its successor)
+			currentNode.setData(successorNode.getData());
+
+			// Remove the successor node (guaranteed to have at most one child)
+			return remove(successorNode);
 		}
-		
+
 		return false;
 	}
 
@@ -508,4 +519,57 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
 		return sortedList;
 	}
+
+	/**
+	 * Builds a dot file from this binary search tree.
+	 * 
+	 * @param filename The path + filename where the dot file will be created.
+	 */
+	public void generateDotFromBST(String filename) {
+		PrintWriter out = null;
+
+		// Make sure the input file exists
+		try {
+			out = new PrintWriter(filename);
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+
+		// Open the graph
+		out.println("digraph G {");
+		
+		ArrayList<String> nodeToNodeList = new ArrayList<String>();
+		
+		buildDotFromNodes(rootNode, nodeToNodeList);
+		
+		for(String s: nodeToNodeList) {
+			out.println(s);
+		}
+		
+		// Close the graph
+		out.println("}");
+		out.close();
+	}
+
+	/**
+	 * Helper method for the generateDotFromBST method that recursively builds a 
+	 * list of nodes and their connected nodes for building the dot file.
+	 * 
+	 * @param currentNode The current node being logged in the list.
+	 * @param nodeToNodeList List of nodes and their connections in this binary search tree.
+	 */
+	// TODO: This doesn't work great, the bottom leaf node should be moved up the tree
+	private void buildDotFromNodes(BinaryNode<Type> currentNode, List<String> nodeToNodeList) {
+		if(currentNode.getLeftChild() != null) {
+			nodeToNodeList.add("\t" + currentNode.getData() + "->" + currentNode.getLeftChild().getData());
+			buildDotFromNodes(currentNode.getLeftChild(), nodeToNodeList);
+		}
+		
+		if(currentNode.getRightChild() != null) {
+			nodeToNodeList.add("\t" + currentNode.getData() + "->" + currentNode.getRightChild().getData());
+			buildDotFromNodes(currentNode.getRightChild(), nodeToNodeList);
+		}
+		
+	}
+
 }
