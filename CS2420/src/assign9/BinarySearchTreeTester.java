@@ -49,6 +49,7 @@ public class BinarySearchTreeTester {
 		
 		tree.addAll(coll);
 		
+		
 		assertTrue(tree.containsAll(coll));
 		assertEquals("[12, 32, 45, 93]", tree.toArrayList().toString());
 	}
@@ -125,16 +126,17 @@ public class BinarySearchTreeTester {
 		tree.add(32);
 		tree.add(9);
 		tree.add(2);
-		tree.add(5);
+		tree.add(3);
 		tree.add(78);
 		tree.add(112);
 		tree.add(113);
 		tree.add(116);
 		tree.add(31);	
+		tree.add(10);
 		
 		tree.generateDotFromBST("src/assign9/ref/test.dot");
 		
-		tree.remove(5);
+		tree.remove(12);
 		tree.generateDotFromBST("src/assign9/ref/test2.dot");
 	}
 

@@ -89,7 +89,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 				size++;
 				return true;
 			} else {
-				add(newNode, currentNode.getRightChild());
+				return add(newNode, currentNode.getRightChild());
 			}
 		}
 		// If the new node is lesser than the current node...
@@ -101,16 +101,8 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
 				size++;
 				return true;
-			}
-			// If the current node has a left child but not a right child
-			// Set the new node as the right child if it fits
-			else if (currentNode.hasLeftChildOnly()) {
-				if (newNode.getData().compareTo(currentNode.getLeftChild().getData()) > 0) {
-					currentNode.setRightChild(newNode);
-					newNode.setParent(currentNode);
-				} 
 			} else {
-				add(newNode, currentNode.getLeftChild());
+				return add(newNode, currentNode.getLeftChild());
 			}
 		}
 
@@ -134,20 +126,22 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 */
 	@Override
 	public boolean addAll(Collection<? extends Type> items) {
-		int initialSize = size();
-
-		// Attempt to insert every item in this collection into this BST
+		// Attempt to insert every item in this collection into this BST.
+		// If the add method reports that an item was not added to this BST,
+		// return false.
 		for (Type t : items) {
 			// Throw an exception if the current item is null
 			if (t == null) {
 				throw new NullPointerException();
 			}
 
-			add(t);
+			if(!add(t)) {
+				return false;
+			}
 		}
 
 		// If this BST's size has increased by at least one node, return true
-		return (size() > initialSize);
+		return true;
 	}
 
 	/**
@@ -394,56 +388,131 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 * @return True if the specified node is successfully removed from this
 	 *         binary search tree.
 	 */
-	// TODO: Not tested
+	// TODO: Not thoroughly tested
 	private boolean remove(BinaryNode<Type> currentNode) {
 
 		// CASE A --leaf node: simply delete it
 		if (currentNode.isLeafNode()) {
-			BinaryNode<Type> parentNode = currentNode.getParent();
-
-			// Remove the parent node's reference to the current node
-			if (parentNode.hasLeftChildOnly()) {
-				parentNode.setLeftChild(null);
-				currentNode.setParent(null);
-
-				// Removal Successful
-				return true;
-			}
-			if (parentNode.hasRightChildOnly()) {
-				parentNode.setLeftChild(null);
-				currentNode.setParent(null);
-
-				// Removal Successful
-				return true;
-			}
+			return removeLeafNode(currentNode);
 		}
 
 		// CASE B(i) -- Node with one (left)child
 		if (currentNode.hasLeftChildOnly()) {
-			BinaryNode<Type> parentNode = currentNode.getParent();
+			return removeNodeWithOneChild(currentNode);
+		}
 
-			// Give currentNode's left child to currentNode's parent
-			parentNode.setLeftChild(currentNode.getLeftChild());
+		// CASE B(ii) -- Node with one (right)child
+		if (currentNode.hasRightChildOnly()) {
+			return removeNodeWithOneChild(currentNode);
+		}
+
+		// CASE C -- Node with two children
+		if (currentNode.hasTwoChildren()) {
+			return removeNodeWithTwoChildren(currentNode);
+		}
+
+		return false;
+	}
+	
+	/**
+	 * Helper method of the remove method that removes a specified leaf node 
+	 * from this binary search tree.
+	 * 
+	 * @param currentNode The leaf node to be removed from this binary search tree.
+	 * @return True if the specified node was successfully removed.
+	 */
+	private boolean removeLeafNode(BinaryNode<Type> currentNode) {
+		BinaryNode<Type> parentNode = currentNode.getParent();
+
+		// Remove the parent node's reference to the current node
+		if (currentNode.isLeftChild()) {
+			parentNode.setLeftChild(null);
 
 			size--;
 
 			// Removal Successful
 			return true;
+		}
+
+		if (currentNode.isRightChild()) {
+			parentNode.setRightChild(null);
+
+			size--;
+
+			// Removal Successful
+			return true;
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Helper method of the remove method that removes a specified node with exactly
+	 * one child from this binary search tree.
+	 * 
+	 * @param currentNode The node to be removed from this binary search tree.
+	 * @return True if the specified node was successfully removed.
+	 */
+	private boolean removeNodeWithOneChild(BinaryNode<Type> currentNode) {
+		// CASE B(i) -- Node with one (left)child
+		if (currentNode.hasLeftChildOnly()) {
+			BinaryNode<Type> parentNode = currentNode.getParent();
+
+			// Give currentNode's left child to currentNode's parent
+			if (currentNode.isLeftChild()) {
+				parentNode.setLeftChild(currentNode.getLeftChild());
+
+				size--;
+
+				// Removal Successful
+				return true;
+			}
+
+			if (currentNode.isRightChild()) {
+				parentNode.setRightChild(currentNode.getLeftChild());
+
+				size--;
+
+				// Removal Successful
+				return true;
+			}
 		}
 
 		// CASE B(ii) -- Node with one (right)child
 		if (currentNode.hasRightChildOnly()) {
 			BinaryNode<Type> parentNode = currentNode.getParent();
 
-			// Give currentNode's right child to currentNode's parent
-			parentNode.setRightChild(currentNode.getRightChild());
+			// Give currentNode's left child to currentNode's parent
+			if (currentNode.isLeftChild()) {
+				parentNode.setLeftChild(currentNode.getRightChild());
 
-			size--;
+				size--;
 
-			// Removal Successful
-			return true;
+				// Removal Successful
+				return true;
+			}
+
+			if (currentNode.isRightChild()) {
+				parentNode.setRightChild(currentNode.getRightChild());
+
+				size--;
+
+				// Removal Successful
+				return true;
+			}
 		}
-
+		
+		return false;
+	}
+	
+	/**
+	 * Helper method of the remove method that removes a specified node with exactly
+	 * two children from this binary search tree.
+	 * 
+	 * @param currentNode The node to be removed from this binary search tree.
+	 * @return True if the specified node was successfully removed.
+	 */
+	private boolean removeNodeWithTwoChildren(BinaryNode<Type> currentNode) {
 		// CASE C -- Node with two children
 		if (currentNode.hasTwoChildren()) {
 			// currentNode's successor is the smallest node in its right subtree
@@ -456,7 +525,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 			// Remove the successor node (guaranteed to have at most one child)
 			return remove(successorNode);
 		}
-
+		
 		return false;
 	}
 
@@ -474,8 +543,20 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 */
 	@Override
 	public boolean removeAll(Collection<? extends Type> items) {
-		// TODO Auto-generated method stub
-		return false;
+		// Attempt to remove each item in the collection from this BST.
+		// If the remove method reports that an item hasn't
+		// been removed, return false.
+		for(Type t: items) {
+			if(t == null) {
+				throw new NullPointerException();
+			}
+			
+			if(!remove(t)) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 
 	/**
@@ -585,7 +666,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	private void buildDotFromNodes(BinaryNode<Type> currentNode, List<String> nodeToNodeList) {
 
 		// Enhance dot graph formatting
-		 nodeToNodeList.add(currentNode.getData() + "[label=\"<L> |<D> " + currentNode.getData() + "|<R> \"]");
+		nodeToNodeList.add(currentNode.getData() + "[label=\"<L> |<D> " + currentNode.getData() + "|<R> \"]");
 
 		if (currentNode.getLeftChild() != null) {
 			buildDotFromNodes(currentNode.getLeftChild(), nodeToNodeList);

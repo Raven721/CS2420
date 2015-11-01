@@ -9,7 +9,7 @@ package assign9;
  * @author Erin Parker
  * @version 11/05/2015
  */
-public class BinaryNode<Type> {
+public class BinaryNode<Type extends Comparable<? super Type>> {
 
 	private Type data;
 
@@ -127,6 +127,48 @@ public class BinaryNode<Type> {
 	 */
 	public boolean isLeafNode() {
 		return (this.leftChild == null && this.rightChild == null);
+	}
+	
+	/**
+	 * Returns true if this node is a left child of its parent.
+	 * 
+	 * @return True if this node is a left child of its parent.
+	 */
+	public boolean isLeftChild() {
+		if(this.getParent().getLeftChild() == null)
+			return false;
+		
+		return (this.getParent().getLeftChild().getData().compareTo(this.getData()) == 0);
+	}
+	
+	/**
+	 * Returns true if this node is a left child of its parent.
+	 * 
+	 * @return True if this ndoe is a left child of its parent.
+	 */
+	public boolean isRightChild() {
+		if(this.getParent().getRightChild() == null)
+			return false;
+		
+		return (this.getParent().getRightChild().getData().compareTo(this.getData()) == 0);
+	}
+	
+	/**
+	 * Returns true if this node has a left child.
+	 * 
+	 * @return True if this node has a left child.
+	 */
+	public boolean hasLeftChild() {
+		return (this.leftChild != null);
+	}
+	
+	/**
+	 * Returns true if this node has a right child.
+	 * 
+	 * @return True if this node has a right child.
+	 */
+	public boolean hasRightChild() {
+		return (this.rightChild != null);
 	}
 	
 	/**
