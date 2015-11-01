@@ -34,6 +34,7 @@ public class BinarySearchTreeTester {
 		tree.add(32);
 	}
 	
+	//////// add(Type item) /////////
 	@Test
 	public void testBSTaddAll()
 	{
@@ -52,30 +53,35 @@ public class BinarySearchTreeTester {
 		assertEquals("[12, 32, 45, 93]", tree.toArrayList().toString());
 	}
 	
+	//////// toArrayList() /////////
 	@Test
 	public void testBSTtoArrayList() {
 		// Returning the nodes of an in-order traversal should return a sorted list of the tree items
 		assertEquals("[12, 32, 45, 93]", tree.toArrayList().toString());
 	}
 
+	//////// first() /////////
 	@Test
 	public void testBSTFirst() {
 		// The first item in the tree should be the smallest
 		assertEquals((Integer) 12, tree.first());
 	}
 
+	//////// last() /////////
 	@Test
 	public void testBSTLast() {
 		// The last item in the tree should be the largest
 		assertEquals((Integer) 93, tree.last());
 	}
 	
+	//////// size() /////////
 	@Test
 	public void testBSTSize() {
 		// The size of this tree should be 4 items
 		assertEquals(4, tree.size());
 	}
 	
+	//////// contains(Type item) /////////
 	@Test
 	public void testBSTContains() {
 		// This tree should contain 12, 45, 93 and 32
@@ -85,6 +91,7 @@ public class BinarySearchTreeTester {
 		assertTrue(tree.contains(32));
 	}
 	
+	//////// containsAll(Collection c) /////////
 	@Test
 	public void testBSTContainsAll() {
 		// This tree should contain 12, 45, 93 and 32
@@ -98,6 +105,7 @@ public class BinarySearchTreeTester {
 		assertTrue(tree.containsAll(coll));
 	}
 	
+	//////// isEmpty() /////////
 	@Test
 	public void testBSTisEmpty() {
 		// A tree with zero items (size of 0), should return true when asked if the tree is empty
@@ -107,6 +115,7 @@ public class BinarySearchTreeTester {
 		assertTrue(tree.isEmpty());
 	}
 	
+	//////// generateDotFromBST(String filename)  /////////
 	@Test
 	public void testGenerateDotFromBST(){
 		tree = new BinarySearchTree<Integer>();
@@ -121,9 +130,12 @@ public class BinarySearchTreeTester {
 		tree.add(112);
 		tree.add(113);
 		tree.add(116);
-		tree.add(31);
+		tree.add(31);	
 		
 		tree.generateDotFromBST("src/assign9/ref/test.dot");
+		
+		tree.remove(5);
+		tree.generateDotFromBST("src/assign9/ref/test2.dot");
 	}
 
 }

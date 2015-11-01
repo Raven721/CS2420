@@ -69,44 +69,52 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 * 
 	 * @param newNode
 	 *            The node to be inserted into this balanced search tree.
-	 * @param parentNode
+	 * @param currentNode
 	 *            The current node in the balanced search tree to be compared
 	 *            with the incoming new node.
 	 * @return True if the new node has found its proper placement and has been
 	 *         inserted into the balanced search tree.
 	 */
-	private boolean add(BinaryNode<Type> newNode, BinaryNode<Type> parentNode) {
+	private boolean add(BinaryNode<Type> newNode, BinaryNode<Type> currentNode) {
 		// Compare the newNode to the currentNode in the tree
-		int compareNodes = (newNode.getData()).compareTo(parentNode.getData());
+		int compareNodes = newNode.getData().compareTo(currentNode.getData());
 
-		// If the new node is greater than the parent...
-		// Add new node as right child
+		// If the new node is greater than the current node...
+		// Try to add new node as right child
 		if (compareNodes > 0) {
-			if (parentNode.getRightChild() == null) {
-				parentNode.setRightChild(newNode);
-				newNode.setParent(parentNode);
+			if (currentNode.getRightChild() == null) {
+				currentNode.setRightChild(newNode);
+				newNode.setParent(currentNode);
 
 				size++;
 				return true;
+			} else {
+				add(newNode, currentNode.getRightChild());
 			}
-
-			return add(newNode, parentNode.getRightChild());
 		}
-		// If the new node is lesser than the parent...
-		// Add new node as left child
+		// If the new node is lesser than the current node...
+		// Try to add new node as left child
 		if (compareNodes < 0) {
-			if (parentNode.getLeftChild() == null) {
-				parentNode.setLeftChild(newNode);
-				newNode.setParent(parentNode);
+			if (currentNode.getLeftChild() == null) {
+				currentNode.setLeftChild(newNode);
+				newNode.setParent(currentNode);
 
 				size++;
 				return true;
 			}
-
-			return add(newNode, parentNode.getLeftChild());
+			// If the current node has a left child but not a right child
+			// Set the new node as the right child if it fits
+			else if (currentNode.hasLeftChildOnly()) {
+				if (newNode.getData().compareTo(currentNode.getLeftChild().getData()) > 0) {
+					currentNode.setRightChild(newNode);
+					newNode.setParent(currentNode);
+				} 
+			} else {
+				add(newNode, currentNode.getLeftChild());
+			}
 		}
 
-		// If the new node and parent node are equal...
+		// If the new node and current node are equal...
 		// Disregard the new node and break the recursion as the new node won't
 		// be added to the BST
 		return false;
@@ -391,10 +399,23 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
 		// CASE A --leaf node: simply delete it
 		if (currentNode.isLeafNode()) {
-			currentNode.setParent(null);
+			BinaryNode<Type> parentNode = currentNode.getParent();
 
-			// Removal Successful
-			return true;
+			// Remove the parent node's reference to the current node
+			if (parentNode.hasLeftChildOnly()) {
+				parentNode.setLeftChild(null);
+				currentNode.setParent(null);
+
+				// Removal Successful
+				return true;
+			}
+			if (parentNode.hasRightChildOnly()) {
+				parentNode.setLeftChild(null);
+				currentNode.setParent(null);
+
+				// Removal Successful
+				return true;
+			}
 		}
 
 		// CASE B(i) -- Node with one (left)child
@@ -500,7 +521,6 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 *            this binary search tree.
 	 * @param currentNode
 	 *            The node currently being examined.
-	 * @return A sorted list of all nodes in this binary search tree.
 	 */
 	private void inOrderTraversal(ArrayList<Type> sortedList, BinaryNode<Type> currentNode) {
 		// Go to the left-most child in the tree before considering a
@@ -537,6 +557,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
 		// Open the graph
 		out.println("digraph G {");
+		out.println("node [shape=record]");
 
 		ArrayList<String> nodeToNodeList = new ArrayList<String>();
 
@@ -561,17 +582,19 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 *            List of nodes and their connections in this binary search
 	 *            tree.
 	 */
-	// TODO: This doesn't work great, the bottom leaf node should be moved up
-	// the tree
 	private void buildDotFromNodes(BinaryNode<Type> currentNode, List<String> nodeToNodeList) {
+
+		// Enhance dot graph formatting
+		 nodeToNodeList.add(currentNode.getData() + "[label=\"<L> |<D> " + currentNode.getData() + "|<R> \"]");
+
 		if (currentNode.getLeftChild() != null) {
-			nodeToNodeList.add("\t" + currentNode.getData() + "->" + currentNode.getLeftChild().getData());
 			buildDotFromNodes(currentNode.getLeftChild(), nodeToNodeList);
+			nodeToNodeList.add("\t" + currentNode.getData() + "->" + currentNode.getLeftChild().getData());
 		}
 
 		if (currentNode.getRightChild() != null) {
-			nodeToNodeList.add("\t" + currentNode.getData() + "->" + currentNode.getRightChild().getData());
 			buildDotFromNodes(currentNode.getRightChild(), nodeToNodeList);
+			nodeToNodeList.add("\t" + currentNode.getData() + "->" + currentNode.getRightChild().getData());
 		}
 
 	}

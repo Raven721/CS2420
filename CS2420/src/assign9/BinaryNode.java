@@ -60,8 +60,8 @@ public class BinaryNode<Type> {
 	 * @param parent
 	 *            the parent to set
 	 */
-	public void setParent(BinaryNode<Type> parent) {
-		this.parent = parent;
+	public void setParent(BinaryNode<Type> _parent) {
+		this.parent = _parent;
 	}
 
 	/**
