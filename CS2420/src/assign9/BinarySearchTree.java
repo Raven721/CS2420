@@ -502,7 +502,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 *            The node currently being examined.
 	 * @return A sorted list of all nodes in this binary search tree.
 	 */
-	private ArrayList<Type> inOrderTraversal(ArrayList<Type> sortedList, BinaryNode<Type> currentNode) {
+	private void inOrderTraversal(ArrayList<Type> sortedList, BinaryNode<Type> currentNode) {
 		// Go to the left-most child in the tree before considering a
 		// right-child
 		if (currentNode.getLeftChild() != null) {
@@ -517,13 +517,13 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 			inOrderTraversal(sortedList, currentNode.getRightChild());
 		}
 
-		return sortedList;
 	}
 
 	/**
 	 * Builds a dot file from this binary search tree.
 	 * 
-	 * @param filename The path + filename where the dot file will be created.
+	 * @param filename
+	 *            The path + filename where the dot file will be created.
 	 */
 	public void generateDotFromBST(String filename) {
 		PrintWriter out = null;
@@ -537,39 +537,43 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
 		// Open the graph
 		out.println("digraph G {");
-		
+
 		ArrayList<String> nodeToNodeList = new ArrayList<String>();
-		
+
 		buildDotFromNodes(rootNode, nodeToNodeList);
-		
-		for(String s: nodeToNodeList) {
+
+		for (String s : nodeToNodeList) {
 			out.println(s);
 		}
-		
+
 		// Close the graph
 		out.println("}");
 		out.close();
 	}
 
 	/**
-	 * Helper method for the generateDotFromBST method that recursively builds a 
+	 * Helper method for the generateDotFromBST method that recursively builds a
 	 * list of nodes and their connected nodes for building the dot file.
 	 * 
-	 * @param currentNode The current node being logged in the list.
-	 * @param nodeToNodeList List of nodes and their connections in this binary search tree.
+	 * @param currentNode
+	 *            The current node being logged in the list.
+	 * @param nodeToNodeList
+	 *            List of nodes and their connections in this binary search
+	 *            tree.
 	 */
-	// TODO: This doesn't work great, the bottom leaf node should be moved up the tree
+	// TODO: This doesn't work great, the bottom leaf node should be moved up
+	// the tree
 	private void buildDotFromNodes(BinaryNode<Type> currentNode, List<String> nodeToNodeList) {
-		if(currentNode.getLeftChild() != null) {
+		if (currentNode.getLeftChild() != null) {
 			nodeToNodeList.add("\t" + currentNode.getData() + "->" + currentNode.getLeftChild().getData());
 			buildDotFromNodes(currentNode.getLeftChild(), nodeToNodeList);
 		}
-		
-		if(currentNode.getRightChild() != null) {
+
+		if (currentNode.getRightChild() != null) {
 			nodeToNodeList.add("\t" + currentNode.getData() + "->" + currentNode.getRightChild().getData());
 			buildDotFromNodes(currentNode.getRightChild(), nodeToNodeList);
 		}
-		
+
 	}
 
 }
