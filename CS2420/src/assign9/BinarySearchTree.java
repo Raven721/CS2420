@@ -126,6 +126,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 */
 	@Override
 	public boolean addAll(Collection<? extends Type> items) {
+		int initialSize = size();
 		// Attempt to insert every item in this collection into this BST.
 		// If the add method reports that an item was not added to this BST,
 		// return false.
@@ -135,14 +136,12 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 				throw new NullPointerException();
 			}
 
-			if (!add(t)) {
-				return false;
-			}
+			// Attempt to add item from collection to tree
+			add(t);
 		}
 
-		// If all items have been added to the tree without returning false,
-		// then all items have been added successfully -- return true
-		return true;
+		// If the size of the tree has increased by at least one node, return true;
+		return (size() > initialSize);
 	}
 
 	/**
@@ -547,6 +546,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 */
 	@Override
 	public boolean removeAll(Collection<? extends Type> items) {
+		int initialSize = size();
 		// Attempt to remove each item in the collection from this BST.
 		// If the remove method reports that an item hasn't
 		// been removed, return false.
@@ -555,12 +555,12 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 				throw new NullPointerException();
 			}
 
-			if (!remove(t)) {
-				return false;
-			}
+			// Attempt to remove current collection item from tree
+			remove(t);
 		}
 
-		return true;
+		// If the size of the tree has decreased by at least one node, return true
+		return (size() < initialSize);
 	}
 
 	/**

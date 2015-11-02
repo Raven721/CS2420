@@ -117,6 +117,7 @@ public class SpellChecker {
 	 *            - the File to be read
 	 * @return a List of the Strings in the input file
 	 */
+	@SuppressWarnings("resource")
 	private List<String> readFromFile(File file) {
 		ArrayList<String> words = new ArrayList<String>();
 
