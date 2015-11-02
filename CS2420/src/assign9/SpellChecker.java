@@ -32,6 +32,9 @@ public class SpellChecker {
 	 * 
 	 * @param words
 	 *            - the List of Strings used to build the dictionary
+	 * 
+	 * @throws NullPointerException
+	 *             if any item is null
 	 */
 	public SpellChecker(List<String> words) {
 		this();
@@ -54,6 +57,9 @@ public class SpellChecker {
 	 * 
 	 * @param word
 	 *            - the String to be added to the dictionary
+	 *            
+	 * @throws NullPointerException
+	 *             if the item is null
 	 */
 	public void addToDictionary(String word) {
 		dictionary.add(word.toLowerCase());
@@ -104,8 +110,7 @@ public class SpellChecker {
 	 *            - the List of Strings to be added to the dictionary
 	 */
 	private void buildDictionary(List<String> words) {
-		if(!dictionary.addAll(words));
-			System.out.println("failed to add all words");
+		dictionary.addAll(words);
 		//TODO: currently not checking return value or exceptions
 	}
 
