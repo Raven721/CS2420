@@ -140,7 +140,8 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 			}
 		}
 
-		// If this BST's size has increased by at least one node, return true
+		// If all items have been added to the tree without returning false,
+		// then all items have been added successfully -- return true
 		return true;
 	}
 
