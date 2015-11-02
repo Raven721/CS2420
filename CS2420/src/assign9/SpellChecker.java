@@ -55,7 +55,8 @@ public class SpellChecker {
 	 *            - the String to be added to the dictionary
 	 */
 	public void addToDictionary(String word) {
-		// FILL IN
+		dictionary.add(word);
+		//TODO: do we catch things not added, or exceptions?
 	}
 
 	/**
@@ -65,7 +66,8 @@ public class SpellChecker {
 	 *            - the String to be removed from the dictionary
 	 */
 	public void removeFromDictionary(String word) {
-		// FILL IN
+		dictionary.remove(word);
+		//TODO: check return value and exceptions?
 	}
 
 	/**
@@ -92,7 +94,8 @@ public class SpellChecker {
 	 *            - the List of Strings to be added to the dictionary
 	 */
 	private void buildDictionary(List<String> words) {
-		// FILL IN
+		dictionary.addAll(words);
+		//TODO: currently not checking return value or exceptions
 	}
 
 	/**
