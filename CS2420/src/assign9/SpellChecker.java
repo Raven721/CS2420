@@ -3,6 +3,7 @@ package assign9;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -55,7 +56,7 @@ public class SpellChecker {
 	 *            - the String to be added to the dictionary
 	 */
 	public void addToDictionary(String word) {
-		dictionary.add(word);
+		dictionary.add(word.toLowerCase());
 		//TODO: do we catch things not added, or exceptions?
 	}
 
@@ -66,7 +67,7 @@ public class SpellChecker {
 	 *            - the String to be removed from the dictionary
 	 */
 	public void removeFromDictionary(String word) {
-		dictionary.remove(word);
+		dictionary.remove(word.toLowerCase());
 		//TODO: check return value and exceptions?
 	}
 
@@ -80,11 +81,20 @@ public class SpellChecker {
 	 */
 	public List<String> spellCheck(File documentFile) {
 
+		// read the file and get all the words
 		List<String> wordsToCheck = readFromFile(documentFile);
-
-		// FILL IN -- do not return null
-
-		return null;
+		
+		// list to store the misspelled words
+		List<String> misspelledWords = new LinkedList<String>();
+		
+		// foreach loop to check each word
+		for(String word: wordsToCheck) {
+			if (!dictionary.contains(word)) {
+				misspelledWords.add(word);
+			}
+		}
+		// Return the list we have been adding to
+		return misspelledWords;
 	}
 
 	/**

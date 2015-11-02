@@ -11,13 +11,18 @@ import java.util.List;
  * @author Erin Parker
  * @version 11/05/2015
  */
-public class SpellCheckerDemo {
+public class SpellCheckerDemoWithAddingToDict {
 
   public static void main(String[] args) {
 
     SpellChecker mySC = new SpellChecker(new File("src/assign9/ref/dictionary.txt"));
 
     run_spell_check(mySC, "src/assign9/ref/hello_world.txt");
+    run_spell_check(mySC, "src/assign9/ref/good_luck.txt");
+    // expect Erin and BST to not be in dictionary, add them and run again
+    mySC.addToDictionary("ERIN");
+    mySC.addToDictionary("bST");
+    // now re-run the file
     run_spell_check(mySC, "src/assign9/ref/good_luck.txt");
   }
 
@@ -33,5 +38,6 @@ public class SpellCheckerDemo {
         System.out.println("\t" + w);
       }
     }
+    
   }
 }
