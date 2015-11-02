@@ -25,33 +25,41 @@ public class TimingAnalysis {
 		int timesToLoop = 2000;
 		boolean rand = false;
 		
-//		//Time a sorted BST for finding all elements
-//		timeBSTContains(timesToLoop, 2000, 22000, 2000, rand, "Contains");
-//		
-//		//Time a random BST for finding all elements
-//		rand = true;
-//		timeBSTContains(timesToLoop, 2000, 22000, 2000, rand, "Contains");
+		//Time a sorted BST for finding all elements
+		timeBSTContains(timesToLoop, 2000, 22000, 2000, rand, "Contains", "Worst Case -- Should be O(N)");
 		
+		//Time a random BST for finding all elements
 		rand = true;
-		/////////// BinarySearchTree vs Java's TreeSet /////////////
-		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "BST add");
-		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "BST contains");
-		
-		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "TreeSet add");
-		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "TreeSet contains");
+		timeBSTContains(timesToLoop, 2000, 22000, 2000, rand, "Contains", "Average Case -- Should be O(logN)");
 		
 		
+		/////////// Average Case: BinarySearchTree vs Java's TreeSet /////////////
+		rand = true;
+		
+		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "BST add", "Average Case");
+		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "BST contains", "Average Case");
+		
+		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "TreeSet add", "Average Case");
+		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "TreeSet contains", "Average Case");
+		
+		/////////// Worst Case: BinarySearchTree vs Java's TreeSet /////////////
+		rand = false;
+		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "BST add", "Worst Case");
+		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "BST contains", "Worst Case");
+		
+		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "TreeSet add", "Worst Case");
+		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "TreeSet contains", "Worst Case");
 	}
 
-	private static void timeBSTContains(int timesToLoop, int startSize, int stopSize, int stepSize, boolean random, String timingMethod) {
+	private static void timeBSTContains(int timesToLoop, int startSize, int stopSize, int stepSize, boolean random, String timingMethod, String caseType) {
 		long startTime, midptTime, stopTime;
 		
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
 
 		System.out
-				.println("------------------- GraphUtil Timing Analysis: " + timingMethod + (random ? " Inserted Radomized" : " Inserted in-order") + " ----------------------");
-		System.out.println("\t\t\t    timesToLoop: " + timesToLoop + " | ");
+				.println("------------------- GraphUtil Timing Analysis: " + timingMethod + "(" + caseType + ")" + " ----------------------");
+		System.out.println("\t\t\t    timesToLoop: " + timesToLoop + " | " + (random ? " random order" : " in-order"));
 		System.out.println("\nN\tT(N)\t\t|\tT(N)/logN\tT(N)/NlogN\tT(N)/N\t\tT(N)/N^2\tT(N)/N^3");
 		System.out.println(
 				"---------------------------------------------------------------------------------------------------------");
@@ -86,10 +94,9 @@ public class TimingAnalysis {
 			}
 
 			midptTime = System.nanoTime();
-			int temp;
 			// Time the empty loops
 			for (int i = 0; i < timesToLoop; i++) {
-				temp = rnd.nextInt(n);
+				rnd.nextInt(n);
 			}
 
 			stopTime = System.nanoTime();
@@ -108,14 +115,14 @@ public class TimingAnalysis {
 				"---------------------------------------------------------------------------------------------------------");	
 	}
 	
-	private static void timeBSTvsTreeSet(int timesToLoop, int startSize, int stopSize, int stepSize, boolean random, String timingMethod) {
+	private static void timeBSTvsTreeSet(int timesToLoop, int startSize, int stopSize, int stepSize, boolean random, String timingMethod, String caseType) {
 		long startTime, midptTime, stopTime;
 		
 		// try computing T(N)/F(N), see if it converges
 		DecimalFormat formatter = new DecimalFormat("0000E0");
 
 		System.out
-				.println("------------------- GraphUtil Timing Analysis: " + timingMethod + " ----------------------");
+				.println("------------------- GraphUtil Timing Analysis: " + timingMethod + "(" + caseType + ")" + " ----------------------");
 		System.out.println("\t\t\t    timesToLoop: " + timesToLoop + " | " + (random ? " random order" : " in-order"));
 		System.out.println("\nN\tT(N)\t\t|\tT(N)/logN\tT(N)/NlogN\tT(N)/N\t\tT(N)/N^2\tT(N)/N^3");
 		System.out.println(
@@ -173,10 +180,9 @@ public class TimingAnalysis {
 			}
 
 			midptTime = System.nanoTime();
-			int temp;
 			// Time the empty loops
 			for (int i = 0; i < timesToLoop; i++) {
-				temp = rnd.nextInt(n);
+				rnd.nextInt(n);
 			}
 
 			stopTime = System.nanoTime();
