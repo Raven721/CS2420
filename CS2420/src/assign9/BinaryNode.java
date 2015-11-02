@@ -135,6 +135,9 @@ public class BinaryNode<Type extends Comparable<? super Type>> {
 	 * @return True if this node is a left child of its parent.
 	 */
 	public boolean isLeftChild() {
+		if(this.parent == null)
+			return false;
+		
 		if(this.getParent().getLeftChild() == null)
 			return false;
 		
@@ -144,9 +147,12 @@ public class BinaryNode<Type extends Comparable<? super Type>> {
 	/**
 	 * Returns true if this node is a left child of its parent.
 	 * 
-	 * @return True if this ndoe is a left child of its parent.
+	 * @return True if this node is a left child of its parent.
 	 */
 	public boolean isRightChild() {
+		if(this.parent == null)
+			return false;
+		
 		if(this.getParent().getRightChild() == null)
 			return false;
 		

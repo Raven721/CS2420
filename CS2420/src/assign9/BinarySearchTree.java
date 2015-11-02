@@ -135,7 +135,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 				throw new NullPointerException();
 			}
 
-			if(!add(t)) {
+			if (!add(t)) {
 				return false;
 			}
 		}
@@ -413,12 +413,13 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
 		return false;
 	}
-	
+
 	/**
-	 * Helper method of the remove method that removes a specified leaf node 
+	 * Helper method of the remove method that removes a specified leaf node
 	 * from this binary search tree.
 	 * 
-	 * @param currentNode The leaf node to be removed from this binary search tree.
+	 * @param currentNode
+	 *            The leaf node to be removed from this binary search tree.
 	 * @return True if the specified node was successfully removed.
 	 */
 	private boolean removeLeafNode(BinaryNode<Type> currentNode) {
@@ -442,15 +443,16 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 			// Removal Successful
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	/**
-	 * Helper method of the remove method that removes a specified node with exactly
-	 * one child from this binary search tree.
+	 * Helper method of the remove method that removes a specified node with
+	 * exactly one child from this binary search tree.
 	 * 
-	 * @param currentNode The node to be removed from this binary search tree.
+	 * @param currentNode
+	 *            The node to be removed from this binary search tree.
 	 * @return True if the specified node was successfully removed.
 	 */
 	private boolean removeNodeWithOneChild(BinaryNode<Type> currentNode) {
@@ -501,15 +503,16 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	/**
-	 * Helper method of the remove method that removes a specified node with exactly
-	 * two children from this binary search tree.
+	 * Helper method of the remove method that removes a specified node with
+	 * exactly two children from this binary search tree.
 	 * 
-	 * @param currentNode The node to be removed from this binary search tree.
+	 * @param currentNode
+	 *            The node to be removed from this binary search tree.
 	 * @return True if the specified node was successfully removed.
 	 */
 	private boolean removeNodeWithTwoChildren(BinaryNode<Type> currentNode) {
@@ -525,7 +528,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 			// Remove the successor node (guaranteed to have at most one child)
 			return remove(successorNode);
 		}
-		
+
 		return false;
 	}
 
@@ -546,16 +549,16 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		// Attempt to remove each item in the collection from this BST.
 		// If the remove method reports that an item hasn't
 		// been removed, return false.
-		for(Type t: items) {
-			if(t == null) {
+		for (Type t : items) {
+			if (t == null) {
 				throw new NullPointerException();
 			}
-			
-			if(!remove(t)) {
+
+			if (!remove(t)) {
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
 
@@ -638,7 +641,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
 		// Open the graph
 		out.println("digraph G {");
-		out.println("node [shape=record]");
+		out.println("node [shape=circle, color=black]");
 
 		ArrayList<String> nodeToNodeList = new ArrayList<String>();
 
@@ -664,18 +667,37 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 *            tree.
 	 */
 	private void buildDotFromNodes(BinaryNode<Type> currentNode, List<String> nodeToNodeList) {
-
-		// Enhance dot graph formatting
-		nodeToNodeList.add(currentNode.getData() + "[label=\"<L> |<D> " + currentNode.getData() + "|<R> \"]");
-
 		if (currentNode.getLeftChild() != null) {
 			buildDotFromNodes(currentNode.getLeftChild(), nodeToNodeList);
+			styleDotEdge(currentNode.getLeftChild(), nodeToNodeList);
 			nodeToNodeList.add("\t" + currentNode.getData() + "->" + currentNode.getLeftChild().getData());
 		}
 
 		if (currentNode.getRightChild() != null) {
 			buildDotFromNodes(currentNode.getRightChild(), nodeToNodeList);
+			styleDotEdge(currentNode.getRightChild(), nodeToNodeList);
 			nodeToNodeList.add("\t" + currentNode.getData() + "->" + currentNode.getRightChild().getData());
+		}
+
+	}
+
+	/**
+	 * Helper method for the buildDotFromNodes method that colors the edges of
+	 * dot graph blue if it points to a left child or red if it points to a
+	 * right child.
+	 * 
+	 * @param currentNode
+	 *            The current node being pointed to in the dot graph.
+	 * @param nodeToNodeList
+	 *            The list of node connections in the dot graph.
+	 */
+	private void styleDotEdge(BinaryNode<Type> currentNode, List<String> nodeToNodeList) {
+		if (currentNode.isLeftChild()) {
+			nodeToNodeList.add("edge [dir=right color=\"blue\"]");
+		} else if (currentNode.isRightChild()) {
+			nodeToNodeList.add("edge [dir=right color=\"red\"]");
+		} else {
+			nodeToNodeList.add("edge [dir=right color=\"black\"]");
 		}
 
 	}
