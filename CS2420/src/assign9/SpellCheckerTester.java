@@ -11,7 +11,26 @@ import org.junit.Test;
 public class SpellCheckerTester {
 
 	@Test
-	public void test1() {
+	public void testAddToDict() {
+		SpellChecker mySC = new SpellChecker();
+		// Run the test file through, no matches as empty dictionary
+		File documentToCheck = new File("src/assign9/ref/hello_world.txt");
+		List<String> misspelled = mySC.spellCheck(documentToCheck);
+		// all words should show up here
+		assertEquals(7, misspelled.size());
+		
+		// Now add hello and world
+		mySC.addToDictionary("HeLlo");
+		mySC.addToDictionary("WORLD");
+		
+		// No re-run and 2 less words should show up
+		misspelled = mySC.spellCheck(documentToCheck);
+		// all words should show up here
+		assertEquals(7-2, misspelled.size());
+	}
+	
+	@Test
+	public void testRemoveFromDict() {
 		SpellChecker mySC = new SpellChecker();
 
 		// run the dictionary against a zero dictionary - output should match
@@ -43,8 +62,9 @@ public class SpellCheckerTester {
 		// expect all match, as dictionary = file
 		assertEquals(0, misspelledWords.size());
 	}
+	
 	@Test
-	public void testdictionarywordlist() {
+	public void testConstructorWordList() {
 		SpellChecker mySC = new SpellChecker();
 
 		// run the file against an empty dictionary - get back all words
@@ -52,30 +72,16 @@ public class SpellCheckerTester {
 		// expect all words returned, as dictionary empty
 		assertEquals(37, misspelled.size());
 
-		// debug
-		if (misspelled.size() != 0) {
-			System.out.println("Words in error:");
-			for (String w : misspelled) {
-				System.out.println(w);
-			}
-		}
-
 		// Now initialize with this list as the dict
 		mySC = new SpellChecker(misspelled);
 		// run the file against dictionary
 		misspelled = mySC.spellCheck(new File("src/assign9/ref/good_luck.txt"));
 		// expect zero, as dict == file
-		if (misspelled.size() != 0) {
-			System.out.println("Words in error:");
-			for (String w : misspelled) {
-				System.out.println(w);
-			}
-		}
 		assertEquals(0, misspelled.size());
 	}
 	
 	@Test
-	public void testSortedFile() {
+	public void testSpellCheckerWithSortedFile() {
 		SpellChecker mySC = new SpellChecker();
 		// run dictionary against empty dictionary to get all words
 		List<String> misspelled = mySC.spellCheck(new File("src/assign9/ref/dictionary.txt"));
