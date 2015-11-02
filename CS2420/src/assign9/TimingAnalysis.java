@@ -50,7 +50,18 @@ public class TimingAnalysis {
 		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "TreeSet add", "Worst Case -- Should be O(logN)");
 		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "TreeSet contains", "Worst Case -- Should be O(logN)");
 	}
-
+	
+	/**
+	 * Initiates a timing analysis for problem 4 in the analysis document.
+	 * 
+	 * @param timesToLoop The number of times to average the experiment.
+	 * @param startSize	The starting problem size
+	 * @param stopSize The ending problem size
+	 * @param stepSize The amount to increase the problem size on each iteration
+	 * @param random True will instantiate a random order tree, False will instantiate a sorted order tree
+	 * @param timingMethod The method being timed.
+	 * @param caseType The type of experiment (worst case or average case)
+	 */
 	private static void timeBSTContains(int timesToLoop, int startSize, int stopSize, int stepSize, boolean random, String timingMethod, String caseType) {
 		long startTime, midptTime, stopTime;
 		
@@ -115,6 +126,17 @@ public class TimingAnalysis {
 				"---------------------------------------------------------------------------------------------------------");	
 	}
 	
+	/**
+	 * Initiates a timing analysis for problem 5 in the analysis document.
+	 * 
+	 * @param timesToLoop The number of times to average the experiment.
+	 * @param startSize	The starting problem size
+	 * @param stopSize The ending problem size
+	 * @param stepSize The amount to increase the problem size on each iteration
+	 * @param random True will instantiate a random order tree, False will instantiate a sorted order tree
+	 * @param timingMethod The method being timed.
+	 * @param caseType The type of experiment (worst case or average case)
+	 */
 	private static void timeBSTvsTreeSet(int timesToLoop, int startSize, int stopSize, int stepSize, boolean random, String timingMethod, String caseType) {
 		long startTime, midptTime, stopTime;
 		
