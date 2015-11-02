@@ -366,10 +366,15 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 			return false;
 		}
 
-		// If the BST only has a single node, clear the tree and break
+		// If the BST only has a single node, clear the tree and return true
 		if (size() == 1) {
 			this.clear();
 			return true;
+		} 
+		
+		// If the tree is empty, it is impossible to remove anything
+		if (isEmpty()) {
+			return false;
 		}
 
 		// Find the node in the tree that needs to be removed

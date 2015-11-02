@@ -160,7 +160,7 @@ public class BinarySearchTreeTester {
 	}
 	
 	@Test 
-	public void testBSTremoveAllWithNonExistentItem() {
+	public void testBSTremoveAllWithEmptyTree() {
 		// The current tree does not contain a value of 415
 		tree = new BinarySearchTree<Integer>();
 		
@@ -171,6 +171,25 @@ public class BinarySearchTreeTester {
 		assertFalse(tree.contains(415));
 		
 		// Should return false because '415' is not in the tree
+		assertFalse(tree.removeAll(coll));
+	}
+	
+	@Test 
+	public void testBSTremoveAllWithNonExistentNode() {
+		// The current tree does not contain a value of 415
+		tree = new BinarySearchTree<Integer>();
+		tree.add(415);
+		tree.add(12);
+		
+		Collection<Integer> coll = new ArrayList<Integer>();
+		coll.add(35);
+		coll.add(25);
+		
+		// Verify that the tree does not contain a value of 415
+		assertFalse(tree.contains(35));
+		assertFalse(tree.contains(25));
+		
+		// Should return false because none of the items in the collection are in the tree
 		assertFalse(tree.removeAll(coll));
 	}
 	

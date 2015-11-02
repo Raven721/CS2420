@@ -1,0 +1,25 @@
+digraph G {
+node [shape=circle, color=black]
+edge [dir=right color="red"]
+	2->3
+edge [dir=right color="blue"]
+	9->2
+edge [dir=right color="red"]
+	9->10
+edge [dir=right color="blue"]
+	31->9
+edge [dir=right color="blue"]
+	45->32
+edge [dir=right color="blue"]
+	93->78
+edge [dir=right color="red"]
+	113->116
+edge [dir=right color="red"]
+	112->113
+edge [dir=right color="red"]
+	93->112
+edge [dir=right color="red"]
+	45->93
+edge [dir=right color="red"]
+	31->45
+}
