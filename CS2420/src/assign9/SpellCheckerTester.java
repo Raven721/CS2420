@@ -3,6 +3,7 @@ package assign9;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.util.Comparator;
 import java.util.List;
 
 import org.junit.Test;
@@ -42,7 +43,6 @@ public class SpellCheckerTester {
 		// expect all match, as dictionary = file
 		assertEquals(0, misspelledWords.size());
 	}
-
 	@Test
 	public void testdictionarywordlist() {
 		SpellChecker mySC = new SpellChecker();
@@ -72,7 +72,49 @@ public class SpellCheckerTester {
 			}
 		}
 		assertEquals(0, misspelled.size());
-
 	}
-
+	
+	@Test
+	public void testSortedFile() {
+		SpellChecker mySC = new SpellChecker();
+		// run dictionary against empty dictionary to get all words
+		List<String> misspelled = mySC.spellCheck(new File("src/assign9/ref/dictionary.txt"));
+		assertEquals(2914, misspelled.size());
+		
+		misspelled.sort(new Comparator<String>() {
+			@Override
+			public int compare(String o1, String o2) {
+				return o1.compareToIgnoreCase(o2);
+			}
+		});
+		
+		// now insert them sorted
+		mySC = new SpellChecker(misspelled);
+		
+		// Now re-test, we should not find any misspelled words
+		misspelled = mySC.spellCheck(new File("src/assign9/ref/dictionary.txt"));
+		assertEquals(0, misspelled.size());
+	}
+	
+	@Test
+	public void testReverseSortedFile() {
+		SpellChecker mySC = new SpellChecker();
+		// run dictionary against empty dictionary to get all words
+		List<String> misspelled = mySC.spellCheck(new File("src/assign9/ref/dictionary.txt"));
+		assertEquals(2914, misspelled.size());
+		
+		misspelled.sort(new Comparator<String>() {
+			@Override
+			public int compare(String o1, String o2) {
+				return o2.compareToIgnoreCase(o1);
+			}
+		});
+		
+		// now insert them sorted
+		mySC = new SpellChecker(misspelled);
+		
+		// Now re-test, we should not find any misspelled words
+		misspelled = mySC.spellCheck(new File("src/assign9/ref/dictionary.txt"));
+		assertEquals(0, misspelled.size());
+	}
 }
