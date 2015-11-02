@@ -35,6 +35,45 @@ public class BinarySearchTreeTester {
 		tree.add(32);
 	}
 	
+	//////// add(Type item) ////////
+	@Test
+	public void testadd() {
+		// The tree should return the correct information after adding each item
+		tree = new BinarySearchTree<Integer>();
+		
+		assertEquals(0, tree.size());
+		assertTrue(tree.isEmpty());
+		
+		tree.add(12);
+		assertFalse(tree.isEmpty());
+		assertTrue(tree.contains(12));
+		assertEquals(1, tree.size());
+		
+		tree.add(45);
+		assertFalse(tree.isEmpty());
+		assertTrue(tree.contains(45));
+		assertEquals(2, tree.size());
+		
+		tree.add(93);
+		assertFalse(tree.isEmpty());
+		assertTrue(tree.contains(45));
+		assertEquals(3, tree.size());
+		
+		tree.add(32);
+		assertFalse(tree.isEmpty());
+		assertTrue(tree.contains(32));
+		assertEquals(4, tree.size());
+		
+		assertEquals("[12, 32, 45, 93]", tree.toArrayList().toString());
+	}
+	
+	@Test
+	public void testaddWithNullItem() {
+		// The add method should throw an exception when given a null item
+		exception.expect(NullPointerException.class);
+		tree.add(null);
+	}
+	
 	//////// addAll(Collection c) /////////
 	@Test
 	public void testBSTaddAll()
@@ -54,6 +93,21 @@ public class BinarySearchTreeTester {
 		assertTrue(tree.containsAll(coll));
 		assertEquals("[12, 32, 45, 93]", tree.toArrayList().toString());
 	}
+	
+	@Test
+	public void testBSTaddAllWithNullItem()
+	{
+		// Adding a collection to the tree with a null item should throw an exception 
+		tree = new BinarySearchTree<Integer>();
+
+		Collection<Integer> coll = new ArrayList<Integer>();
+		coll.add(null);
+		
+		exception.expect(NullPointerException.class);
+		tree.addAll(coll);
+		
+	}
+	
 	
 	//////// removeAll(Collection c) /////////
 	@Test
@@ -125,6 +179,23 @@ public class BinarySearchTreeTester {
 	public void testBSTtoArrayList() {
 		// Returning the nodes of an in-order traversal should return a sorted list of the tree items
 		assertEquals("[12, 32, 45, 93]", tree.toArrayList().toString());
+	}
+	
+	@Test
+	public void testBSTtoArrayListWithEmptyTree(){
+		// An empty tree should result in toArrayList returns an empty list
+		tree = new BinarySearchTree<Integer>();
+		
+		assertEquals("[]", tree.toArrayList().toString());
+	}
+	
+	@Test
+	public void testBSTtoArrayListWithOneNodeTree(){
+		// A BST with one node should return a one node list from toArrayList
+		tree = new BinarySearchTree<Integer>();
+		tree.add(12);
+		
+		assertEquals("[12]", tree.toArrayList().toString());
 	}
 
 	//////// first() /////////
