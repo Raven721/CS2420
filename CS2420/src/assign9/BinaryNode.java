@@ -126,7 +126,7 @@ public class BinaryNode<Type extends Comparable<? super Type>> {
 	 * @return True if this node is a leaf node i.e. does not have children
 	 */
 	public boolean isLeafNode() {
-		return (this.leftChild == null && this.rightChild == null);
+		return (getLeftChild() == null && getRightChild() == null);
 	}
 	
 	/**
@@ -135,28 +135,28 @@ public class BinaryNode<Type extends Comparable<? super Type>> {
 	 * @return True if this node is a left child of its parent.
 	 */
 	public boolean isLeftChild() {
-		if(this.parent == null)
+		if(getParent() == null)
+			return false;
+		BinaryNode<Type> parentsLeftChild = getParent().getLeftChild();
+		if(parentsLeftChild == null)
 			return false;
 		
-		if(this.getParent().getLeftChild() == null)
-			return false;
-		
-		return (this.getParent().getLeftChild().getData().compareTo(this.getData()) == 0);
+		return (parentsLeftChild.getData().equals(this.getData()));
 	}
 	
 	/**
-	 * Returns true if this node is a left child of its parent.
+	 * Returns true if this node is a right child of its parent.
 	 * 
-	 * @return True if this node is a left child of its parent.
+	 * @return True if this node is a right child of its parent.
 	 */
 	public boolean isRightChild() {
-		if(this.parent == null)
+		if(getParent() == null)
+			return false;
+		BinaryNode<Type> parentsRightChild = getParent().getRightChild();
+		if(parentsRightChild == null)
 			return false;
 		
-		if(this.getParent().getRightChild() == null)
-			return false;
-		
-		return (this.getParent().getRightChild().getData().compareTo(this.getData()) == 0);
+		return (parentsRightChild.getData().equals(this.getData()));
 	}
 	
 	/**
@@ -165,7 +165,7 @@ public class BinaryNode<Type extends Comparable<? super Type>> {
 	 * @return True if this node has a left child.
 	 */
 	public boolean hasLeftChild() {
-		return (this.leftChild != null);
+		return (getLeftChild() != null);
 	}
 	
 	/**
@@ -174,7 +174,7 @@ public class BinaryNode<Type extends Comparable<? super Type>> {
 	 * @return True if this node has a right child.
 	 */
 	public boolean hasRightChild() {
-		return (this.rightChild != null);
+		return (getRightChild() != null);
 	}
 	
 	/**
@@ -183,7 +183,7 @@ public class BinaryNode<Type extends Comparable<? super Type>> {
 	 * @return True if this node only has a left child.
 	 */
 	public boolean hasLeftChildOnly() {
-		return (this.leftChild != null && this.rightChild == null);
+		return (getLeftChild() != null && getRightChild() == null);
 	}
 	
 	/**
@@ -192,7 +192,7 @@ public class BinaryNode<Type extends Comparable<? super Type>> {
 	 * @return True if this node only has a right child.
 	 */
 	public boolean hasRightChildOnly() {
-		return (this.leftChild == null && this.rightChild != null);
+		return (getLeftChild() == null && getRightChild() != null);
 	}
 	
 	/**
@@ -201,7 +201,7 @@ public class BinaryNode<Type extends Comparable<? super Type>> {
 	 * @return True if this node has both a left and a right child.
 	 */
 	public boolean hasTwoChildren() {
-		return (this.leftChild != null && this.rightChild != null);
+		return (getLeftChild() != null && getRightChild() != null);
 	}
 
 	/**
