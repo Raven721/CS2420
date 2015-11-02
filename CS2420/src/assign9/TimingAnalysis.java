@@ -39,16 +39,16 @@ public class TimingAnalysis {
 		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "BST add", "Average Case");
 		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "BST contains", "Average Case");
 		
-		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "TreeSet add", "Average Case");
-		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "TreeSet contains", "Average Case");
+		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "TreeSet add", "Average Case -- Should be O(logN)");
+		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "TreeSet contains", "Average Case -- Should be O(logN)");
 		
 		/////////// Worst Case: BinarySearchTree vs Java's TreeSet /////////////
 		rand = false;
 		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "BST add", "Worst Case");
 		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "BST contains", "Worst Case");
 		
-		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "TreeSet add", "Worst Case");
-		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "TreeSet contains", "Worst Case");
+		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "TreeSet add", "Worst Case -- Should be O(logN)");
+		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "TreeSet contains", "Worst Case -- Should be O(logN)");
 	}
 
 	private static void timeBSTContains(int timesToLoop, int startSize, int stopSize, int stepSize, boolean random, String timingMethod, String caseType) {
