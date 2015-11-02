@@ -104,7 +104,8 @@ public class SpellChecker {
 	 *            - the List of Strings to be added to the dictionary
 	 */
 	private void buildDictionary(List<String> words) {
-		dictionary.addAll(words);
+		if(!dictionary.addAll(words));
+			System.out.println("failed to add all words");
 		//TODO: currently not checking return value or exceptions
 	}
 
