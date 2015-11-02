@@ -355,31 +355,34 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	@Override
 	public boolean remove(Type item) {
 		int initialSize = size();
+		BinaryNode<Type> searchNode;
 
 		// Throw an exception if the input item is null
 		if (item == null) {
 			throw new NullPointerException();
 		}
 
-		// Check if the item to be removed is actually in this BST
-		if (!contains(item)) {
+		// If the tree is empty, it is impossible to remove anything
+		if (isEmpty()) {
 			return false;
 		}
-
+		
+		// Check if the item to be removed is actually in this BST
+		searchNode = findNode(item, rootNode);
+		
+		if (searchNode == null) {
+			return false;
+		}
+		
 		// If the BST only has a single node, clear the tree and return true
 		if (size() == 1) {
 			this.clear();
 			return true;
 		} 
 		
-		// If the tree is empty, it is impossible to remove anything
-		if (isEmpty()) {
-			return false;
-		}
-
 		// Find the node in the tree that needs to be removed
 		// And begin the removal process
-		remove(findNode(item, rootNode));
+		remove(searchNode);
 
 		return (size() < initialSize);
 	}
