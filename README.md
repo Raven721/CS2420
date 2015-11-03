@@ -8,8 +8,21 @@ Linux/Windows  | Coverity
 
 ---
 
-## Installation
+## Projects
+ This repository contains several Java packages, each containing an individual project from CS2420. All packages are contained within a single Eclipse project. The structure of this repository is detailed below: 
 
+
+| Package | Data Structure/ Project Focus   | Project Location  |
+| ------------- | ------------- | ------------- |
+| assign1 | Warm-up with math functions   | [:link:CS2420/src/assign1](https://github.com/tim-soft/CS2420/tree/master/CS2420/src/assign1) |
+| assign2 | Generics, Arrays and ArrayLists        | [:link:CS2420/src/assign2](https://github.com/tim-soft/CS2420/tree/master/CS2420/src/assign2) |
+| assign3 | Priority Queues and Algorithm Analysis | [:link:CS2420/src/assign3](https://github.com/tim-soft/CS2420/tree/master/CS2420/src/assign3) |
+| assign4 | Insertion Sort and Algorithm Analysis  | [:link:CS2420/src/assign4](https://github.com/tim-soft/CS2420/tree/master/CS2420/src/assign4) |
+| assign5 | QuickSort MergeSort and Recursion      | [:link:CS2420/src/assign5](https://github.com/tim-soft/CS2420/tree/master/CS2420/src/assign5) |
+| assign6 | Linked Lists                           | [:link:CS2420/src/assign6](https://github.com/tim-soft/CS2420/tree/master/CS2420/src/assign6) | 
+| assign7 | Stacks and Queues                      | [:link:CS2420/src/assign7](https://github.com/tim-soft/CS2420/tree/master/CS2420/src/assign7) | 
+| assign8 | Graph Traversal and Path Finding       | [:link:CS2420/src/assign8](https://github.com/tim-soft/CS2420/tree/master/CS2420/src/assign8) |
+| assign9 | Binary Search Trees                    | [:link:CS2420/src/assign9](https://github.com/tim-soft/CS2420/tree/master/CS2420/src/assign9) |
 
 ### Clone
 
