@@ -95,6 +95,40 @@ public class BinarySearchTreeTester {
 	}
 	
 	@Test
+	public void testBSTaddAllWithCollectionOfOnlyDuplicates()
+	{
+		// addAll should return false with a collection of items that all exist in the tree
+		Collection<Integer> coll = new ArrayList<Integer>();
+		coll.add(12);
+		coll.add(45);
+		coll.add(93);
+		coll.add(32);
+		
+		assertFalse(tree.addAll(coll));
+		
+		
+		assertTrue(tree.containsAll(coll));
+		assertEquals("[12, 32, 45, 93]", tree.toArrayList().toString());
+	}
+	
+	@Test
+	public void testBSTaddAllWithCollectionOfSomeDuplicates()
+	{
+		// addAll should return true with a collection of items that partially exist in the tree
+		Collection<Integer> coll = new ArrayList<Integer>();
+		coll.add(52);
+		coll.add(45);
+		coll.add(93);
+		coll.add(22);
+		
+		assertTrue(tree.addAll(coll));
+		
+		
+		assertTrue(tree.containsAll(coll));
+		assertEquals("[12, 22, 32, 45, 52, 93]", tree.toArrayList().toString());
+	}
+	
+	@Test
 	public void testBSTaddAllWithNullItem()
 	{
 		// Adding a collection to the tree with a null item should throw an exception 
@@ -108,6 +142,19 @@ public class BinarySearchTreeTester {
 		
 	}
 	
+	@Test
+	public void testBSTaddAllWithNullCollection()
+	{
+		// Adding a null collection to the tree should throw an exception
+		tree = new BinarySearchTree<Integer>();
+
+		Collection<Integer> coll = new ArrayList<Integer>();
+		coll = null;
+		
+		exception.expect(NullPointerException.class);
+		tree.addAll(coll);
+		
+	}
 	
 	//////// removeAll(Collection c) /////////
 	@Test
@@ -191,6 +238,20 @@ public class BinarySearchTreeTester {
 		
 		// Should return false because none of the items in the collection are in the tree
 		assertFalse(tree.removeAll(coll));
+	}
+	
+	@Test
+	public void testBSTremoveAllWithNullCollection()
+	{
+		// Removing a null collection to the tree should throw an exception
+		tree = new BinarySearchTree<Integer>();
+
+		Collection<Integer> coll = new ArrayList<Integer>();
+		coll = null;
+		
+		exception.expect(NullPointerException.class);
+		tree.removeAll(coll);
+		
 	}
 	
 	//////// toArrayList() /////////
@@ -298,6 +359,20 @@ public class BinarySearchTreeTester {
 		assertFalse(tree.contains(415));
 	}
 	
+	@Test
+	public void testBSTContainsWithEmptyTree() {
+		// This tree does not contain any items and should return false
+		tree = new BinarySearchTree<Integer>();
+		assertFalse(tree.contains(415));
+	}
+	
+	@Test
+	public void testBSTContainsWithNullItem() {
+		// Contains should throw an exception if passed a null item
+		exception.expect(NullPointerException.class);
+		tree.contains(null);
+	}
+	
 	//////// containsAll(Collection c) /////////
 	@Test
 	public void testBSTContainsAll() {
@@ -320,6 +395,28 @@ public class BinarySearchTreeTester {
 		coll.add(415);
 		
 		assertFalse(tree.containsAll(coll));
+	}
+	
+	@Test
+	public void testBSTContainsAllWithNullCollection() {
+		// containsAll should throw an exception when passed a null collection
+		Collection<Integer> coll = new ArrayList<Integer>();
+		coll = null;
+		
+		exception.expect(NullPointerException.class);
+		tree.containsAll(coll);
+	}
+	
+	@Test
+	public void testBSTContainsAllWithCollectionContainingNullItem() {
+		// containsAll should throw an exception when passed a collection with a null item
+		Collection<Integer> coll = new ArrayList<Integer>();
+		coll.add(45);
+		coll.add(null);
+		coll.add(12);
+		
+		exception.expect(NullPointerException.class);
+		tree.containsAll(coll);
 	}
 	
 	//////// isEmpty() /////////

@@ -8,6 +8,14 @@ import java.util.List;
 
 import org.junit.Test;
 
+/**
+ * A testing suite for the SpellChecker class
+ * 
+ * @author Tim Ellenberger, ellenber
+ * @author John Strasser, strasser
+ * @author Erin Parker
+ * @version 11/05/2015
+ */
 public class SpellCheckerTester {
 
 	@Test
