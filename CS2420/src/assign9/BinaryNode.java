@@ -10,15 +10,19 @@ package assign9;
  * @version 11/05/2015
  */
 public class BinaryNode<Type extends Comparable<? super Type>> {
-
 	private Type data;
-
 	private BinaryNode<Type> leftChild;
-
 	private BinaryNode<Type> rightChild;
-
 	private BinaryNode<Type> parent;
 
+	/**
+	 * Constructor for creating a node in a binary search tree.
+	 * 
+	 * @param _data The information of a specified type, stored in the node.
+	 * @param _parent The parent node of this node.
+	 * @param _leftChild The left child node of this node.
+	 * @param _rightChild The right child node of this node.
+	 */
 	public BinaryNode(Type _data, BinaryNode<Type> _parent, BinaryNode<Type> _leftChild, BinaryNode<Type> _rightChild) {
 		data = _data;
 		parent = _parent;
@@ -26,6 +30,11 @@ public class BinaryNode<Type extends Comparable<? super Type>> {
 		rightChild = _rightChild;
 	}
 
+	/**
+	 * Constructor for creating the root node of a binary search tree.
+	 * 
+	 * @param _data The information of a specified type, stored in the node.
+	 */
 	public BinaryNode(Type _data) {
 		this(_data, null, null, null);
 	}

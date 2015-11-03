@@ -30,8 +30,8 @@ public class TimingAnalysis {
 		
 		//Time a random BST for finding all elements
 		rand = true;
-		timeBSTContains(timesToLoop, 2000, 22000, 2000, rand, "Contains", "Average Case -- Should be O(logN)");
 		
+		timeBSTContains(timesToLoop, 2000, 22000, 2000, rand, "Contains", "Average Case -- Should be O(logN)");
 		
 		/////////// Average Case: BinarySearchTree vs Java's TreeSet /////////////
 		rand = true;
@@ -44,6 +44,7 @@ public class TimingAnalysis {
 		
 		/////////// Worst Case: BinarySearchTree vs Java's TreeSet /////////////
 		rand = false;
+		
 		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "BST add", "Worst Case");
 		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "BST contains", "Worst Case");
 		
@@ -164,6 +165,7 @@ public class TimingAnalysis {
 			if(random) {
 				Collections.shuffle(setData);
 			}
+			
 			BinarySearchTree<Integer> myBST = new BinarySearchTree<>();
 			TreeSet<Integer> myTreeSet = new TreeSet<>();
 			
