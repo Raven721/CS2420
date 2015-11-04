@@ -153,16 +153,14 @@ public class TimingAnalysis {
 				"---------------------------------------------------------------------------------------------------------");
 
 		
-		for (int n = startSize; n <= stopSize; n += stepSize) {
-			// Cap timesToLoop to 10% of the problem size
-			//timesToLoop = Math.min(timesToLoop, n/10);
-			
+		for (int n = startSize; n <= stopSize; n += stepSize) {			
 			// Create a data set to work with
 			List<Integer> setData = new LinkedList<>();
 			for (int i = 0; i <n; i++) {
 				setData.add(i);
 			}
-			// random will randomly permute the elements
+			
+			// If random is set to true, randomly permute the elements
 			if(random) {
 				Collections.shuffle(setData);
 			}
@@ -173,16 +171,14 @@ public class TimingAnalysis {
 			ArrayList<BinarySearchTree<Integer>> BSTlist = new ArrayList<>();
 			ArrayList<TreeSet<Integer>> TreeSetlist = new ArrayList<>();
 			
-
+			// Assign the setData to the correct tree type
 			if(timingMethod.equals("BST contains") || timingMethod.equals("BST add")) {
 				myBST.addAll(setData);
-			}
-			
-			if(timingMethod.equals("TreeSet contains") || timingMethod.equals("TreeSet add")) {
+			} else if(timingMethod.equals("TreeSet contains") || timingMethod.equals("TreeSet add")) {
 				myTreeSet.addAll(setData);
 			}
 			
-			// If test the add method, create a new data set for each timesToLoop for accurate results
+			// If testing the add method, create a new data set for each timesToLoop for accurate results
 			if(timingMethod.equals("BST add")) {
 				BSTlist = new ArrayList<>();
 				
@@ -224,6 +220,7 @@ public class TimingAnalysis {
 			}
 
 			midptTime = System.nanoTime();
+			
 			// Time the empty loops
 			for (int i = 0; i < timesToLoop; i++) {
 				if(timingMethod.equals("BST add")) {
