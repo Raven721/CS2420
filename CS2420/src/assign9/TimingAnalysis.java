@@ -1,6 +1,7 @@
 package assign9;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +23,7 @@ import java.util.TreeSet;
 public class TimingAnalysis {
 
 	public static void main(String[] args) {
-		int timesToLoop = 2000;
+		int timesToLoop = 20000;
 		boolean rand = false;
 		
 		//Time a sorted BST for finding all elements
@@ -36,8 +37,8 @@ public class TimingAnalysis {
 		/////////// Average Case: BinarySearchTree vs Java's TreeSet /////////////
 		rand = true;
 		
-		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "BST add", "Average Case");
-		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "BST contains", "Average Case");
+		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "BST add", "Average Case -- Should be O(logN)");
+		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "BST contains", "Average Case -- Should be O(logN)");
 		
 		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "TreeSet add", "Average Case -- Should be O(logN)");
 		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "TreeSet contains", "Average Case -- Should be O(logN)");
@@ -45,8 +46,8 @@ public class TimingAnalysis {
 		/////////// Worst Case: BinarySearchTree vs Java's TreeSet /////////////
 		rand = false;
 		
-		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "BST add", "Worst Case");
-		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "BST contains", "Worst Case");
+		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "BST add", "Worst Case -- Should be O(N)");
+		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "BST contains", "Worst Case -- Should be O(N)");
 		
 		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "TreeSet add", "Worst Case -- Should be O(logN)");
 		timeBSTvsTreeSet(timesToLoop, 2000, 22000, 2000, rand, "TreeSet contains", "Worst Case -- Should be O(logN)");
@@ -154,7 +155,7 @@ public class TimingAnalysis {
 		
 		for (int n = startSize; n <= stopSize; n += stepSize) {
 			// Cap timesToLoop to 10% of the problem size
-			timesToLoop = Math.min(timesToLoop, n/10);
+			//timesToLoop = Math.min(timesToLoop, n/10);
 			
 			// Create a data set to work with
 			List<Integer> setData = new LinkedList<>();
@@ -169,12 +170,31 @@ public class TimingAnalysis {
 			BinarySearchTree<Integer> myBST = new BinarySearchTree<>();
 			TreeSet<Integer> myTreeSet = new TreeSet<>();
 			
+			ArrayList<BinarySearchTree<Integer>> BSTlist = new ArrayList<>();
+			ArrayList<TreeSet<Integer>> TreeSetlist = new ArrayList<>();
+			
+
 			if(timingMethod.equals("BST contains") || timingMethod.equals("BST add")) {
 				myBST.addAll(setData);
 			}
 			
 			if(timingMethod.equals("TreeSet contains") || timingMethod.equals("TreeSet add")) {
 				myTreeSet.addAll(setData);
+			}
+			
+			// If test the add method, create a new data set for each timesToLoop for accurate results
+			if(timingMethod.equals("BST add")) {
+				BSTlist = new ArrayList<>();
+				
+				for(int i = 0; i< timesToLoop; i++) {
+					BSTlist.add(i, myBST);
+				}
+			} else if (timingMethod.equals("TreeSet add")) {
+				TreeSetlist = new ArrayList<>();
+				
+				for(int i = 0; i< timesToLoop; i++) {
+					TreeSetlist.add(i, myTreeSet);
+				}
 			}
 			
 			System.out.print(n + "\t");
@@ -189,13 +209,13 @@ public class TimingAnalysis {
 			startTime = System.nanoTime();
 			for (int i = 0; i < timesToLoop; i++) {
 				if(timingMethod.equals("BST add")) {
-					myBST.add(rnd.nextInt(n));
+					BSTlist.get(i).add(rnd.nextInt(n));
 				}
 				if(timingMethod.equals("BST contains")) {
 					myBST.contains(rnd.nextInt(n));
 				}
 				if(timingMethod.equals("TreeSet add")) {
-					myTreeSet.add(rnd.nextInt(n));
+					TreeSetlist.get(i).add(rnd.nextInt(n));
 				}
 				if(timingMethod.equals("TreeSet contains")) {
 					myTreeSet.contains(rnd.nextInt(n));
@@ -207,12 +227,14 @@ public class TimingAnalysis {
 			// Time the empty loops
 			for (int i = 0; i < timesToLoop; i++) {
 				if(timingMethod.equals("BST add")) {
+					BSTlist.get(i);
 					rnd.nextInt(n);
 				}
 				if(timingMethod.equals("BST contains")) {
 					rnd.nextInt(n);
 				}
 				if(timingMethod.equals("TreeSet add")) {
+					TreeSetlist.get(i);
 					rnd.nextInt(n);
 				}
 				if(timingMethod.equals("TreeSet contains")) {
