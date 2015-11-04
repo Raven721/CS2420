@@ -206,7 +206,18 @@ public class TimingAnalysis {
 			midptTime = System.nanoTime();
 			// Time the empty loops
 			for (int i = 0; i < timesToLoop; i++) {
-				rnd.nextInt(n);
+				if(timingMethod.equals("BST add")) {
+					rnd.nextInt(n);
+				}
+				if(timingMethod.equals("BST contains")) {
+					rnd.nextInt(n);
+				}
+				if(timingMethod.equals("TreeSet add")) {
+					rnd.nextInt(n);
+				}
+				if(timingMethod.equals("TreeSet contains")) {
+					rnd.nextInt(n);
+				}
 			}
 
 			stopTime = System.nanoTime();
