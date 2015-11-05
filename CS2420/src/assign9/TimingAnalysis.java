@@ -18,7 +18,7 @@ import java.util.TreeSet;
  * @author Tim Ellenberger, ellenber
  * @author John Strasser, strasser
  * @author Erin Parker
- * @version 10/29/2015
+ * @version 11/05/2015
  */
 public class TimingAnalysis {
 
