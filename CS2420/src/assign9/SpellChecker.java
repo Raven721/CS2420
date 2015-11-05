@@ -63,7 +63,6 @@ public class SpellChecker {
 	 */
 	public void addToDictionary(String word) {
 		dictionary.add(word.toLowerCase());
-		//TODO: do we catch things not added, or exceptions?
 	}
 
 	/**
@@ -74,7 +73,6 @@ public class SpellChecker {
 	 */
 	public void removeFromDictionary(String word) {
 		dictionary.remove(word.toLowerCase());
-		//TODO: check return value and exceptions?
 	}
 
 	/**
@@ -111,7 +109,7 @@ public class SpellChecker {
 	 */
 	private void buildDictionary(List<String> words) {
 		dictionary.addAll(words);
-		//TODO: currently not checking return value or exceptions
+		dictionary.generateDotFromBST("test3.dot");
 	}
 
 	/**
